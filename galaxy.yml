@@ -1,0 +1,15 @@
+namespace: dellemc_networking
+name: os10
+version: 0.1.0
+readme: README.md
+authors: null
+description: null
+license: GPL-3.0-or-later
+license_file: COPYING
+tags: null
+dependencies:
+  ansible.netcommon: '>=0.1.0'
+repository: git@github.com:ansible-collection-migration/dellemc_networking.os10.git
+documentation: https://github.com/ansible-collection-migration/dellemc_networking.os10/tree/master/docs
+homepage: https://github.com/ansible-collection-migration/dellemc_networking.os10
+issues: https://github.com/ansible-collection-migration/dellemc_networking.os10/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc
