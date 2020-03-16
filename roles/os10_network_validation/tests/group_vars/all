@@ -1,0 +1,30 @@
+#wiring_validation input
+intended_neighbors:
+ - source_switch: site1-spine1
+   source_port: ethernet1/1/1
+   dest_port: ethernet1/1/1
+   dest_switch: site1-spine2
+ - source_switch: site2-spine1
+   source_port: ethernet1/1/1
+   dest_port: ethernet1/1/1
+   dest_switch: site2-spine2
+ - source_switch: site1-spine1
+   source_port: ethernet1/1/1
+   dest_port: ethernet1/1/2
+   dest_switch: site2-spine1
+ - source_switch: site1-spine1
+   source_port: ethernet1/1/2
+   dest_port: ethernet1/1/2
+   dest_switch: site2-spine2
+#bgp_validation input
+intended_bgp_neighbors:
+ - source_switch: site1-spine1
+   neighbor_ip: ["10.11.0.1", "10.9.0.1", "10.9.0.3", "10.9.0.5", "1.1.1.1"]
+ - source_switch: site1-spine2
+   neighbor_ip: ["10.11.0.0", "10.9.0.9", "10.9.0.11", "10.9.0.15"]
+#vlt_validation input
+intended_vlt_pairs:
+ - primary: site1-spine1
+   secondary: site1-spine2
+ - primary: site2-spine1
+   secondary: site2-spine2

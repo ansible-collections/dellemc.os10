@@ -1,0 +1,9 @@
+Value INTERFACE_NAME (\S+\s\S+)
+Value IP_ADDRESS (\S+)
+Value OK (YES|NO)
+Value METHOD (DHCP|manual|unset)
+Value STATUS (up|down|admin down)
+Value PROTOCOL (up|down|admin down)
+
+Start
+  ^${INTERFACE_NAME}\s+${IP_ADDRESS}\s+${OK}\s+${METHOD}\s+${STATUS}\s+${PROTOCOL} -> Record

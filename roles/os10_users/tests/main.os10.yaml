@@ -1,0 +1,12 @@
+---
+# vars file for dellemc_networking.os10.os10_users, below gives a sample configuration
+# Sample variables for os10 device
+os10_users:
+  - username: test
+    password: a1a2a3a4!@#$
+    role: sysadmin
+    state: present
+  - username: u1
+    password: a1a2a3a4!@#$
+    role: netadmin
+    state: present

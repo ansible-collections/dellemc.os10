@@ -1,0 +1,5 @@
+---
+# defaults file for os10_qos
+match_type:
+  match_all: match-all
+  match_any: match-any

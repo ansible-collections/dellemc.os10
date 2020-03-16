@@ -1,0 +1,37 @@
+---
+   - block:
+      - name: "Process image {{ os10_image_upgrade.operation_type }} operation"
+        vars:
+          command_postfix: "{{ os10_image_upgrade.operation_type }} {{ '' if os10_image_upgrade.operation_type == 'cancel' else os10_image_upgrade.software_image_url }}"
+        os10_command:
+          commands:
+            - command: "image {{ command_postfix }}"
+              prompt: "yes/no]:"
+              answer: "yes"
+        register: result
+      - name: "Get image {{ os10_image_upgrade.operation_type }} operation status"
+        os10_command:
+          commands: "show image status"
+        register: image_status
+      - name: "Validate image status"
+        fail: msg="Image {{ os10_image_upgrade.operation_type }} operation Failed"
+        when: image_status.stdout.0.find("Failed") > 1
+      - name: "Wait for image {{ os10_image_upgrade.operation_type }} operation"
+        os10_command:
+          commands: "show image status"
+        register: result
+        until: result.stdout.0.find("In progress") < 1
+        retries: 50
+        delay: 15
+      - name: "Wait for image {{ os10_image_upgrade.operation_type }} operation"
+        os10_command:
+          commands: "show image status"
+        register: image_status
+      - name: "Validate software version"
+        fail: msg="Image {{ os10_image_upgrade.operation_type }} operation Failed"
+        when: image_status.stdout.0.find("Failed") > 1 
+      - name: "Image {{ os10_image_upgrade.operation_type }} status"
+        debug: msg="Image {{ os10_image_upgrade.operation_type }} successful"
+        when: image_status.stdout.0.find("Failed") <= -1
+     when:
+       - os10_image_upgrade.operation_type == "install"

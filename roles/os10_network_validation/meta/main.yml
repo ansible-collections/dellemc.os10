@@ -1,0 +1,21 @@
+# Copyright (c) 2020 Dell Inc. or its subsidiaries. All Rights Reserved.
+---
+galaxy_info:
+  role_name: os10_network_validation
+  author: Dell EMC Networking Engineering
+  description: The os10_network_validation role faclitates to provide the Network validation in devices running on Dell EMC Networking Operating Systems.
+  license: Apache 2.0
+  min_ansible_version: 2.2
+
+  platforms:
+  - name: os10
+
+  galaxy_tags:
+    - networking
+    - dell
+    - emc
+    - dellemc
+    - os10
+
+  dependencies:
+    - role: os10_fabric_summary

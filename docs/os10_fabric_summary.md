@@ -1,0 +1,1 @@
+../roles/os10_fabric_summary/README.md

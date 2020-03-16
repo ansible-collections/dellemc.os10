@@ -1,0 +1,32 @@
+---
+# vars file for dellemc_networking.os10.os10_flow_monitor, below gives a example configuration
+# Sample variables for os10 device
+os10_flow_monitor:
+  session 1:
+    session_type: local
+    description: "Discription goes here"
+    port_match:
+      - interface_name: ethernet 1/1/4
+        location: source
+        state: present
+      - interface_name: ethernet 1/1/3
+        location: destination
+        state: present
+    flow_based: true
+    shutdown: up
+    state: present
+  session 2:
+    session_type: local
+    description: "Discription of session goes here"
+    port_match:
+      - interface_name: ethernet 1/1/6
+        location: source
+        state: present
+      - interface_name: ethernet 1/1/7
+        location: destination
+        state: present
+    flow_based: false
+    shutdown: up
+    state: present
+  session 3:
+    state: present

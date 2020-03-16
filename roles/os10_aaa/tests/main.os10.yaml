@@ -1,0 +1,34 @@
+---
+# vars file for dellemc_networking.os10.os10_aaa, below gives a sample configuration
+# Sample vars for os10 device
+os10_aaa:
+  radius_server:
+        retransmit: 5
+        timeout: 10
+        host:
+          - ip: 2001:4898:f0:f09b::1001
+            key: 0
+            value: "abc"
+            auth_port: 3
+        state: present
+  tacacs_server:
+        host:
+          - ip: 2001:4898:f0:f09b::1001
+            key: 0
+            value: "abc"
+            auth_port: 3
+        state: present
+        timeout: 6
+  aaa_authentication:
+        login:
+          - console: true
+            type: group radius group tacacs+ local
+            state: present
+        re_authenticate: true
+  aaa_accounting:
+        accounting:
+          - accounting_type: commands
+            connection_type: console
+            account_mode: start-stop
+            server_group: group tacacs+
+            state: present

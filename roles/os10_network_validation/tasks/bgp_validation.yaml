@@ -1,0 +1,33 @@
+---
+- name: "Get Dell EMC OS10 Show ip bgp summary"
+  os10_command:
+    commands:
+      - command: "show ip bgp summary | display-xml"
+      - command: "show ip interface brief | display-xml"
+    provider: "{{ hostvars[item].cli }}"
+  with_items: "{{ groups['all'] }}"
+  register: show_bgp
+- name: "set fact to form bgp database"
+  set_fact:
+    output_bgp: "{{ output_bgp|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_bgp': item.stdout.0, 'stdout_show_ip': item.stdout.1}] }}"
+  loop: "{{ show_bgp.results }}"
+- name: call lib to convert bgp info from xml to dict format
+  base_xml_to_dict:
+    cli_responses: "{{ item.stdout_show_bgp }}"
+  with_items:
+    - "{{ output_bgp }}"
+  register: show_bgp_list
+- name: call lib to convert ip interface info from xml to dict format
+  base_xml_to_dict:
+    cli_responses: "{{ item.stdout_show_ip }}"
+  with_items:
+    - "{{ output_bgp }}"
+  register: show_ip_intf_list
+- name: call lib for bgp validation
+  bgp_validate:
+    show_ip_bgp: "{{ show_bgp_list.results  }}"
+    show_ip_intf_brief: "{{ show_ip_intf_list.results  }}"
+    bgp_neighbors: "{{ intended_bgp_neighbors }}"
+  register: bgp_validation_output
+- name: "debug bgp database"
+  debug: var=bgp_validation_output.msg.results

@@ -1,0 +1,24 @@
+---
+- name: "Get Dell EMC OS10 wiring info"
+  os10_command:
+    commands:
+      - command: "show lldp neighbors"
+    provider: "{{ hostvars[item].cli }}"
+  with_items: "{{ groups['all'] }}"
+  register: show_lldp
+- name: "set facts to form lldp db"
+  set_fact:
+    output_lldp: "{{ output_lldp|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_lldp': item.stdout}] }}"
+  loop: "{{ show_lldp.results }}"
+- name: "Get Dell EMC OS10 Show system"
+  import_role:
+    name: os10_fabric_summary
+  register: show_system_network_summary
+- name: call lib to process
+  wiring_validate:
+    show_lldp_neighbors_list: "{{ output_lldp }}"
+    show_system_network_summary: "{{ show_system_network_summary.msg.results }}"
+    planned_neighbors: "{{ intended_neighbors }}"
+  register: wiring_validation
+- name: "debug the wiring validation results"
+  debug: var=wiring_validation.msg.results

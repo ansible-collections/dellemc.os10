@@ -1,0 +1,110 @@
+---
+os10_vxlan:
+    anycast_gateway_mac: "00:22:33:44:55:66"
+    loopback:
+      loopback_id: 10
+      description: "HARDWARE_VXLAN"
+      ip_address: "10.8.0.1/32"
+      state: "present"
+    nve:
+      source_interface: 10
+      controller:
+        name: "ovsdb"
+        max_backoff: 2000
+        control_cfg:
+          - ip_addr: "1.2.3.4"
+            port: 30
+            state: "present"
+        state: "present"
+      state: "present"
+    evpn:
+      autoevi: False
+      evi:
+        - id: 111
+          rd: "auto"
+          vni:
+            id: 111
+            state: "present"
+          route_target:
+            - type: "manual"
+              asn_value: "111:111"
+              route_target_type: "both"
+              state: "present"
+            - type: "manual"
+              asn_value: "11:11"
+              route_target_type: "export"
+              state: "present"
+          state: "present"
+        - id: 222 
+          rd: "2.2.2.2:222"
+          vni:
+            id: 222
+            state: "present"
+          route_target:
+            - type: "auto"
+              asn_value:
+              route_target_type: 
+              state: "present"
+          state: "present"
+      vrf:
+        - name: "test"
+          vni: 1000
+          adv_ipv4:
+            - type: "connected"
+              state: "present"
+            - type: "bgp"
+              state: "present"
+          route_target:
+            - type: "manual"
+              asn_value: "65530:65534"
+              route_target_type: "both"
+              state: "present"
+      rmac: 00:11:11:11:11:11
+      dis_rt_asn: "true"
+      state: "present"
+    virtual_network:
+      untagged_vlan: 1001
+      virtual_net:
+        - id: 111
+          description: "NSX_Cluster_VNI_111"
+          vlt_vlan_id: 11
+          member_interface:
+            - ifname: "ethernet 1/1/15"
+              type: "tagged"
+              vlanid: 15
+              state: "present"
+            - ifname: "port-channel 12"
+              type: "tagged"
+              vlanid: 11
+              state: "present"
+          vxlan_vni:
+            id: 111
+            remote_endpoint:
+              - ip: "1.1.1.1"
+                state: "present"
+              - ip: "11.11.11.11"
+                state: "present"
+              - ip: "111.111.111.111"
+                state: "present"
+            state: "present"
+          state: "present" 
+        - id: 222
+          description: "NSX_Cluster_VNI_222"
+          vlt_vlan_id: 22
+          member_interface:
+            - ifname: "ethernet 1/1/16"
+              type: "tagged"
+              vlanid: 16
+              state: "present"
+          vxlan_vni:
+            id: 222
+            remote_endpoint:
+              - ip: "2.2.2.2"
+                state: "present"
+              - ip: "22.22.22.22"
+                state: "present"
+            state: "present"
+          state: "present" 
+    vlan_association:
+      - vlain_id: 111
+        virtual_net: 111

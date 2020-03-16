@@ -1,0 +1,18 @@
+--- 
+ - name: os10 dellemc_networking.os10.os10_template test 
+   import_tasks: show_ip_interface_brief.yaml 
+
+ - name: os10 dellemc_networking.os10.os10_template test
+   import_tasks: show_port-channel_summary.yaml 
+
+ - name: os10 dellemc_networking.os10.os10_template test
+   import_tasks: show_lldp_neighbors.yaml
+
+ - name: os10 dellemc_networking.os10.os10_template test
+   import_tasks: show_ip_vrf.yaml
+
+ - name: os10 dellemc_networking.os10.os10_template test
+   import_tasks: show_ip_bgp_summary.yaml
+
+ - name: os10 dellemc_networking.os10.os10_template test 
+   import_tasks: show_vlan.yaml 

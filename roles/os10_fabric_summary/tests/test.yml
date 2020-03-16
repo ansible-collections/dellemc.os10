@@ -1,0 +1,7 @@
+---
+- name: setup for os10 fabric summary
+  hosts: localhost
+  gather_facts: False
+  connection: local
+  roles:
+    - dellemc_networking.os10.os10_fabric_summary

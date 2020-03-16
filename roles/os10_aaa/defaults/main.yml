@@ -1,0 +1,16 @@
+---
+# defaults file for dellemc_networking.os10.os10_aaa
+attribute_type:
+    mandatory: mandatory
+    on_for_login_auth: on-for-login-auth
+    include_in_access_req: include-in-access-req 
+    mac: "mac format"
+    mac_ietf: "mac format ietf"
+    mac_ietf_lower_case: "mac format ietf lower-case"
+    mac_ietf_upper_case: "mac format ietf upper-case"
+    mac_legacy: "mac format legacy"
+    mac_legacy_lower_case: "mac format legacy lower-case"
+    mac_legacy_upper_case: "mac format legacy upper-case"
+    mac_unformatted: "mac format unformatted"
+    mac_unformatted_lower_case: "mac format unformatted lower-case"
+    mac_unformatted_upper_case: "mac format unformatted upper-case"

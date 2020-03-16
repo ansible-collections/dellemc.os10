@@ -1,0 +1,195 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{###################################################
+Purpose:
+Configure LLDP commands for os10 Devices.
+
+os10_lldp:
+  enable: false
+  multiplier: 3
+  reinit: 2
+  timer: 5
+  advertise:
+    med:
+      fast_start_repeat_count: 4
+      application:
+        - name: guest-voice
+          network_policy_id: 0
+          vlan_id: 2
+          vlan_type: tag
+          l2_priority: 3
+          code_point_value: 4
+          state: present
+        - name: voice
+          network_policy_id: 1
+          vlan_id: 3
+          vlan_type: untag
+          l2_priority: 3
+          code_point_value: 4
+          state: absent
+  local_interface:
+    ethernet 1/1/1:
+      mode: rx
+      mode_state: present
+      advertise:
+        med:
+          enable: true
+          tlv : inventory
+          tlv_state: present
+          application:
+            - network_policy_id: 4
+              state: present
+        tlv:
+          - name: basic-tlv
+            value: management-address port-description
+            state: present
+          - name: dcbxp-appln
+            value: iscsi
+            state: present
+          - name: dcbxp
+            state: present
+
+{###############################################################################################}
+{% if os10_lldp is defined and os10_lldp %}
+{% for key,value in os10_lldp.items() %}
+  {% if key == "enable" %}
+    {% if value %}
+lldp enable
+    {% else %}
+no lldp enable
+    {% endif %}
+  {% elif key == "reinit" %}
+    {% if value %}
+lldp reinit {{ value }}
+    {% else %}
+no lldp reinit
+    {% endif %}
+  {% elif key == "multiplier" %}
+    {% if value %}
+lldp holdtime-multiplier {{ value }}
+    {% else %}
+no lldp holdtime-multiplier
+    {% endif %}
+  {% elif key == "timer" %}
+    {% if value %}
+lldp timer {{ value }}
+    {% else %}
+no lldp timer
+    {% endif %}
+  {% elif key == "advertise" %}
+    {% if value %}
+      {% for ke,valu in value.items() %}
+        {% if ke == "med" %}
+          {% if valu %}
+            {% for med,val in valu.items() %}
+              {% if med == "fast_start_repeat_count" %}
+                {% if val %}
+lldp med fast-start-repeat-count {{ val }}
+                {% else %}
+no lldp med fast-start-repeat-count
+                {% endif %}
+              {% elif med == "application" %}
+                {% if val %}
+                  {% for item in val %}
+                    {% if item.network_policy_id is defined and item.network_policy_id %}
+                      {% if item.state is defined and item.state == "absent" %}
+no lldp med network-policy {{ item.network_policy_id }}
+                      {% else %}
+                        {% if item.name is defined and item.name %}
+                          {% if item.vlan_id is defined and item.vlan_id %}
+                            {% if item.vlan_type is defined and item.vlan_type %}
+                              {% if item.l2_priority is defined and item.l2_priority %}
+                                {% if item.code_point_value is defined and item.code_point_value %}
+lldp med network-policy {{ item.network_policy_id }} app {{ item.name }} vlan {{ item.vlan_id }} vlan-type {{ item.vlan_type }} priority {{ item.l2_priority }} dscp {{ item.code_point_value }}
+                                {% endif %}
+                              {% endif %}
+                            {% endif %}
+                          {% endif %}
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}              
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% endif %}
+{% if os10_lldp is defined and os10_lldp %}
+{% for key in os10_lldp.keys() %}
+{% set lldp_vars  = os10_lldp[key] %}
+{% if key == "local_interface" %}
+  {% for intf in lldp_vars.keys() %}
+  {% set intf_vars = lldp_vars[intf] %}
+interface {{ intf }}
+    {% if intf_vars.mode is defined and intf_vars.mode %}
+      {% if intf_vars.mode_state is defined and intf_vars.mode_state == "absent" %}
+        {% if intf_vars.mode == "rx" %}
+  no lldp receive
+        {% elif intf_vars.mode == "tx" %}
+  no lldp transmit 
+        {% endif %}
+      {% else %}
+        {% if intf_vars.mode == "rx" %}
+  lldp receive
+        {% elif intf_vars.mode == "tx" %}
+  lldp transmit
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+    {% if intf_vars.advertise is defined and intf_vars.advertise %}
+      {% if intf_vars.advertise.med is defined and intf_vars.advertise.med %}
+        {% if intf_vars.advertise.med.enable is defined %}
+          {% if intf_vars.advertise.med.enable %}
+  lldp med enable
+          {% else %}
+  lldp med disable
+          {% endif %}
+        {% endif %}
+        {% if intf_vars.advertise.med.tlv is defined and intf_vars.advertise.med.tlv %}
+          {% if intf_vars.advertise.med.tlv_state is defined and intf_vars.advertise.med.tlv_state == "absent" %} 
+  no lldp med tlv-select {{ intf_vars.advertise.med.tlv }}
+          {% else %}
+  lldp med tlv-select {{ intf_vars.advertise.med.tlv }}
+          {% endif %}
+        {% endif %}
+        {% if intf_vars.advertise.med.application is defined and intf_vars.advertise.med.application %}
+          {% for item in intf_vars.advertise.med.application %}
+            {% if item.network_policy_id is defined and item.network_policy_id %}
+              {% if item.state is defined and item.state == "absent" %}
+ lldp med network-policy remove {{ item.network_policy_id }}
+              {% else %}
+ lldp med network-policy add {{ item.network_policy_id }}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+      {% if intf_vars.advertise.tlv is defined and intf_vars.advertise.tlv %}
+        {% for it in intf_vars.advertise.tlv %}
+          {% if it.name is defined and it.name %}
+            {% if it.state is defined and it.state == "absent" %}
+              {% if it.value is defined and it.value %}
+  no lldp tlv-select {{ it.name }} {{ it.value }}
+              {% else %}
+  no lldp tlv-select {{ it.name }}
+              {% endif %}
+            {% else %}
+              {% if it.value is defined and it.value %}
+  lldp tlv-select {{ it.name }} {{ it.value }}
+              {% else %}
+  lldp tlv-select {{ it.name }}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}

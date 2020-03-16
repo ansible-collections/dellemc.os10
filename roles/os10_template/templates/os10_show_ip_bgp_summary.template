@@ -1,0 +1,16 @@
+Value Filldown RouterId (\d+\.\d+\.\d+\.\d+)
+Value Filldown LocalAs (\d+)
+Value Filldown BFD (enabled)
+Value Neighbor (\S+)
+Value AS (\d+)
+Value MsgRcvd (\d+)
+Value MsgSent (\d+)
+Value Status (\S+)
+Value State (\S+)
+
+Start
+  ^BGP router identifier ${RouterId} local AS number ${LocalAs} 
+  ^Global BFD is ${BFD}
+  ^(?!Neighbor)${Neighbor}\s+${AS}\s+${MsgRcvd}\s+${MsgSent}\s+${Status}\s+${State} -> Record
+
+EOF 

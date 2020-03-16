@@ -1,0 +1,12 @@
+Value Codes (\*|\@|\M|\R|\s)
+Value NUM (\d+)
+Value Status (Active|Inactive)
+Value Description (\S+|\s+)
+Value Q (A|T)
+Value Ports (\S+)
+
+Start
+  ^${Codes}\s+${NUM}\s+${Status}\s+${Description}\s+${Q}\s+${Ports} -> Record
+  ^${Codes}\s+${NUM}\s+${Status}\s+${Description} -> Record
+  ^${Codes}\s+${NUM}\s+${Status} -> Record
+  ^\s+${Q}\s+${Ports} -> Record

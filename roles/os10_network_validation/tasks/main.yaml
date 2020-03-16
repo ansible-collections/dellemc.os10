@@ -1,0 +1,9 @@
+---
+- name: "Validate the wiring info"
+  import_tasks: wiring_validation.yaml
+- name: "Validate the BGP info"
+  import_tasks: bgp_validation.yaml
+- name: "Validate the VLT info"
+  import_tasks: vlt_validation.yaml
+- name: "Validate the MTU info for lldp neigbors"
+  import_tasks: mtu_validation.yaml

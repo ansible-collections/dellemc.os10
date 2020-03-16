@@ -1,0 +1,217 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{#####################################################
+Purpose:
+Configure interface commands for os10 Devices.
+os10_interface:
+    ethernet 1/1/31:
+            desc: "OS10 intf"
+            portmode: trunk
+            mtu: 2000
+            switchport: False
+            admin: up
+            ip_type_dynamic: True
+            ip_and_mask: "192.168.11.1/24"
+            virtual_gateway_ip: "172.17.17.1"
+            suppress_ra: present
+            ipv6_autoconfig: True
+            ipv6_and_mask: 2001:4898:5808:ffa2::5/126
+            state_ipv6: present
+            ip_helper:
+              - ip: 10.0.0.36
+                state: present
+            flowcontrol:
+              mode: "receive"
+              enable: "on"
+              state: "present"
+    ethernet 1/1/3:
+            fanout: 10g-4x
+    range ethernet 1/1/1-1/1/4:
+            switchport: True
+            admin: down 
+    virtual-network 100:
+            vrf: "test"
+            ip_and_mask: "15.1.1.1/24"
+            virtual_gateway_ip: "15.1.1.254"
+            admin: up
+
+
+#####################################################}
+{% if os10_interface is defined and os10_interface %}
+{% for key in os10_interface.keys() %}
+  {% set intf_vars = os10_interface[key] %}
+  {% set port = key.split(" ") %}
+  {% set interface_key = "" %}
+  {% if intf_vars.fanout is defined %}
+    {% if intf_vars.fanout %}
+interface breakout {{ port[1] }} map {{ intf_vars.fanout }}
+    {% else %}
+no interface breakout {{ port[1] }}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% for key in os10_interface.keys() %}
+  {% set intf_vars = os10_interface[key] %}
+  {% set port = key.split(" ") %}
+  {% set interface_key = "" %}
+  {% if (intf_vars.fanout is defined and not intf_vars.fanout) or (intf_vars.fanout is not defined) %}
+    {% if key.startswith('range')%}
+       {% set interface_key = port[0] + " " + port[1] + port[2] %}
+    {% else %} 
+       {% set interface_key = port[0] + port[1] %}
+    {% endif %}
+interface {{ interface_key }}
+  {% if intf_vars.desc is defined %}
+    {% if intf_vars.desc %}
+       {% if intf_vars.desc|wordcount > 1 %}
+ description "{{ intf_vars.desc }}"
+       {% else %} 
+ description {{ intf_vars.desc }}
+       {% endif %}
+    {% else %}
+ no description
+    {% endif %}
+  {% endif %}
+
+
+
+  {% if intf_vars.switchport is defined %}
+    {% if intf_vars.switchport %}
+      {% if intf_vars.portmode is defined and intf_vars.portmode %}
+ switchport mode {{ intf_vars.portmode }}
+      {% endif %}
+    {% else %}
+ no switchport
+    {% endif %}
+  {% else %}
+    {% if intf_vars.portmode is defined %}
+      {% if intf_vars.portmode %}
+ switchport mode {{ intf_vars.portmode }}
+      {% else %}
+ no switchport
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if intf_vars.mtu is defined %}
+    {% if intf_vars.mtu %}
+ mtu {{ intf_vars.mtu }}
+    {% else %}
+ no mtu
+    {% endif %}
+  {% endif %}
+ 
+  {% if intf_vars.ip_type_dynamic is defined %}
+    {% if intf_vars.ip_type_dynamic %} 
+ ip address dhcp
+    {% else %}
+ no ip address
+    {% endif %}
+  {% else %}
+    {% if intf_vars.vrf is defined %}
+       {% if intf_vars.vrf %}
+ ip vrf forwarding {{ intf_vars.vrf }}
+       {% else %}
+ no ip address vrf
+       {% endif %}
+    {% endif %}
+    {% if intf_vars.ip_and_mask is defined %}
+      {% if intf_vars.ip_and_mask %}
+ ip address {{ intf_vars.ip_and_mask }}
+      {% else %}
+ no ip address
+      {% endif %}
+    {% endif %}
+  {% endif %}
+ 
+  {% if intf_vars.virtual_gateway_ip is defined %}
+    {% if intf_vars.virtual_gateway_ip %}
+ ip virtual-router address {{ intf_vars.virtual_gateway_ip }}
+    {% else %}
+ no ip virtual-router address
+    {% endif %}
+  {% endif %}
+
+   {% if intf_vars.suppress_ra is defined %}
+    {% if intf_vars.suppress_ra == "present" %}
+ no ipv6 nd send-ra
+    {% else %}
+ ipv6 nd send-ra
+    {% endif %}
+  {% endif %}
+  {% if intf_vars.ipv6_autoconfig is defined %}
+    {% if intf_vars.ipv6_autoconfig %}
+ ipv6 address autoconfig
+    {% else %}
+ no ipv6 address
+    {% endif %}
+  {% elif intf_vars.ipv6_type_dynamic is defined %}
+    {% if intf_vars.ipv6_type_dynamic %}
+ ipv6 address dhcp
+    {% else %}
+ no ipv6 address
+    {% endif %}
+  {% else %}
+    {% if intf_vars.ipv6_and_mask is defined %}
+      {% if intf_vars.ipv6_and_mask %}
+        {% if intf_vars.state_ipv6 is defined and intf_vars.state_ipv6 == "absent" %}
+ no ipv6 address {{ intf_vars.ipv6_and_mask }}
+        {% else %}
+ ipv6 address {{ intf_vars.ipv6_and_mask }}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {% if intf_vars.max_ra is defined %}
+    {% if intf_vars.max_ra %}
+ ipv6 nd max-ra-interval {{ intf_vars.max_ra }}
+    {% else %}
+ no ipv6 nd max-ra-interval
+    {% endif %}
+  {% endif %}
+  {% if intf_vars.min_ra is defined %}
+    {% if intf_vars.min_ra %}
+ ipv6 nd min-ra-interval {{ intf_vars.min_ra }}
+    {% else %}
+ no ipv6 nd min-ra-interval
+    {% endif %}
+  {% endif %}
+  {% if intf_vars.ip_helper is defined and intf_vars.ip_helper %}
+    {% for helper in intf_vars.ip_helper %}
+      {% if helper.ip is defined and helper.ip %}
+        {% if helper.state is defined and helper.state == "absent" %}
+ no ip helper-address {{ helper.ip }}
+        {% else %}
+ ip helper-address {{ helper.ip }}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if intf_vars.flowcontrol is defined and intf_vars.flowcontrol %}
+    {% if intf_vars.flowcontrol.mode is defined %}
+      {% if intf_vars.flowcontrol.mode %}
+        {% if intf_vars.flowcontrol.state is defined and intf_vars.flowcontrol.state == "absent" %}
+ no flowcontrol {{ intf_vars.flowcontrol.mode }}
+        {% else %}
+          {% if intf_vars.flowcontrol.enable is defined %}
+            {% if intf_vars.flowcontrol.enable == "on" %}
+ flowcontrol {{ intf_vars.flowcontrol.mode }} on
+            {% else %}
+ flowcontrol {{ intf_vars.flowcontrol.mode }} off
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if intf_vars.admin is defined %}
+    {% if intf_vars.admin == "up" %}
+ no shutdown
+    {% elif intf_vars.admin == "down" %}
+ shutdown
+    {% endif %}
+  {% endif %}
+  {% endif %}
+{% endfor %}
+{% endif %}

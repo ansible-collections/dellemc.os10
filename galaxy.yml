@@ -1,16 +1,15 @@
-namespace: dellemc_networking
-name: os10
-version: 0.1.0
-readme: README.md
-authors:
- - Abirami N (github.com/abirami-n)
-description: null
-license: GPL-3.0-or-later
-license_file: COPYING
-tags: null
+authors: Parameswaran Krishnamurthy, Senthil Ganesan, Shreeja R
 dependencies:
   ansible.netcommon: '>=0.0.1'
+description: Ansible collections for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10
+license: GPL-3.0-or-later
+license_file: COPYING
+name: os10
+namespace: dellemc_networking
+readme: README.md
+tags: dell dellemc os10 emc networking
+version: 0.0.4
 repository: https://github.com:ansible-collections/dellemc_networking.os10.git
-documentation: https://github.com/ansible-collections/dellemc_networking.os10/tree/master/docs
+documentation: https://github.com/ansible-collections/dellemc_networking.os10/docs
 homepage: https://github.com:ansible-collections/dellemc_networking.os10
 issues: https://github.com:ansible-collections/dellemc_networking.os10

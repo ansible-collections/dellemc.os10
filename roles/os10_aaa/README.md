@@ -1,0 +1,137 @@
+AAA role
+========
+
+This role facilitates the configuration of authentication authorization acccounting (AAA). It supports the configuration of RADIUS server, tacacs server and AAA for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10. The AAA role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
+
+Role variables
+--------------
+
+- Role is abstracted using the *ansible_network_os* variable that can take dellemc_networking.os10.os10 as value
+- If *os10_cfg_generate* is set to true, the variable generates the role configuration commands in a file
+- Any role variable with a corresponding state variable set to absent negates the configuration of that variable
+- Setting an empty value for any variable negates the corresponding configuration
+- Variables and values are case-sensitive
+
+**os10_aaa keys**
+
+| Key        | Type                      | Description                                             | Support               |
+|------------|---------------------------|---------------------------------------------------------|-----------------------|
+| ``radius_server``            | dictionary        | Configures the radius server (see ``radius_server.*``) | os10 |
+| ``radius_server.retransmit`` | integer           | Configures the number of retransmissions | os10  |
+| ``radius_server.timeout``    | integer           | Configures the timeout for retransmissions | os10  |
+| ``radius_server.host``       | dictionary        | Configures the radius server host (see ``host.*``) | os10  |
+| ``host.ip``                  | string            | Configures the radius server host address | os10  |
+| ``host.key``                 | string (required); 0,7,LINE           | Configures the authentication key | os10  |
+| ``host.auth_port``           | integer           | Configures the authentication port (0 to 65535)  | os10  |
+| ``host.state``               | string: present,absent         | Removes the radius server host if set to absent | os10  |
+| ``auth.key``                 | string (required); 0,7,LINE           | Configures the authentication key | os10  |
+| ``tacacs_server``            | dictionary        | Configures the tacacs server (see ``tacacs_server.*``) | os10 |
+| ``tacacs_server.timeout``    | integer           | Configures the timeout for retransmissions | os10  |
+| ``tacacs_server.host``       | dictionary        | Configures the tacacs server host (see ``host.*``) | os10  |
+| ``host.ip``                  | string            | Configures the tacacs server host address | os10  |
+| ``host.key``                 | string (required); 0,7,LINE           | Configures the authentication key | os10  |
+| ``host.auth_port``           | integer           | Configures the authentication port (0 to 65535)  | os10  |
+| ``host.state``               | string: present,absent         | Removes the tacacs server host if set to absent | os10  |
+| ``auth.key``                 | string (required); 0,7,LINE           | Configures the authentication key | os10  |
+| ``aaa_accounting``       | dictionary        | Configures accounting parameters (see ``aaa_accounting.*``) | os10  |
+| ``aaa_accounting.accounting.accounting_type``       | dictionary        | Configures accounting type | os10  |
+| ``aaa_accounting.accounting.connection_type``       | dictionary        | Configures accounting connection type | os10  |
+| ``aaa_accounting.accounting.account_mode``       | dictionary        | Configures accounting mode | os10  |
+| ``aaa_accounting.accounting.server_group``       | dictionary        | Configures accounting server group | os10  |
+| ``aaa_accounting.accounting.state``       | string: present,absent        | Configures/unconfigures accounting parameters | os10  |
+| ``aaa_authentication``       | dictionary        | Configures authentication parameters (see ``aaa_authentication.*``) | os10  |
+| ``aaa_authentication.local_auth`` | dictionary   | Configures local authentication parameters (see ``aaa_authentication.local_auth.*``)| os10 |
+| ``aaa_authetication.local_auth.radius`` | boolean | Configures authentication method as local along with radius if set to true | os10 |
+| ``aaa_authentication.radius_auth`` | dictionary | Configures radius authentication parameters (see ``aaa_authentication.radius_auth.*``) | os10 |
+| ``aaa_authetication.radius_auth.local`` | boolean | Configures authentication method as radius along with local if set to true | os10 |
+| ``aaa_authentication.re_authenticate`` | boolean | Configures re-authenticate by enable if set to true on OS10 devices | os10 |
+> **NOTE**: Asterisk (*) denotes the default value if none is specified.
+
+Connection variables
+--------------------
+
+Ansible Dell EMC Networking roles require connection information to establish communication with the nodes in your inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories or inventory, or in the playbook itself.
+
+| Key         | Required | Choices    | Description                                         |
+|-------------|----------|------------|-----------------------------------------------------|
+| ``ansible_host`` | yes      |            | Specifies the hostname or address for connecting to the remote device over the specified transport |
+| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_PORT option is used; it defaults to 22 |
+| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_USER environment variable value is used  |
+| ``ansible_ssh_pass`` | no       |            | Specifies the password that authenticates the connection to the remote device.  |
+| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the ANSIBLE_BECOME environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
+| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the ANSIBLE_BECOME_METHOD environment variable value is used. |
+| ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable. |
+| ``ansible_network_os`` | yes      | os10, null\*  | This value is used to load the correct terminal and cliconf plugins to communicate with the remote device. |
+
+> **NOTE**: Asterisk (*) denotes the default value if none is specified.
+
+Dependencies
+------------
+
+The *os10_aaa* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
+
+Example playbook
+----------------
+
+This example uses the *os10_aaa* role to configure AAA for radius and TACACS servers. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with the corresponding Dell EMC Networking OS name.
+
+When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in the *build_dir* path. By default, it is set to false and it writes a simple playbook that only references the *os10_aaa* role.
+
+**Sample hosts file**
+
+    leaf1 ansible_host= <ip_address> 
+
+**Sample host_vars/leaf1**
+
+    hostname: leaf1
+    ansible_become: yes
+    ansible_become_method: xxxxx
+    ansible_become_pass: xxxxx
+    ansible_ssh_user: xxxxx
+    ansible_ssh_pass: xxxxx
+    ansible_network_os: dellemc_networking.os10.os10
+    build_dir: ../temp/temp_os10
+
+    os10_aaa:
+      radius_server:
+            retransmit: 5
+            timeout: 10
+            host:
+              - ip: 2001:4898:f0:f09b::1001
+                key: 0
+                value: "abc"
+                auth_port: 3
+            state: present
+      tacacs_server:
+            host:
+              - ip: 2001:4898:f0:f09b::1001
+                key: 0
+                value: "abc"
+                auth_port: 3
+            state: present
+            timeout: 6
+      aaa_authentication:
+            login:
+              - console: true
+                type: group radius group tacacs+ local
+                state: present
+            re_authenticate: true
+      aaa_accounting:
+            accounting:
+              - accounting_type: commands
+                connection_type: console
+                account_mode: start-stop
+                server_group: group tacacs+
+                state: present
+
+**Simple playbook to setup system - leaf.yaml**
+
+    - hosts: leaf1
+      roles:
+         - dellemc_networking.os10.os10_aaa
+
+**Run**
+
+    ansible-playbook -i hosts leaf.yaml
+
+(c) 2017-2020 Dell Inc. or its subsidiaries. All Rights Reserved.

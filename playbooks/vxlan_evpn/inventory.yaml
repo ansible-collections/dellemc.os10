@@ -1,0 +1,20 @@
+spine1 ansible_host=101.104.34.141
+prim-vtep1 ansible_host=101.104.34.217
+sec-vtep1 ansible_host=101.104.34.218
+spine2 ansible_host=101.104.34.142
+prim-vtep2 ansible_host=101.104.34.219
+sec-vtep2 ansible_host=101.104.34.220
+
+[site1]
+prim-vtep1
+sec-vtep1
+spine1
+
+[site2]
+prim-vtep2
+spine2
+sec-vtep2
+
+[datacenter:children]
+site1
+site2

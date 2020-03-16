@@ -1,0 +1,44 @@
+---
+- name: "Get Dell EMC OS10 Show run vlt"
+  os10_command:
+    commands:
+      - command: "show running-configuration vlt | grep vlt-domain"
+    provider: "{{ hostvars[item].cli }}"
+  with_items: "{{ groups['all'] }}"
+  register: show_run_vlt
+- name: "set fact to form show vlt database"
+  set_fact:
+    output_vlt: "{{ output_vlt|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_vlt': item.stdout.0}] }}"
+  loop: "{{ show_run_vlt.results }}"
+- name: "debug output_vlt"
+  debug: var=output_vlt
+- name: "Get Dell EMC OS10 Show vlt info"
+  os10_command:
+    commands:
+      - command: "show vlt {{ item.stdout_show_vlt.split()[1] }} | display-xml"
+    provider: "{{ hostvars[item.inv_name].cli }}"
+  with_items: "{{ output_vlt }}"
+  register: show_vlt
+- name: "set fact to form vlt database"
+  set_fact:
+    vlt_out: "{{ vlt_out|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'show_vlt_stdout': item.stdout.0}] }}"
+  loop: "{{ show_vlt.results }}"
+  register: vlt_output
+- name: call lib to convert vlt info from xml to dict format
+  base_xml_to_dict:
+    cli_responses: "{{ item.show_vlt_stdout }}"
+  with_items:
+    - "{{ vlt_out }}"
+  register: vlt_dict_output
+- name: "Get Dell EMC OS10 Show system"
+  import_role:
+    name: os10_fabric_summary
+  register: show_system_network_summary
+- name: call lib to process
+  vlt_validate:
+    show_vlt: "{{ vlt_dict_output.results }}"
+    show_system_network_summary: "{{ show_system_network_summary.msg.results }}"
+    intended_vlt_pairs: "{{ intended_vlt_pairs }}"
+  register: show_vlt_info
+- name: "debug vlt validation result"
+  debug: var=show_vlt_info.msg.results

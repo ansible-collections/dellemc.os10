@@ -1,0 +1,108 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{################################
+Purpose:
+Configure VLT commands fon os10 Devices.
+os10_vlt:
+   domain: 1
+   backup_destination: "192.168.1.1"
+   destination_type: "ipv4"
+   backup_destination_vrf: "management"
+   discovery_intf: 1/1/12
+   discovery_intf_state: present
+   peer_routing: True
+   priority: 1
+   vlt_mac: aa:aa:aa:aa:aa:aa
+   vlt_peers:
+     Po 12:
+      peer_lag: 13
+   state: present
+################################}
+{% if os10_vlt is defined and os10_vlt %}
+  {% if os10_vlt.domain is defined and os10_vlt.domain %}
+    {% if os10_vlt.state is defined and os10_vlt.state == 'absent'  %}
+no vlt-domain {{ os10_vlt.domain }}
+    {% else %}
+vlt-domain {{ os10_vlt.domain }}
+    {% if os10_vlt.backup_destination is defined %}
+      {% if os10_vlt.backup_destination %}
+        {% if os10_vlt.destination_type is defined %}
+          {% if os10_vlt.destination_type == "ipv6" %}
+ backup destination ipv6 {{ os10_vlt.backup_destination }}
+          {% elif os10_vlt.destination_type == "ipv4" %}
+            {% if os10_vlt.backup_destination_vrf is defined and os10_vlt.backup_destination_vrf %}
+ backup destination {{ os10_vlt.backup_destination }} vrf {{ os10_vlt.backup_destination_vrf }}
+            {% else %}
+ backup destination {{ os10_vlt.backup_destination }}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% else %}
+ no backup destination
+      {% endif %}
+    {% endif %}
+    {% if os10_vlt.discovery_intf_state is defined and os10_vlt.discovery_intf_state == "absent" %}
+      {% if os10_vlt.discovery_intf is defined and os10_vlt.discovery_intf %}
+ no discovery-interface ethernet{{ os10_vlt.discovery_intf }}
+      {% endif %}
+    {% else %}
+      {% if os10_vlt.discovery_intf is defined and os10_vlt.discovery_intf %}
+ discovery-interface ethernet{{ os10_vlt.discovery_intf }}
+      {% endif %}
+    {% endif %}
+    {% if os10_vlt.backup_destination is defined %}
+      {% if os10_vlt.backup_destination %}
+        {% if os10_vlt.destination_type is defined %}
+          {% if os10_vlt.destination_type == 'ipv6' %}
+ backup destination ipv6 {{ os10_vlt.backup_destination }}
+          {% elif os10_vlt.destination_type ==  'ipv4' %}
+            {% if os10_vlt.backup_destination_vrf is defined and os10_vlt.backup_destination_vrf %}
+ backup destination {{ os10_vlt.backup_destination }} vrf {{ os10_vlt.backup_destination_vrf }}
+            {% else %}
+ backup destination {{ os10_vlt.backup_destination }}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% else %}
+ no backup destination
+      {% endif %}
+    {% endif %}
+    {% if os10_vlt.priority is defined %}
+      {% if os10_vlt.priority %}
+ primary-priority {{ os10_vlt.priority }}
+      {% else %}
+ no primary-priority
+      {% endif %}
+    {% endif %}
+    {% if os10_vlt.peer_routing is defined %}
+      {% if os10_vlt.peer_routing %}
+ peer-routing
+      {% else %}
+ no peer-routing
+      {% endif %}
+    {% endif %}
+    {% if os10_vlt.vlt_mac is defined %}
+      {% if os10_vlt.vlt_mac %}
+ vlt-mac {{ os10_vlt.vlt_mac }}
+      {% else %}
+ no vlt-mac
+      {% endif %}
+    {% endif %}
+
+    {% endif %}
+  {% endif %}
+  {% if os10_vlt.vlt_peers is defined and  os10_vlt.vlt_peers %}
+    {% for key in os10_vlt.vlt_peers.keys() %}
+      {% set channel_id = key.split(" ") %}
+      {% set peer_vars = os10_vlt.vlt_peers[key] %}
+interface port-channel{{ channel_id[1] }}
+      {% if peer_vars.peer_lag is defined %}
+        {% if peer_vars.peer_lag %}
+ vlt-port-channel {{ peer_vars.peer_lag}}
+        {% else %}
+ no vlt-port-channel
+        {% endif %}
+      {% endif %}
+
+    {% endfor %}
+  {% endif %}
+{% endif %}
