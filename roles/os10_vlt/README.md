@@ -25,6 +25,7 @@ Role variables
 | ``discovery_intf``    | string        | Configures the discovery interface for the VLT domain (range of interfaces)| os10 |
 | ``discovery_intf_state``        | string: absent,present       | Deletes the discovery interfaces for the VLT domain if set to absent | os10 |
 | ``peer_routing``     | boolean        | Configures VLT peer routing | os10 |
+| ``priority``      | integer (default:32768)        | Configures VLT priority | os10 |
 | ``vlt_mac``       | string        | Configures the VLT MAC address | os10 |
 | ``vlt_peers``     | dictionary       | Contains objects to configure the VLT peer port-channel (see ``vlt_peers.*``)  | os10 |
 | ``vlt_peers.<portchannelid>``    | dictionary       | Configures the VLT peer port-channel (`Po <portchannelid> value`) | os10 |

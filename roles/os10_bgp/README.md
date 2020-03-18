@@ -42,6 +42,14 @@ Role variables
 | ``dampening.value`` | dictionary | Configures dampening values (<half-life time> <start value to reuse> <start value to suppress> <max duration> format; default 15 750 2000 60) | os10 |
 | ``dampening.route_map`` | string | Configures the route-map to specify criteria for dampening | os10 |
 | ``dampening.state`` | string: absent,present\* | Deletes dampening if set to absent   | os10 |
+| ``address_family_ipv6`` | dictionary | Configures IPv6 address family parameters (see ``address_family_ipv6.*``) | os10 |
+| ``address_family_ipv6.aggregate_addr`` | list | Configures IPv6 BGP aggregate entries (see ``aggregate_addr.*``) | os10 |
+| ``aggregate_addr.ip_and_mask`` | string | Configures the IPv6 BGP aggregate address | os10 |
+| ``aggregate_addr.state`` | string: absent,present\* | Deletes an IPv6 BGP aggregate entry if set to absent   | os10 |
+| ``address_family_ipv6.dampening`` | dictionary | Configures route-flap dampening (see ``dampening.*``) | os10 |
+| ``dampening.value`` | dictionary | Configures dampening values (<half-life time> <start value to reuse> <start value to suppress> <max duration> format; default 15 750 2000 60) | os10 |
+| ``dampening.route_map`` | string | Configures the route-map to specify criteria for dampening | os10 |
+| ``dampening.state`` | string: absent,present\* | Deletes dampening if set to absent   | os10 |
 | ``best_path`` | list | Configures the default best-path selection (see ``best_path.*``) | os10 |
 | ``best_path.as_path`` | string (required): ignore,multipath-relax     | Configures the AS path used for the best-path computation   | os10 |
 | ``best_path.as_path_state`` | string: absent,present\*     | Deletes the AS path configuration if set to absent  | os10 |
@@ -120,6 +128,7 @@ Role variables
 | ``vrf.name`` | string (Required) | Configures VRF name | os10 |
 | ``vrf.address_type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | os10 |
 | ``vrf.redistribute`` | dictionary | Enables redistribute option | os10 |
+| ``vrf.state`` |string: absent,present\*    | Deletes the vrf if set to absent | os10 |
 | ``redistribute.route_type`` | string (l2vpn, ospf, bgp, connected) | Configure redistribute type | os10 |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
@@ -168,10 +177,13 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
     ansible_ssh_pass: xxxxx
     ansible_network_os: dellemc_networking.os10.os10
     build_dir: ../temp/temp_os10
-	  
+
     os10_bgp:
         asn: 12
+        router_id: 90.1.1.4
         maxpath_ibgp: 2
+        maxpath_ebgp: 2
+        graceful_restart: true
         log_neighbor_changes: true
         fast_ext_fallover: false
         always_compare_med: true
@@ -193,26 +205,18 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
             state: present
         best_path:
            as_path: ignore
-           as_path_state: absent
+           as_path_state: present
            ignore_router_id: true
            med:
             - attribute: confed
               state: present
-            - attribute: missing-as-worst
-              state: present
         ipv4_network:
-          - address: 101.1.1.0/30
+           - address: 101.1.1.0/30
+             state: present
+        ipv6_network:
+          - address: "2001:4898:5808:ffa0::/126"
             state: present
         neighbor:
-          - name: peer1
-            type: peergroup
-            bfd: yes
-            remote_asn: 14
-            distribute_list:
-               in: aaa
-               in_state: present
-            subnet: 10.128.4.192/27
-            state: present
           - type: ipv4
             interface: vlan20
             send_community:
@@ -220,6 +224,71 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
                 state: present
             address_family:
               - type: l2vpn
+                activate: true
+                state: present
+            admin: up
+            state: present
+          - type: ipv4
+            description: "U_site2-spine1"
+            remote_asn: 11
+            ip: 192.168.10.1
+            peergroup: peer1
+            peergroup_state: present
+            peergroup_type: ibgp
+            adv_interval: 40
+            fall_over: present
+            password: bgppassword
+            route_reflector_client: true
+            src_loopback: 0
+            address_family: 
+              - type: ipv4
+                activate: true
+                state: present
+            send_community:
+              - type: standard
+                state: present
+            state: present
+          - type: ipv4
+            remote_asn: 13
+            local_as: 10
+            weight: 10
+            ip: 192.168.12.3
+            address_family:
+              - type: ipv4
+                activate: true
+                allow_as_in: 5
+                next_hop_self: true
+                soft_reconf: true
+                add_path: both 3
+                route_map:
+                  - name: qq
+                    filter: in
+                    state: present
+                state: present
+            state: present
+          - type: ipv6
+            remote_asn: 14
+            ip: 2001:4898:5808:ffa2::1
+            state: present
+        redistribute:
+          - route_type: static
+            route_map_name: aa
+            address_type: ipv4
+            state: present
+        bfd_all_neighbors:
+          interval: 200
+          min_rx: 200
+          multiplier: 3
+          role: active
+          state: present
+        vrf:
+          name: "test"
+          address_type: ipv4
+          redistribute:
+            - route_type: l2vpn
+          state: present
+        state: present
+
 
 **Simple playbook to configure BGP - leaf.yaml**
 

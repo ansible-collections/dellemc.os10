@@ -105,12 +105,13 @@ os10_bgp:
       multiplier: 3
       role: active
       state: present
-      state: present
     vrf:
       name: "test"
       address_type: ipv4
       redistribute:
         - route_type: l2vpn
+      state: present
+    state: present
 
 ################################}
 {% if os10_bgp is defined and os10_bgp %}

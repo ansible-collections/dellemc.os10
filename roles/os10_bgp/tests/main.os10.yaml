@@ -1,9 +1,12 @@
 ---
 # vars file for dellemc_networking.os10.os10_bgp, below gives a sample configuration
 # Sample variables for os10 device
-  os10_bgp:
+os10_bgp:
     asn: 12
+    router_id: 90.1.1.4
     maxpath_ibgp: 2
+    maxpath_ebgp: 2
+    graceful_restart: true
     log_neighbor_changes: true
     fast_ext_fallover: false
     always_compare_med: true
@@ -25,26 +28,18 @@
         state: present
     best_path:
        as_path: ignore
-       as_path_state: absent
+       as_path_state: present
        ignore_router_id: true
        med:
         - attribute: confed
           state: present
-        - attribute: missing-as-worst
-          state: present
     ipv4_network:
-      - address: 101.1.1.0/30
+       - address: 101.1.1.0/30
+         state: present
+    ipv6_network:
+      - address: "2001:4898:5808:ffa0::/126"
         state: present
     neighbor:
-      - name: peer1
-        type: peergroup
-        bfd: yes
-        remote_asn: 14
-        distribute_list:
-           in: aaa
-           in_state: present
-        subnet: 10.128.4.192/27
-        state: present
       - type: ipv4
         interface: vlan20
         send_community:
@@ -62,32 +57,28 @@
         ip: 192.168.10.1
         peergroup: peer1
         peergroup_state: present
-        sender_loop_detect: true
+        peergroup_type: ibgp
+        adv_interval: 40
+        fall_over: present
         password: bgppassword
         route_reflector_client: true
         src_loopback: 0
-        address_family:
+        address_family: 
           - type: ipv4
             activate: true
-            sender_loop_detect: true
-            state: present
-          - type: l2vpn
-            activate: true
-            sender_loop_detect: 
             state: present
         send_community:
           - type: standard
             state: present
         state: present
       - type: ipv4
-        description: "U_site1-spine2"
         remote_asn: 13
         local_as: 10
+        weight: 10
         ip: 192.168.12.3
         address_family:
           - type: ipv4
             activate: true
-            sender_loop_detect: 
             allow_as_in: 5
             next_hop_self: true
             soft_reconf: true
@@ -97,22 +88,27 @@
                 filter: in
                 state: present
             state: present
-        distribute_list:
-           in: aa
-           in_state: present
         state: present
-    ipv6_network:
-      - address: "2001:4898:5808:ffa0::4/126"
-        state: present
-      - address: "2001:4898:5808:ffa1::4/126"
+      - type: ipv6
+        remote_asn: 14
+        ip: 2001:4898:5808:ffa2::1
         state: present
     redistribute:
       - route_type: static
-        state: present
+        route_map_name: aa
         address_type: ipv4
+        state: present
     bfd_all_neighbors:
       interval: 200
       min_rx: 200
       multiplier: 3
       role: active
       state: present
+    vrf:
+      name: "test"
+      address_type: ipv4
+      redistribute:
+        - route_type: l2vpn
+      state: present
+    state: present
+

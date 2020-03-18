@@ -94,6 +94,11 @@ This example uses the `dellemc_networking.os10.os10_network_validation` role to 
      username: "{{ os10_cli_user | default('admin') }}"
      password: "{{ os10_cli_pass | default('admin') }}"
 
+    ansible_ssh_user: xxxx
+    ansible_ssh_pass: xxxx
+    ansible_network_os: dellemc_networking.os10.os10
+
+
 **Sample ``group_var/all``**
 ----------------------------
 **Sample input for wiring validation**

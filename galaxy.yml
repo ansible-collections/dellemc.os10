@@ -8,7 +8,7 @@ name: os10
 namespace: dellemc_networking
 readme: README.md
 tags: dell dellemc os10 emc networking
-version: 0.0.4
+version: 0.0.5
 repository: https://github.com:ansible-collections/dellemc_networking.os10.git
 documentation: https://github.com/ansible-collections/dellemc_networking.os10/docs
 homepage: https://github.com:ansible-collections/dellemc_networking.os10

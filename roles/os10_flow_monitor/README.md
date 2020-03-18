@@ -101,6 +101,8 @@ It writes a simple playbook that only references the *os10_flow_monitor* role.
         flow_based: true
         shutdown: up
         state: present
+      session 3:
+        state: absent
     os10_acl:
 	  - name: testflow
 	    type: ipv4

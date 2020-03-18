@@ -52,6 +52,7 @@ Role variables
 | ``vrf.adv_ipv4`` | dictionary | Enable IPv4 advertisement VRF | os10 |
 | ``adv_ipv4.type`` | string | Configure IPv4 advertisement type | os10 |
 | ``adv_ipv4.rmap_name`` | string | Configure route map for advertisement | os10 |
+| ``adv_ipv4.unconfig`` | boolean | Configure/unconfigure route map for advertisement | os10 |
 | ``evi.id`` | integer | Configures the EVPN instance id (The range is from 1 to 65535) | os10 |
 | ``evi.rd`` | string |  Configure the Route  Distinguisher | os10 |
 | ``evi.vni`` | dictionary | Configures vni value (see ``vni.*``) | os10 |
@@ -170,6 +171,17 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
                   route_target_type: "export"
                   state: "present"
               state: "present"
+            - id: 222 
+              rd: "2.2.2.2:222"
+              vni:
+                id: 222
+                state: "present"
+              route_target:
+                - type: "auto"
+                  asn_value:
+                  route_target_type: 
+                  state: "present"
+              state: "present"
           vrf:
             - name: "test"
               vni: 1000
@@ -185,7 +197,7 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
                   state: "present"
           rmac: 00:11:11:11:11:11
           dis_rt_asn: "true"
-          state: "present"      
+          state: "present"
         virtual_network:
           untagged_vlan: 1001
           virtual_net:
@@ -208,12 +220,29 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
                     state: "present"
                   - ip: "11.11.11.11"
                     state: "present"
+                  - ip: "111.111.111.111"
+                    state: "present"
+                state: "present"
+              state: "present" 
+            - id: 222
+              description: "NSX_Cluster_VNI_222"
+              vlt_vlan_id: 22
+              member_interface:
+                - ifname: "ethernet 1/1/16"
+                  type: "tagged"
+                  vlanid: 16
+                  state: "present"
+              vxlan_vni:
+                id: 222
+                remote_endpoint:
+                  - ip: "2.2.2.2"
+                    state: "present"
+                  - ip: "22.22.22.22"
+                    state: "present"
                 state: "present"
               state: "present" 
         vlan_association:
-          - vlan_id: 888
-            virtual_net: 888
-          - vlan_id: 111
+          - vlain_id: 111
             virtual_net: 111
 
 > **NOTE**: Member interfaces should be in switchport trunk mode which can be configured using os10_interface role

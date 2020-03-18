@@ -40,10 +40,10 @@ Role variables
 | ``aaa_accounting.accounting.server_group``       | dictionary        | Configures accounting server group | os10  |
 | ``aaa_accounting.accounting.state``       | string: present,absent        | Configures/unconfigures accounting parameters | os10  |
 | ``aaa_authentication``       | dictionary        | Configures authentication parameters (see ``aaa_authentication.*``) | os10  |
-| ``aaa_authentication.local_auth`` | dictionary   | Configures local authentication parameters (see ``aaa_authentication.local_auth.*``)| os10 |
-| ``aaa_authetication.local_auth.radius`` | boolean | Configures authentication method as local along with radius if set to true | os10 |
-| ``aaa_authentication.radius_auth`` | dictionary | Configures radius authentication parameters (see ``aaa_authentication.radius_auth.*``) | os10 |
-| ``aaa_authetication.radius_auth.local`` | boolean | Configures authentication method as radius along with local if set to true | os10 |
+| ``aaa_authentication.login`` | dictionary   | Configures authentication login (see ``aaa_authentication.login.*``)| os10 |
+| ``aaa_authentication.login.console`` | dictionary   | Configures authentication method for console login | os10 |
+| ``aaa_authentication.login.state`` | string: present,absent   | Unconfigures authentication login if set to absent | os10 |
+| ``aaa_authentication.login.type`` | dictionary   | Configures authentication type | os10 |
 | ``aaa_authentication.re_authenticate`` | boolean | Configures re-authenticate by enable if set to true on OS10 devices | os10 |
 > **NOTE**: Asterisk (*) denotes the default value if none is specified.
 

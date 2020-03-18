@@ -73,7 +73,7 @@ Role variables
 | ``msti.priority`` | integer | Specifies the priority value to be configured at the interface | os10 |
 | ``msti.cost`` | integer | Specifies the cost value to be configured at the interface | os10 |
 | ``intf.<interface name>.vlan`` | list | Configures the VLAN interface name (see ``intf.<interface name>.vlan``)  | os10 |
-| ``vlan.instance_number`` | integer or range | Specifies the VLAN ID or range | os10 |
+| ``vlan.range_or_id`` | integer or range | Specifies the VLAN ID or range | os10 |
 | ``vlan.priority`` | integer | Specifies the priority value to be configured at the interface | os10 |
 | ``vlan.cost`` | integer | Specifies the cost value to be configured at the interface | os10 |
 
@@ -176,6 +176,14 @@ It writes a simple playbook that only references the *os10_xstp* role. By includ
               - instance_number: 1
                 priority: 32
                 cost: 1
+            rstp:
+                priority: 32
+                cost: 7
+            vlan:
+                - range_or_id: 6
+                priority: 16
+                cost: 8
+
 
 **Simple playbook to setup system - spine.yml**
 

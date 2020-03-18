@@ -64,8 +64,8 @@ ip vrf {{ vrf.vrf_name }}
               {% endif %}
             {% endif %}
           {% endif %}
-          {% if vrf.ipv6_route_import is defined and vrf.ipv6_route_import %}
-          {% set route_vars = vrf.ipv6_route_import %}
+          {% if vrf.ipv6_route_export is defined and vrf.ipv6_route_export %}
+          {% set route_vars = vrf.ipv6_route_export %}
             {% if route_vars.community_value is defined and route_vars.community_value %}
               {% if route_vars.state == 'present' %}
  ipv6 route-export {{ route_vars.community_value  }}

@@ -4,7 +4,7 @@ Purpose:
 Configure VLAN Interface commands for os10 Devices
 os10_vlan:
   default_vlan_id : 4
-  VLAN 100:
+  vlan 100:
       description: "red"
       tagged_members:
         - port: ethernet 1/1/32
@@ -17,6 +17,13 @@ os10_vlan:
         - port: ethernet 1/1/29
           state: present
       state: present
+  vlan 888:
+      description: "NSX_Cluster"
+      untagged_members:
+        - port: port-channel 1
+          state: "present"
+      state: "present"
+
 #########################################}
 {% if os10_vlan is defined and os10_vlan %}
 {% for key,value in os10_vlan.items() %}

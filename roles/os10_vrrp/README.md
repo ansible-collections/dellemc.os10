@@ -19,31 +19,24 @@ Role variables
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
 | ``vrrp``    | dictionary  | Configures VRRP commands (see ``vrrp.*``) | os10 |
-| ``delay_min``      | integer      | Configures the minimum delay timer applied after interface up event (0 to 900 | os10 |
+| ``version``    | dictionary  | Configures VRRP version | os10 |
+| ``vrrp_active_active_mode``    | dictionary  | Configures VRRP active-active mode | os10 |
 | ``delay_reload``     | integer      | Configures the minimum delay timer applied after boot (0 to 900) | os10 |
 | ``vrrp_group``    | list  | Configures VRRP group commands (see ``vrrp_group.*``) | os10 |
 | ``vrrp_group.type``  | string: ipv6,ipv4      | Specifies the type of the VRRP group | os10 |
 | ``vrrp_group.group_id``    | integer (required)  | Configures the ID for the VRRP group (1 to 255) | os10 |
-| ``vrrp_group.description``      | string          | Configures a single line description for the VRRP group | os10 |
 | ``vrrp_group.virtual_address``  | string          | Configures a virtual-address to the VRRP group (A.B.C.D format) | os10 |
 | ``virtual_address.ip``  | string          | Configures a virtual ip address (A.B.C.D format) | os10 |
 | ``virtual_address.state``  | string: present\*,absent          | Configures/unconfigures a virtual-address (A.B.C.D format) | os10 |
-| ``vrrp_group.enable``      | boolean: true,false        | Enables/disables the VRRP group at the interface  | os10 |
 | ``vrrp_group.preempt``      | boolean: true\*,false          | Configures preempt mode on the VRRP group | os10 |
 | ``vrrp_group.priority``      |integer          | Configures priority for the VRRP group (1 to 255; default 100)  | os10 |
-| ``vrrp_group.version``     | string: 2\*,3,both          | Configures the VRRP version of the VRRP group; not supported when *vrrp_group.type* is "ipv6" | os10 |
-| ``vrrp_group.hold_time_centisecs``    | integer          | Configures the hold-time for the VRRP group in centiseconds (0 to 65525 and in multiple of 25; default 100); centisecs gets converted into seconds in version 2  | os10 |
 | ``vrrp_group.adv_interval_centisecs``      | integer         | Configures the advertisement interval for the VRRP group in centiseconds (25 to 4075; default 100) and in multiple of 25; centisecs gets converted into seconds in version 2 | os10 |
 | ``vrrp_group.track_interface``      | list       | Configures the track interface of the VRRP group (see ``track.*``) | os10 |
 | ``track_interface.resource_id``      | integer       | Configures the object tracking resource ID of the VRRP group; mutually exclusive with *track.interface* | os10 |
 | ``track_interface.interface``      | string       | Configures the track interface of the VRRP group (<interface name> <interface number> format) | os10 |
 | ``track_interface.priority_cost``      | integer       | Configures the priority cost for track interface of the VRRP group (1 to 254; default 10) | os10 |
 | ``track_interface.state``       | string: present\*,absent          | Deletes the specific track interface from the VRRP group if set to absent | os10 |
-| ``vrrp_group.track_interface_state``       | string: present*,absent          | Deletes all track interfaces from the VRRP group if set to absent | os10 |
-| ``vrrp_group.authentication``      | dictionary       | Configures the authentication type for the VRRP group (see ``authentication.*``); not supported when ``vrrp_group.type`` is "ipv6" | os10 |
-| ``authentication.key`` | string (required): 0,7,LINE           | Configures the authentication key for the VRRP group | os10 |
-| ``authentication.key_string`` | string           | Configures the user key string; if key is 7, this variable takes the hidden user key string; if key is 0, this variable takes the unencrypted user key (clear-text); supported only if the value of *authentication.key* is 7 or 0         | os10 |
-| ``authentication.state``       | string: present\*,absent          | Deletes authentication from the interface VRRP group if set to absent | os10 |
+| ``vrrp_group.track_interface.state``       | string: present*,absent          | Deletes all track interfaces from the VRRP group if set to absent | os10 |
 | ``vrrp_group.state``       | string: present\*,absent          | Deletes the VRRP group from the interface if set to absent | os10 |
                                                                                                  
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
