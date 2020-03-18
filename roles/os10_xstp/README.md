@@ -26,7 +26,7 @@ Role variables
 | ``rstp.max_age`` | integer  | Configures the max_age timer for RSTP (6 to 40 range in os10 devices) | os10 |
 | ``rstp.hello_time`` | integer | Configures the hello-time for RSTP (1 to 10 range in os10 devices) | os10 |
 | ``rstp.forward_time`` | integer | Configures the forward-time for RSTP (4 to 30 range in os10 devices) | os10 |
-| ``rstp.force_version`` | strin: stp | Configures the force version for the BPDUs transmitted by RSTP in os10 devices | os10 |
+| ``rstp.force_version`` | string: stp | Configures the force version for the BPDUs transmitted by RSTP in os10 devices | os10 |
 | ``rstp.mac_flush_threshold`` | integer | Configures the MAC flush threshold for RSTP (1 to 65535 range in os10 devices) | os10 |
 | ``pvst``  | dictionary     | Configures per-VLAN spanning-tree protocol (see ``pvst.*``) | os10 |
 | ``pvst.vlan`` | list | Configures the VLAN for PVST (see ``vlan.*``)  | os10 |
