@@ -371,6 +371,7 @@ router bgp {{ bgp_vars.asn }}
               {% endif %}
           {% endif %}
           {% if neighbor.interface is defined and neighbor.interface %}
+            {% set tag_or_ip = neighbor.interface %}
               {% if neighbor.state is defined and neighbor.state == "absent" %}
  no neighbor interface {{ neighbor.interface }}
               {% else %}
@@ -395,43 +396,6 @@ router bgp {{ bgp_vars.asn }}
                   {% elif neighbor.peergroup_type is defined %}
   inherit template {{ neighbor.peergroup }} inherit-type {{ neighbor.peergroup_type }}
                   {% endif %}
-                {% endif %}
-                {% if neighbor.send_community is defined and neighbor.send_community %}
-                  {% for comm in neighbor.send_community %}
-                    {% if comm.type is defined and comm.type %}
-                      {% if comm.state is defined and comm.state == "absent" %}
-                      no send-community {{ comm.type }}
-                      {% else %}
-                      send-community {{ comm.type }}
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-                {% if neighbor.address_family is defined and neighbor.address_family %}
-                  {% for af in neighbor.address_family %}
-                    {% if af.type is defined and af.type %}
-                      {% if af.state is defined and af.state == "absent" %}
-                        {% if af.type == "l2vpn" %}
-                        no address-family {{ af.type }} evpn
-                        {% else %}
-                        no address-family {{ af.type }} unicast
-                        {% endif %}
-                      {% else %}
-                        {% if af.type == "l2vpn" %}
-                         address-family {{ af.type }} evpn
-                        {% else %}
-                         address-family {{ af.type }} unicast
-                        {% endif %}
-                        {% if af.activate is defined %}
-                          {% if af.activate %}
-                          activate
-                          {% else %}
-                          no activate
-                          {% endif %}
-                        {% endif %}
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
                 {% endif %}
               {% endif %}
           {% endif %}
@@ -540,6 +504,13 @@ router bgp {{ bgp_vars.asn }}
    activate
                       {% else %}
    no activate
+                      {% endif %}
+                    {% endif %}
+                    {% if af.sender_loop_detect is defined %}
+                      {% if af.sender_loop_detect %}
+   sender-side-loop-detection
+                      {% else %}
+   no sender-side-loop-detection
                       {% endif %}
                     {% endif %}
                     {% if af.allow_as_in is defined %}
