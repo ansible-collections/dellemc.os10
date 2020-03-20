@@ -1,0 +1,61 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{#############################################
+#Purpose:
+Configure uplink commands for os10 Devices
+
+os10_uplink:
+    uplink_state_group:
+      - id: 1
+        enable: True
+        uplink_type:
+          - type: "upstream"
+            intf: "port-channel1"
+            state: "present"
+          - type: "downstream"
+            intf: "ethernet1/1/2-1/1/5"
+            state: "present"
+        state: "present"
+###############################################}
+{% if os10_uplink is defined and os10_uplink %}
+  {% if os10_uplink.uplink_state_group is defined and os10_uplink.uplink_state_group %}
+    {% for uplink_val in os10_uplink.uplink_state_group %}
+    {% if uplink_val.id is defined %}
+      {% if uplink_val.state is defined and uplink_val.state == "absent" %}
+no uplink-state-group {{ uplink_val.id }}
+      {% else %}
+uplink-state-group {{ uplink_val.id }}
+        {% if uplink_val.enable is defined %}
+          {% if uplink_val.enable == True %}
+ enable
+          {% else %}
+ no enable
+          {% endif %}
+        {% endif %}
+        {% if uplink_val.uplink_type is defined and uplink_val.uplink_type %}
+          {% for uplink in uplink_val.uplink_type %}
+            {% if uplink.type is defined and uplink.type %}
+              {% if uplink.state is defined and uplink.state == "absent" %}
+                {% if uplink.intf is defined and uplink.intf %}
+                  {% if uplink.type == "downstream" %}
+ no downstream {{ uplink.intf }}
+                  {% elif uplink.type == "upstream" %}
+ no upstream {{ uplink.intf }}
+                  {% endif %}
+                {% endif %}
+              {% else %}
+                {% if uplink.intf is defined and uplink.intf %}
+                  {% if uplink.type == "downstream" %}
+ downstream {{ uplink.intf  }}
+                  {% elif uplink.type == "upstream" %}
+ upstream {{ uplink.intf }}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {% endif %}
+{% endif %}

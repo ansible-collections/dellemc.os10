@@ -1,0 +1,6 @@
+---
+# vars file for dellemc_networking.os10.os10_ecmp, below gives a sample configuration
+# Sample variables for os10 device
+os10_ecmp:
+  ecmp_group_max_paths: 3
+  trigger_threshold: 50

@@ -1,0 +1,9 @@
+Value GROUP (\d+)
+Value PORT_CHANNEL (\S+\s+[(D)|(U)]+)
+Value TYPE ([Eth|Gig|ten|For]+)
+Value PROTOCOL ([DYNAMIC|STATIC]+)
+Value List MEMBER_PORTS (\s.*)
+
+Start
+  ^${GROUP}\s+${PORT_CHANNEL}\s+${TYPE}\s+${PROTOCOL}\s+${MEMBER_PORTS} -> Record
+  ^${GROUP}\s+${PORT_CHANNEL}\s+${TYPE}\s+${PROTOCOL} -> Record

@@ -1,0 +1,25 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{####################################
+Purpose:
+Configure ECMP commands for os10 devices 
+os10_ecmp:
+  ecmp_group_max_paths: 3
+  trigger_threshold: 50
+#####################################}
+{% if os10_ecmp is defined and os10_ecmp %}
+  {% if os10_ecmp.ecmp_group_max_paths is defined %}
+    {% if os10_ecmp.ecmp_group_max_paths %}
+ip ecmp-group maximum-paths {{ os10_ecmp.ecmp_group_max_paths }}
+    {% else %}
+no ip ecmp-group maximum-paths
+    {% endif %}
+  {% endif %}
+  {% if os10_ecmp.trigger_threshold is defined %}
+    {% if os10_ecmp.trigger_threshold %}
+link-bundle-utilization trigger-threshold {{ os10_ecmp.trigger_threshold }}
+    {% else %}
+no link-bundle-utilization trigger-threshold
+    {% endif %}
+  {% endif %}
+
+{% endif %} 

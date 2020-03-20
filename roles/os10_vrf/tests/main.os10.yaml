@@ -1,0 +1,28 @@
+---
+# vars file for dellemc_networking.os10.os10_vrf, below gives a sample configuration
+# Sample variables for os10 device
+os10_vrf:
+  vrfdetails:
+    - vrf_name: "os10vrf"
+      state: "present"
+      ip_route_import:
+        community_value: "10:20"
+        state: "present"
+      ip_route_export:
+        community_value: "30:40"
+        state: "present"
+      ipv6_route_import:
+        community_value: "40:50"
+        state: "absent"
+      ipv6_route_export:
+        community_value: "60:70"
+        state: "absent"
+      map_ip_interface:
+       - intf_id : "loopback11"
+         state   : "present"
+
+os_vrf_upd_src_loopback:
+  vrfdetails:
+    - vrf_name: "os10vrf"
+      state: "present"
+      upd_src_ip_loopback_id: 11

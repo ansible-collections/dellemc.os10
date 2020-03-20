@@ -1,0 +1,431 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{#############################################
+#Purpose:
+Configure VXLAN commands for os10 Devices
+os10_vxlan:
+    anycast_gateway_mac: "00:22:33:44:55:66"
+    loopback:
+      loopback_id: 10
+      description: "HARDWARE_VXLAN"
+      ip_address: "10.8.0.1/32"
+      state: "present"
+    nve:
+      source_interface: 10
+      controller:
+        name: "ovsdb"
+        max_backoff: 2000
+        control_cfg:
+          - ip_addr: "1.2.3.4"
+            port: 30
+            state: "present"
+        state: "present"
+      state: "present"
+    evpn:
+      autoevi: False
+      evi:
+        - id: 111
+          rd: "auto"
+          vni:
+            id: 111
+            state: "present"
+          route_target:
+            - type: "manual"
+              asn_value: "111:111"
+              route_target_type: "both"
+              state: "present"
+            - type: "manual"
+              asn_value: "11:11"
+              route_target_type: "export"
+              state: "present"
+          state: "present"
+        - id: 222 
+          rd: "2.2.2.2:222"
+          vni:
+            id: 222
+            state: "present"
+          route_target:
+            - type: "auto"
+              asn_value:
+              route_target_type: 
+              state: "present"
+          state: "present"
+      vrf:
+        - name: "test"
+          vni: 1000
+          adv_ipv4:
+            - type: "connected"
+              state: "present"
+            - type: "bgp"
+              state: "present"
+          route_target:
+            - type: "manual"
+              asn_value: "65530:65534"
+              route_target_type: "both"
+              state: "present"
+      rmac: 00:11:11:11:11:11
+      dis_rt_asn: "true"
+      state: "present"
+    virtual_network:
+      untagged_vlan: 1001
+      virtual_net:
+        - id: 111
+          description: "NSX_Cluster_VNI_111"
+          vlt_vlan_id: 11
+          member_interface:
+            - ifname: "ethernet 1/1/15"
+              type: "tagged"
+              vlanid: 15
+              state: "present"
+            - ifname: "port-channel 12"
+              type: "tagged"
+              vlanid: 11
+              state: "present"
+          vxlan_vni:
+            id: 111
+            remote_endpoint:
+              - ip: "1.1.1.1"
+                state: "present"
+              - ip: "11.11.11.11"
+                state: "present"
+              - ip: "111.111.111.111"
+                state: "present"
+            state: "present"
+          state: "present" 
+        - id: 222
+          description: "NSX_Cluster_VNI_222"
+          vlt_vlan_id: 22
+          member_interface:
+            - ifname: "ethernet 1/1/16"
+              type: "tagged"
+              vlanid: 16
+              state: "present"
+          vxlan_vni:
+            id: 222
+            remote_endpoint:
+              - ip: "2.2.2.2"
+                state: "present"
+              - ip: "22.22.22.22"
+                state: "present"
+            state: "present"
+          state: "present" 
+    vlan_association:
+      - vlain_id: 111
+        virtual_net: 111
+###############################################}
+{% if os10_vxlan is defined and os10_vxlan %}
+  {% if os10_vxlan.anycast_gateway_mac is defined %}
+    {% if os10_vxlan.anycast_gateway_mac %}
+ip virtual-router mac-address {{ os10_vxlan.anycast_gateway_mac }}
+    {% else %}
+no ip virtual-router mac-address 
+    {% endif %}
+  {% endif %}
+  {% if os10_vxlan.loopback is defined %}
+  {% set loopback = os10_vxlan.loopback %}
+    {% if loopback.state is defined and loopback.state == "absent" %}
+      {% if loopback.loopback_id is defined and loopback.loopback_id %}
+no interface loopback {{ loopback.loopback_id }}
+      {% endif %}
+    {% else %}
+      {% if loopback.loopback_id is defined and loopback.loopback_id %}
+interface loopback {{ loopback.loopback_id }}      
+      {% endif %}
+      {% if loopback.description is defined %}
+        {% if loopback.description %}
+ description {{ loopback.description }}
+        {% else %}
+ no description {{ loopback.description }}
+        {% endif %}
+      {% endif %}
+      {% if loopback.ip_address is defined %}
+        {% if loopback.ip_address %}
+ ip address {{ loopback.ip_address }}
+        {% else %}
+ no ip address 
+        {% endif %}
+      {% endif %}   
+    {% endif %}  
+  {% endif %}
+
+  {% if os10_vxlan.nve is defined and os10_vxlan.nve %}
+    {% set nve = os10_vxlan.nve %}
+    {% if nve.state is defined and  nve.state == "absent" %}  
+no nve
+    {% else %}
+nve
+      {% if nve.source_interface is defined %}
+        {% if nve.source_interface >= 0 %}
+ source-interface loopback{{ nve.source_interface }}
+        {% else %}
+ no source-interface 
+        {% endif %}
+      {% endif %}
+      {% if nve.controller is defined %}
+        {% set controller = os10_vxlan.nve.controller %}  
+        {% if controller.state is defined and controller.state == "absent" %}
+ no controller 
+        {% else %}
+              {% if controller.name is defined and controller.name %}
+ controller {{ controller.name }}
+              {% endif %}     
+              {% if controller.max_backoff is defined %}
+                {% if controller.max_backoff %}
+  max-backoff {{ controller.max_backoff }}               
+                {% else %}
+  no max-backoff
+                {% endif %}
+              {% endif %}
+              {% if controller.control_cfg is defined and controller.control_cfg %}
+                {% for ctrl_cfg in controller.control_cfg %}
+                  {% if ctrl_cfg.ip_addr is defined and ctrl_cfg.ip_addr %}
+                    {% if ctrl_cfg.port is defined and ctrl_cfg.port %}
+                      {% if ctrl_cfg.state is defined and ctrl_cfg.state == "absent" %}
+                          {% if controller.name == "ovsdb" %}
+  no ip {{ ctrl_cfg.ip_addr }} port {{ ctrl_cfg.port }} ssl 
+                          {% else %}
+  no ip {{ ctrl_cfg.ip_addr }} port {{ ctrl_cfg.port }}
+                          {% endif %}
+                      {% else %}
+                          {% if controller.name == "ovsdb" %}
+  ip {{ ctrl_cfg.ip_addr }} port {{ ctrl_cfg.port }} ssl 
+                          {% else %}
+  ip {{ ctrl_cfg.ip_addr }} port {{ ctrl_cfg.port }}
+                          {% endif %}
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}  
+                {% endfor %}
+              {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endif %} 
+  {% endif %}
+
+  {% if os10_vxlan.evpn is defined and os10_vxlan.evpn  %}
+    {% set evpn = os10_vxlan.evpn %}
+    {% if evpn.state is defined and  evpn.state == "absent" %}  
+no evpn
+    {% else %}
+evpn
+      {% if evpn.rmac is defined %}
+        {% if evpn.rmac %}
+ router-mac {{ evpn.rmac }}
+        {% else %}
+ no router-mac
+        {% endif %}
+      {% endif %}
+      {% if evpn.dis_rt_asn is defined and evpn.dis_rt_asn == "true" %}
+ disable-rt-asn
+      {% else %}
+ no disable-rt-asn
+      {% endif %}
+      {% if evpn.evi is defined and evpn.evi %}
+        {% for evi in evpn.evi %}
+          {% if evi.id is defined and evi.id %}
+            {% if evi.state is defined and evi.state == "absent" %}    
+ no evi {{ evi.id }}
+            {% else %}
+ evi {{ evi.id }}
+              {% if evi.vni is defined and evi.vni %}
+                {% if evi.vni.id is defined and evi.vni.id %}
+                  {% if evi.vni.state is defined and evi.vni.state == "absent" %}
+  no vni {{ evi.vni.id }}
+                  {% else %}
+  vni {{ evi.vni.id }}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+              {% if evi.rd is defined %}
+                {% if evi.rd %}
+  rd {{ evi.rd }}
+                {% else %}
+  no rd 
+                {% endif %}
+              {% endif %}
+              {% if evi.route_target is defined and evi.route_target %}
+                {% for rt in evi.route_target %}
+                  {% if rt.type is defined and rt.type == "manual" %}
+                    {% if rt.asn_value is defined and rt.asn_value %}
+                      {% if rt.state is defined and rt.state == "absent" %}
+  no route-target {{ rt.asn_value }}
+                      {% else %}
+                        {% if rt.route_target_type is defined and rt.route_target_type %}
+  route-target {{ rt.asn_value }} {{ rt.route_target_type }}
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
+                  {% elif rt.type is defined and rt.type == "auto" %}
+                    {% if rt.state is defined and rt.state == "absent" %} 
+  no route-target auto
+                    {% else %}
+  route-target auto
+                    {% endif %}
+                  {% endif %} 
+                {% endfor %}
+              {% endif %}  
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if evpn.vrf is defined %}
+        {% for evpn_vrf in evpn.vrf %}
+          {% if evpn_vrf.name %}
+             vrf  {{ evpn_vrf.name }}
+            {% if evpn_vrf.vni is defined %}
+	      {% if evpn_vrf.vni %}
+             vni {{ evpn_vrf.vni }}
+	      {% else %}
+             no vni
+	      {% endif %}
+            {% endif %}
+	    {% if evpn_vrf.rd is defined %}
+              {% if evpn_vrf.rd %}
+             rd {{ evpn_vrf.rd }}
+	      {% else %}
+             no rd
+	      {% endif %}
+	    {% endif %}
+            {% if evpn_vrf.route_target is defined and evpn_vrf.route_target %}
+              {% for rt in evpn_vrf.route_target %}
+                {% if rt.type is defined and rt.type == "manual" %}
+                  {% if rt.asn_value is defined and rt.asn_value %}
+                    {% if rt.state is defined and rt.state == "absent" %}
+                  no route-target {{ rt.asn_value }}
+                    {% else %}
+                      {% if rt.route_target_type is defined and rt.route_target_type %}
+                  route-target {{ rt.asn_value }} {{ rt.route_target_type }}
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                {% elif rt.type is defined and rt.type == "auto" %}
+                  {% if rt.state is defined and rt.state == "absent" %}
+                 no route-target auto
+                  {% else %}
+                 route-target auto
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+            {% if evpn_vrf.adv_ipv4 is defined and evpn_vrf.adv_ipv4 %}
+              {% for rt in evpn_vrf.adv_ipv4 %}
+                {% if rt.unconfig is defined and rt.unconfig == "true" and rt.type is defined and rt.rmap_name is defined %}
+                  no advertise ipv4 {{ rt.type }} route-map {{ rt.rmap_name }}
+                {% elif rt.type is defined and rt.rmap_name is defined %}
+                  advertise ipv4 {{ rt.type }} route-map {{ rt.rmap_name }}
+                {% elif rt.unconfig is defined and  rt.unconfig == "true" and rt.type is defined %}
+                  no advertise ipv4 {{ rt.type }}
+                {% elif rt.type is defined %}
+                  advertise ipv4 {{ rt.type }}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+           no vrf {{ evpn.vrf }}
+      {% endif %}
+      {% if evpn.autoevi is defined %}
+        {% if evpn.autoevi == True %}
+ auto-evi
+        {% else %}
+ no auto-evi
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if os10_vxlan.virtual_network is defined and os10_vxlan.virtual_network  %}
+    {% set vir_net = os10_vxlan.virtual_network %}
+    {% if vir_net.untagged_vlan is defined %}
+      {% if vir_net.untagged_vlan %}
+virtual-network untagged-vlan {{ vir_net.untagged_vlan }}
+      {% else %}
+no virtual-network untagged-vlan
+      {% endif %}
+    {% endif %}    
+    {% if vir_net.virtual_net is defined and vir_net.virtual_net %}
+       {% for v_net in vir_net.virtual_net %}
+         {% if v_net.id is defined and v_net.id %}
+           {% if v_net.state is defined and v_net.state == "absent" %}
+no interface virtual-network {{ v_net.id }}
+no virtual-network {{ v_net.id }}
+           {% else %}
+virtual-network {{ v_net.id }}
+             {% if v_net.description is defined %}
+                {% if v_net.description %}
+ description {{ v_net.description }}  
+                {% else %}
+ no description
+                {% endif %}
+             {% endif %}
+             {% if v_net.vlt_vlan_id is defined %}
+               {% if v_net.vlt_vlan_id %}
+ vlti-vlan {{ v_net.vlt_vlan_id }}
+               {% else %}
+ no vlti-vlan
+               {% endif %}              
+             {% endif %}
+             {% if v_net.member_interface is defined and v_net.member_interface %}
+               {% for member_intf in v_net.member_interface %}
+                  {% if member_intf.ifname is defined and member_intf.ifname %}
+                    {% if member_intf.type is defined %}
+                      {% if member_intf.type == "tagged" %}
+                        {% if member_intf.vlanid is defined and member_intf.vlanid %}
+                          {% if member_intf.state is defined and member_intf.state == "absent" %}
+ no member-interface {{ member_intf.ifname }} vlan-tag {{ member_intf.vlanid }}
+                          {% else %}
+ member-interface {{ member_intf.ifname }} vlan-tag {{ member_intf.vlanid }}
+                          {% endif %}
+                        {% endif %}  
+                      {% elif member_intf.type == "untagged" %}
+                        {% if member_intf.state is defined and member_intf.state == "absent" %}
+ no member-interface {{ member_intf.ifname }} untagged  
+                        {% else %}
+ member-interface {{ member_intf.ifname }} untagged  
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}  
+                  {% endif %}
+               {% endfor %}
+             {% endif %}
+             {% if v_net.vxlan_vni is defined and v_net.vxlan_vni %}
+               {% set vxlan_vni = v_net.vxlan_vni %}
+               {% if vxlan_vni.id is defined and vxlan_vni.id %}
+                 {% if vxlan_vni.state is defined and vxlan_vni.state == "absent" %}
+ no vxlan-vni {{ vxlan_vni.id }}
+                 {% else %}
+ vxlan-vni {{ vxlan_vni.id }}
+                      {% if vxlan_vni.remote_endpoint is defined and vxlan_vni.remote_endpoint %}
+                        {% for remote_endpt in vxlan_vni.remote_endpoint %}
+                          {% if remote_endpt.ip is defined and remote_endpt.ip %}
+                            {% if remote_endpt.state is defined and remote_endpt.state == "absent" %}
+  no remote-vtep {{ remote_endpt.ip }}
+                            {% else %}
+  remote-vtep {{ remote_endpt.ip }}
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %} 
+                      {% endif %}
+                 {% endif %}  
+               {% endif %}               
+             {% endif %}
+           {% endif %}     
+         {% endif %} 
+       {% endfor %}
+    {% endif %}
+  {% endif %}
+  {% if os10_vxlan.vlan_association is defined and  os10_vxlan.vlan_association %}
+    {% for vlan in os10_vxlan.vlan_association %}
+      {% if vlan.vlan_id is defined and vlan.vlan_id %}
+interface vlan{{ vlan.vlan_id }}
+        {% if vlan.virtual_net is defined %}
+          {% if vlan.virtual_net %}
+ virtual-network {{ vlan.virtual_net }}
+          {% else %}
+ no virtual-network
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}

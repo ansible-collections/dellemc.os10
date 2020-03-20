@@ -1,0 +1,11 @@
+---
+- hosts: datacenter
+  gather_facts: no
+  connection: network_cli
+  collections:
+    - dellemc_networking.os10
+  roles:
+    - os10_interface
+    - os10_bgp
+    - os10_snmp
+    - os10_system

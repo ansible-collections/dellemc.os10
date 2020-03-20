@@ -1,0 +1,42 @@
+---
+# vars file for dellemc_networking.os10.os10_dns, below gives a sample configuration
+# Sample variables for os10 device
+os10_dns:
+   domain_lookup: true
+   name_server:
+     - ip:
+        - 3.1.1.1
+        - 3.1.1.2
+       vrf:
+        - test
+        - test1
+     - ip:
+        - 3.1.1.2
+       vrf:
+        - test1
+       state: absent
+     - ip:
+        - 2.2.2.2
+     - ip:
+        - 3.3.2.2
+       state: absent
+   domain_list:
+     - name:
+        - dname7
+        - dname8
+       vrf:
+        - test
+        - test1
+     - name:
+       - dname7
+       vrf:
+        - test
+        - test1
+       state: absent
+     - name:
+        - dname3
+        - dname4
+     - name:
+        - dname5
+        - dname6
+       state: absent

@@ -1,0 +1,9 @@
+ansible_ssh_user: xxxxx
+ansible_ssh_pass: xxxxx
+ansible_network_os: dellemc_networking.os10.os10
+
+os10_snmp:
+  snmp_community:
+    - name: public
+      access_mode: ro
+      state: present

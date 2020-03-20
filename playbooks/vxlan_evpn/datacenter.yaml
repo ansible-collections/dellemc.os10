@@ -1,0 +1,16 @@
+---
+- hosts: datacenter
+  connection: network_cli
+  collections:
+    - dellemc_networking.os10
+  vars:
+    build_dir: "/home/administrator/ansible/debug"
+  roles:
+    - os10_vrf
+    - os10_interface
+    - os10_system
+    - os10_bgp
+    - os10_lag
+    - os10_vlan
+    - os10_vxlan
+    - os10_vlt

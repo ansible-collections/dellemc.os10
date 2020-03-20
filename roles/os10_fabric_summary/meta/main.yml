@@ -1,0 +1,18 @@
+# Copyright (c) 2020 Dell Inc. or its subsidiaries. All Rights Reserved.
+---
+galaxy_info:
+  role_name: os10_fabric_summary
+  author: Dell EMC Networking Engineering
+  description: This role provides the system network information of all the switches in the fabric Dell EMC Networking Operating Systems.
+  license: Apache 2.0
+  min_ansible_version: 2.2
+
+  platforms:
+  - name: os10
+
+  galaxy_tags:
+    - networking
+    - dell
+    - emc
+    - dellemc
+    - os10

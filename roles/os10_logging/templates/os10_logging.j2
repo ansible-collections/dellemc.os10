@@ -1,0 +1,67 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{#############################################
+Purpose:
+Configure logging commands for os10 Devices
+os10_logging:
+  logging:
+    - ip: 1.1.1.1
+      state: present
+  console:
+    enable: True
+    severity: log-err
+  log_file:
+    enable: True
+    severity: log-err
+  source_interface: "ethernet1/1/30"
+###############################################}
+{% if os10_logging is defined and os10_logging %}
+  {% for key,value in os10_logging.iteritems() %}
+    {% if key == "logging" %}
+      {% for item in value %}
+        {% if item.ip is defined and item.ip %}
+          {% if item.state is defined and item.state == "absent" %}
+no logging server {{ item.ip }}
+          {% else %}
+logging server {{ item.ip }}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% elif key == "log_file" %}
+        {% if value.enable is defined %}
+          {% if value.enable %}
+logging log-file enable
+          {% else %}
+logging log-file disable
+          {% endif %}
+        {% endif %}
+        {% if value.severity is defined %}
+          {% if value.severity %}
+logging log-file severity {{ value.severity }}
+          {% else %}
+no logging log-file severity
+          {% endif %}
+        {% endif %}
+    {% elif key == "console" %}
+        {% if value.enable is defined %}
+          {% if value.enable %}
+logging console enable
+          {% else %}
+logging console disable
+          {% endif %}
+        {% endif %}
+        {% if value.severity is defined %}
+          {% if value.severity %}
+logging console severity {{ value.severity }}
+          {% else %}
+no logging console severity
+          {% endif %}
+        {% endif %}
+    {% elif key == "source_interface" %}
+        {% if value %}
+logging source-interface {{ value }}
+        {% else %}
+no logging source-interface
+        {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}

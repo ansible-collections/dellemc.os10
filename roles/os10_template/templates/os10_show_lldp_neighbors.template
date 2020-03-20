@@ -1,0 +1,7 @@
+Value LocPortID (\S+)
+Value RemHostName (\S+)
+Value RemPortId (\S+)
+Value RemChassisId ([a-fA-F0-9:]{17})
+
+Start
+  ^${LocPortID}\s+${RemHostName}\s+${RemPortId}\s+${RemChassisId} -> Record

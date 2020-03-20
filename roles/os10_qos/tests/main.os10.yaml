@@ -1,0 +1,11 @@
+---
+# Sample variables for os10 device
+os10_qos:
+  policy_map:
+   - name: testpolicy
+     type: qos
+     state: present
+  class_map:
+   - name: testclas
+     type: qos
+     state: present

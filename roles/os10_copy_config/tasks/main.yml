@@ -1,0 +1,7 @@
+---
+# tasks file for dellemc_networking.os10.os10_copy_config 
+ - name: "Merge the config file to running configuration for OS10"
+   os10_config:
+      src: "{{ hostname }}.j2"
+   when: (ansible_network_os is defined and ansible_network_os== "dellemc_networking.os10.os10") 
+#   notify: save config os10

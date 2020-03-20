@@ -1,0 +1,21 @@
+---
+ - name: CAPTURE SHOW PORT-CHANNEL SUMMARY
+   os10_command:
+     commands:
+       - show port-channel summary
+   register: output
+
+ - name: DISPLAY THE OUTPUT
+   debug: var=output.stdout
+
+ - name: INSTALL TEXTFSM
+   import_tasks: textfsm.yaml
+    
+ - name: PARSE THE OUTPUT for {{ ansible_network_os }} show_port-channel_summary
+   textfsm_parser:
+     src: "{{ lookup('file', './templates/os10_show_port-channel_summary.template') }}"     
+     content: "{{ output.stdout[0] }}"
+     name: port_channel_facts
+   register: result
+   vars:
+     - ansible_network_os: dellemc_networking.os10.os10

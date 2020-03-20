@@ -1,0 +1,52 @@
+# Sample playbook to validate network validation role
+---
+- name: setup network validation
+  hosts: localhost
+  gather_facts: False
+  connection: local
+  roles:
+     - dellemc_networking.os10.os10_network_validation
+
+# Sample playbook to validate wiring validation
+---
+- name: setup play for wiring validation
+  hosts: localhost
+  gather_facts: False
+  connection: local
+  tasks:
+    - import_role:
+        name: os10_network_validation
+        tasks_from: wiring_validation.yaml
+
+# Sample playbook to validate bgp validation
+---
+- name: setup playbook to validate bgp validation
+  hosts: localhost
+  gather_facts: False
+  connection: local
+  tasks:
+    - import_role:
+        name: os10_network_validation
+        tasks_from: bgp_validation.yaml
+
+# Sample playbook to validate vlt validation
+---
+- name: setup playbook to validate vlt validation
+  hosts: localhost
+  gather_facts: False
+  connection: local
+  tasks:
+    - import_role:
+        name: os10_network_validation
+        tasks_from: vlt_validation.yaml
+
+# Sample playbook to validate mtu validation
+---
+- name: setup playbook to validate mtu validation
+  hosts: localhost
+  gather_facts: False
+  connection: local
+  tasks:
+    - import_role:
+        name: os10_network_validation
+        tasks_from: mtu_validation.yaml

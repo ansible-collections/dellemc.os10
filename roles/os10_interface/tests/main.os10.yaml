@@ -1,0 +1,56 @@
+---
+# vars file for dellemc_networking.os10.os10_interface 
+# Sample variables for os10 device
+os10_interface:
+    ethernet 1/1/32:
+            desc: "Connected to Core 2"
+            mtu: 2500    
+            portmode:
+            admin: up
+            switchport: False
+            ip_and_mask: 
+            ip_type_dynamic: True
+            ipv6_type_dynamic: True
+    ethernet 1/1/12:
+            desc: "ipv6 auto config"
+            switchport: False
+            mtu: 2500
+            admin: up
+            ipv6_autoconfig: True
+    ethernet 1/1/14:
+            fanout: 10g-4x
+    ethernet 1/1/13:
+            desc: "set ipv6 address"
+            switchport: False
+            admin: up
+            ipv6_and_mask: 2001:4898:5809:faa2::10/126
+            state_ipv6: present
+    ethernet 1/1/1:
+            desc: "Connected to Leaf1"
+            portmode: "trunk"
+            switchport: True
+            suppress_ra: present
+            admin: up
+    ethernet 1/1/3:
+            desc: site2-spine2
+            ip_and_mask: 10.9.0.4/31
+            mtu: 9216
+            switchport: False
+            admin: up
+            flowcontrol:
+              mode: "receive"
+              enable: "on"
+              state: "present"
+
+    vlan 100:
+            ip_and_mask: 
+            ipv6_and_mask: 2001:4898:5808:ffaf::1/64
+            state_ipv6: present
+            ip_helper:
+               - ip: 10.0.0.33
+                 state: present
+            admin: up
+    range ethernet 1/1/1-1/1/32:
+            mtu: 2500
+            admin: up
+            switchport: False

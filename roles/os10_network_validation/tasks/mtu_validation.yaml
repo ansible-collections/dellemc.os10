@@ -1,0 +1,32 @@
+---
+- name: "Get Dell EMC OS10 MTU mismatch info"
+  os10_command:
+    commands:
+      - command: "show lldp neighbors"
+      - command: "show ip interface brief | display-xml"
+    provider: "{{ hostvars[item].cli }}"
+  with_items: "{{ groups['all'] }}"
+  register: show_output
+- name: "set fact to form database"
+  set_fact:
+    output_mtu: "{{ output_mtu|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_lldp': item.stdout.0, 'stdout_show_ip': item.stdout.1 }] }}"
+  loop: "{{ show_output.results }}"
+- name: "debug the output database"
+  debug: var=output_mtu
+- name: call lib to convert ip interface info from xml to dict format
+  base_xml_to_dict:
+    cli_responses: "{{ item.stdout_show_ip }}"
+  with_items: "{{ output_mtu }}"
+  register: show_ip_intf_list
+- name: "Get Dell EMC OS10 Show system"
+  import_role:
+    name: os10_fabric_summary
+  register: show_system_network_summary
+- name: "call lib to process"
+  mtu_validate:
+    show_lldp_neighbors_list: "{{ output_mtu }}"
+    show_system_network_summary: "{{ show_system_network_summary.msg.results }}"
+    show_ip_intf_brief: "{{ show_ip_intf_list.results }}"
+  register: mtu_validation
+- name: "debug mtu validation result"
+  debug: var=mtu_validation.msg.results

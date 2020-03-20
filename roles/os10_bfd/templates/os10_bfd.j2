@@ -1,0 +1,34 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{#############################################
+#Purpose:
+Configure bfd global commands for os10 Devices
+
+os10_bfd:
+    bfd: 
+      interval: 200
+      min_rx: 200
+      multiplier: 3
+      role: "active"
+      state: "present"
+###############################################}
+{% if os10_bfd is defined and os10_bfd %}
+  {% set bfd_vars = os10_bfd %}
+  {% if bfd_vars.bfd is defined and bfd_vars.bfd %}
+    {% set bfd = bfd_vars.bfd %}
+    {% if bfd.state is defined and bfd.state == "absent" %}
+no bfd enable
+no bfd interval
+    {% else %}
+bfd enable
+      {% if bfd.interval is defined and bfd.min_rx is defined and bfd.multiplier is defined %}
+        {% if bfd.interval and bfd.min_rx and bfd.multiplier %}
+          {% if bfd.role is defined and bfd.role %}
+bfd interval {{ bfd.interval }} min_rx {{ bfd.min_rx }} multiplier {{ bfd.multiplier }} role {{ bfd.role }}
+          {% else %}
+bfd interval {{ bfd.interval }} min_rx {{ bfd.min_rx }} multiplier {{ bfd.multiplier }}
+          {% endif %}
+        {% endif %}
+      {% endif %}   
+    {% endif %}
+  {% endif %}
+{% endif %}

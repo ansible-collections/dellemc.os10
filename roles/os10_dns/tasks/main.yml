@@ -1,0 +1,5 @@
+---
+# tasks file for dellemc_networking.os10.os10_dns
+
+ - name: "Provision {{ ansible_network_os }} tasks"
+   include_tasks: provision_os10.yaml

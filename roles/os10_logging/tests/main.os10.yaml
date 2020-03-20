@@ -1,0 +1,14 @@
+---
+# vars file for dellemc_networking.os10.os10_logging, below gives a sample configuration
+# Sample variables for os10 device
+os10_logging:
+    logging:
+      - ip: 1.1.1.1
+        state: absent
+    console:
+      enable: True
+      severity: log-err
+    log_file:
+      enable: True
+      severity: log-err
+    source_interface: "ethernet1/1/30"

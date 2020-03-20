@@ -1,0 +1,21 @@
+---
+  - name: CAPTURE SHOW IP BGP SUMMARY
+    os10_command:
+      commands:
+        - show ip bgp summary
+    register: output
+
+  - name: DISPLAY THE OUTPUT
+    debug: var=output.stdout
+
+  - name: INSTALL TEXTFSM 
+    import_tasks: textfsm.yaml
+
+  - name: PARSE THE OUTPUT for {{ ansible_network_os }} show_ip_bgp_summary
+    textfsm_parser:
+      src: "{{ lookup('file', './templates/os10_show_ip_bgp_summary.template') }}"
+      content: "{{ output.stdout[0] }}"
+      name: bgp_facts
+    register: result
+    vars:
+      - ansible_network_os: dellemc_networking.os10.os10

@@ -1,0 +1,7 @@
+---
+# vars file for dellemc_networking.os10.os10_image_upgrade, below gives a example configuration
+
+os10_image_upgrade:
+  operation_type: install
+  software_image_url: http://10.16.127.7//tftpboot/NGOS/FMB-ar-rel_10.5.1-release/AmazonInstallers/last_good/PKGS_OS10-Enterprise-10.5.1.0.124stretch-installer-x86_64.bin
+  software_version: 10.5.1.0

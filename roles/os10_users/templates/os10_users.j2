@@ -1,0 +1,27 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{#############################################
+Purpose:
+Configure users commands for os10 Devices
+os10_users:
+  - username: test
+    password: test
+    role: sysadmin
+    state: present
+###############################################}
+{% if os10_users is defined and os10_users %}
+  {% for item in os10_users %}
+    {% if item.username is defined and item.username %}
+      {% if item.state is defined and item.state == "absent" %}
+no username {{ item.username }}
+      {% else %}
+        {% if item.password is defined and item.password %}
+          {% if item.role is defined and item.role %}
+username {{ item.username }} password {{ item.password }} role {{ item.role }}
+          {% else %}
+username {{ item.username }} password {{ item.password }}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
