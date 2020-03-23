@@ -31,7 +31,7 @@ extends_documentation_fragment: dellemc_networking.os10.os10
 options:
   commands:
     description:
-      - List of commands to send to the remote os10 device over the
+      - List of commands to send to the remote OS10 device over the
         configured provider. The resulting output from the command
         is returned. If the I(wait_for) argument is provided, the
         module is not returned until the condition is satisfied or

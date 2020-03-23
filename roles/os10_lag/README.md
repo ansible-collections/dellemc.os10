@@ -1,7 +1,7 @@
 LAG role
 ========
 
-This role facilitates the configuration of link aggregation group (LAG) attributes, and supports the creation and deletion of a LAG and its member ports. It also supports the configuration of an interface type as a static or dynamic LAG and minimum required link. This role is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10.
+This role facilitates the configuration of link aggregation group (LAG) attributes, and supports the creation and deletion of a LAG and its member ports. It also supports the configuration of an interface type as a static or dynamic LAG and minimum required link. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
 The LAG role requires an SSH connection for connectivity to a Dell EMC Networking device. You can use any of the built-in OS connection variables .
 
@@ -28,8 +28,8 @@ Role variables
 | ``lacp_fallback_enable`` | boolean | Configures LACP fallback | os10 |
 | ``channel_members``  | list  | Specifies the list of port members to be associated to the port-channel (see ``channel_members.*``) | os10 |
 | ``channel_members.port`` | string  | Specifies valid os10 interface names to be configured as port-channel members | os10 |
-| ``channel_members.mode`` | string: active,passive,on | Configures mode of channel members on os10 devices | os10 |
-| ``channel_members.port_priority`` | integer | Configures port priority on os10 devices for channel members | os10 |
+| ``channel_members.mode`` | string: active,passive,on | Configures mode of channel members on OS10 devices | os10 |
+| ``channel_members.port_priority`` | integer | Configures port priority on OS10 devices for channel members | os10 |
 | ``channel_members.lacp_rate_fast`` | boolean | Configures the LACP rate as fast if set to true | os10 |
 | ``state``  | string: absent,present\*           | Deletes the LAG corresponding to the port-channel ID if set to absent | os10 |
 
@@ -61,7 +61,7 @@ The *os10_lag* role is built on modules included in the core Ansible code. These
 Example playbook
 ----------------
 
-This example uses the *os10_lag* role to setup port channel ID and description, and configures hash algorithm and minimum links for the LAG. Channel members can be configured for the port-channel either in static or dynamic mode. You can also delete the LAG with the port-channel ID or delete the members associated to it. This example creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC networking OS name.
+This example uses the *os10_lag* role to setup port channel ID and description, and configures hash algorithm and minimum links for the LAG. Channel members can be configured for the port-channel either in static or dynamic mode. You can also delete the LAG with the port-channel ID or delete the members associated to it. This example creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC Networking OS name.
 
 When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false. It writes a simple playbook that only references the *os10_lag* role.
 

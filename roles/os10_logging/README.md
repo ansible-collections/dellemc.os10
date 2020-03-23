@@ -1,9 +1,9 @@
 Logging role
 ============
 
-This role facilitates the configuration of global logging attributes, and it supports the configuration of logging servers. This role is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10.
+This role facilitates the configuration of global logging attributes, and it supports the configuration of logging servers. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The Logging role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
+The Logging role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
 
 Role variables
 --------------
@@ -57,7 +57,7 @@ The *os10_logging* role is built on modules included in the core Ansible code. T
 Example playbook
 ----------------
 
-This example uses the *os10_logging* role to completely set up logging servers. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC networking OS name. When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false.
+This example uses the *os10_logging* role to completely set up logging servers. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC Networking OS name. When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false.
 
 **Sample hosts file**
  

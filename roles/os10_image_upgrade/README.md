@@ -1,7 +1,7 @@
 Software image upgrade/install role
 ===================================
 
-This role facilitates upgrades or installation of a Dell EMC SmartFabric OS10 software image. The *os10_image_upgrade* role requires an SSH connection for connectivity to a Dell EMC Power Switch platform. You can use any of the built-in OS connection variables .
+This role facilitates upgrades or installation of a Dell EMC SmartFabric OS10 software image. The *os10_image_upgrade* role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform. You can use any of the built-in OS connection variables .
 
 Role variables
 --------------

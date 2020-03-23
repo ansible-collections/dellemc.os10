@@ -1,7 +1,7 @@
 TEMPLATE role
 ==============
 
-The os10_template role provides access to structured data from show commands in Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10. This role facilitates the TEXTFSM parsing engine. TextFSM is a template based state machine . It takes the raw string input from the CLI of network devices  os10 , run them through a TEXTFSM template and return structured text in the form of a Python dictionary.
+The os10_template role provides access to structured data from show commands in Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. This role facilitates the TEXTFSM parsing engine. TextFSM is a template based state machine . It takes the raw string input from the CLI of network devices  os10 , run them through a TEXTFSM template and return structured text in the form of a Python dictionary.
 
 It is highly customizable, because it works with separate template definitions, which contains variables and rules with regular expressions. This library is very helpful to parse any text-based CLI output from network devices.
 
@@ -32,7 +32,7 @@ The *os10_template* role is built on  modules included in the core Ansible code.
 Example playbook
 ----------------
 
-This example uses the *os10_template* role to parse any text-based CLI output. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC networking OS name.All the supported CLI commands are imported as tasks in tasks/main.yml.
+This example uses the *os10_template* role to parse any text-based CLI output. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC Networking OS name.All the supported CLI commands are imported as tasks in tasks/main.yml.
  
 For the os10_template role plugins to be used you may need to specify the actual path of role in ansible.cfg file. 
 

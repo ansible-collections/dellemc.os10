@@ -53,7 +53,7 @@ The *os10_dns* role is built on modules included in the core Ansible code. These
 Example playbook
 ----------------
 
-This example uses the *os10_dns* role to completely set up the DNS server configuration. The example creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC networking OS name.
+This example uses the *os10_dns* role to completely set up the DNS server configuration. The example creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC Networking OS name.
 
 When *os10_cfg_generate* is set to true, generates the configuration commands as a .part file in *build_dir* path. By default it is set to false. It writes a simple playbook that only references the *os10_dns* role. By including the role, you automatically get access to all of the tasks to configure DNS.
 

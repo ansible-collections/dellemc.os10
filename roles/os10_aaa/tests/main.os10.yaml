@@ -1,6 +1,6 @@
 ---
 # vars file for dellemc_networking.os10.os10_aaa, below gives a sample configuration
-# Sample vars for os10 device
+# Sample vars for OS10 device
 os10_aaa:
   radius_server:
         retransmit: 5

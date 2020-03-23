@@ -2,9 +2,9 @@ ACL flow-based monitor role
 ===========================
 
 This role facilitates configuring ACL flow-based monitoring attributes. Flow-based mirroring is a mirroring session in which traffic matches specified policies that are mirrored to a destination port. Port-based mirroring maintains a database that contains all monitoring sessions (including port monitor sessions).
-This role is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10.
+This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The ACL flow-based role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables.
+The ACL flow-based role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
@@ -58,7 +58,7 @@ The *os10_flow_monitor* role is built on modules included in the core Ansible co
 Example playbook
 ----------------
 
-This example uses the *os10_flow_monitor* role to configure session monitor configuration. It creates a *hosts* file with the switch details and corresponding variables. The hosts file defines the *anisble_network_os* variable with corresponding Dell EMC networking OS name. 
+This example uses the *os10_flow_monitor* role to configure session monitor configuration. It creates a *hosts* file with the switch details and corresponding variables. The hosts file defines the *anisble_network_os* variable with corresponding Dell EMC Networking OS name. 
 
 When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in the *build_dir* path. By default, the variable is set to false.
 It writes a simple playbook that only references the *os10_flow_monitor* role.

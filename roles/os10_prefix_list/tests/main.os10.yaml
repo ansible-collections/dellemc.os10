@@ -1,6 +1,6 @@
 ---
 # vars file for dellemc_networking.os10.os10_prefix_list, below gives a sample configuration
-# Sample variables for os10 device
+# Sample variables for OS10 device
 os10_prefix_list:
    - name: testpl
      type: ipv4

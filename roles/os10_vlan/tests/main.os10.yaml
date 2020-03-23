@@ -1,6 +1,6 @@
 ---
 # vars file for dellemc_networking.os10.os10_vlan, below gives a example configuration
-# Sample variables for os10 device
+# Sample variables for OS10 device
 os10_vlan:
     default_vlan_id: 2
     vlan 100:

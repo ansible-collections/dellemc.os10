@@ -1,7 +1,7 @@
 QoS role
 ========
 
-This role facilitates the configuration quality of service (QoS) attributes like policy-map and class-map. This role is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10. The QoS role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
+This role facilitates the configuration quality of service (QoS) attributes like policy-map and class-map. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. The QoS role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
 
 Role variables
 --------------
@@ -53,7 +53,7 @@ The *os10_qos* role is built on modules included in the core Ansible code. These
 Example playbook
 ----------------
 
-This example uses the *os10_qos* role to configure the policy-map class-map. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC networking OS name. 
+This example uses the *os10_qos* role to configure the policy-map class-map. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC Networking OS name. 
 
 When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false. It writes a simple playbook that only references the *os10_qos* role. By including the role, you automatically get access to all of the tasks to configure QoS features. 
 
