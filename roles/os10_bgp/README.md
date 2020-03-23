@@ -1,9 +1,9 @@
 BGP role
 ========
 
-This role facilitates the configuration of border gateway protocol (BGP) attributes. It supports the configuration of router ID, networks, neighbors, and maximum path. This role is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10.
+This role facilitates the configuration of border gateway protocol (BGP) attributes. It supports the configuration of router ID, networks, neighbors, and maximum path. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The BGP role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables.
+The BGP role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

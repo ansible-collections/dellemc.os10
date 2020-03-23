@@ -1,5 +1,5 @@
 ---
-# Sample variables for os10 device
+# Sample variables for OS10 device
 cli:
   host: "{{ ansible_host }}"
   username: "{{ os10_cli_user | default('admin') }}"

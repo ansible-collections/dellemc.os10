@@ -1,6 +1,6 @@
 ---
 # vars file for dellemc_networking.os10.os10_bgp, below gives a sample configuration
-# Sample variables for os10 device
+# Sample variables for OS10 device
 os10_bgp:
     asn: 12
     router_id: 90.1.1.4

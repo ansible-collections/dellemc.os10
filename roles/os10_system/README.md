@@ -1,9 +1,9 @@
 System role
 ===========
 
-This role facilitates the configuration of global system attributes, and is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10. It specifically enables configuration of hostname and enable password for OS10.
+This role facilitates the configuration of global system attributes, and is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. It specifically enables configuration of hostname and enable password for OS10.
 
-The os10_system role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
+The os10_system role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
 
 Role variables
 --------------
@@ -68,7 +68,7 @@ The *os10_system* role is built on modules included in the core Ansible code. Th
 Example playbook
 ----------------
 
-This example uses the *os10_system role* to completely set the NTP server, hostname, enable password, management route, hash alogrithm, clock, line terminal, banner and reload type. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC networking OS name. 
+This example uses the *os10_system role* to completely set the NTP server, hostname, enable password, management route, hash alogrithm, clock, line terminal, banner and reload type. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC Networking OS name. 
 
 When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false. The system role writes a simple playbook that only references the *os10_system* role. By including the role, you automatically get access to all of the tasks to configure system features. 
 

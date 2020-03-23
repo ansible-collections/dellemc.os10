@@ -1,9 +1,9 @@
 VXLAN role
 ========
 
-This role facilitates the configuration of  virtual extensible LAN (VXLAN) attributes. It supports the configuration of Virtual Networks, Ethernet Virtual Private Network (evpn) and Network Virtualization Edge (nve). This role is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10.
+This role facilitates the configuration of  virtual extensible LAN (VXLAN) attributes. It supports the configuration of Virtual Networks, Ethernet Virtual Private Network (evpn) and Network Virtualization Edge (nve). This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The VXLAN role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables.
+The VXLAN role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

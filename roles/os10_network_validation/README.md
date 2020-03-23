@@ -1,7 +1,7 @@
 dellemc_networking.os10.os10_network_validation
 =========================
 
-This roles is used to verify network validation. It validates network features of a wiring connection, BGP neighbors, the MTU between neighbors, and VLT pairing with Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10.
+This roles is used to verify network validation. It validates network features of a wiring connection, BGP neighbors, the MTU between neighbors, and VLT pairing with Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
 - **Wiring validation** — based on the LLDP neighbor establishment; the intended neighbor input model is defined by the _group_var/all_ user which is compared with the actual LLDP neighbor; report is generated if there is any mismatch with the intended neighbors.
 

@@ -1,6 +1,6 @@
 ---
 # vars file for dellemc_networking.os10.os10_dns, below gives a sample configuration
-# Sample variables for os10 device
+# Sample variables for OS10 device
 os10_dns:
    domain_lookup: true
    name_server:

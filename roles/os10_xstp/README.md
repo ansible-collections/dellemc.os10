@@ -1,8 +1,8 @@
 # xSTP role
 
-This role facilitates the configuration of xSTP attributes. It supports multiple version of spanning-tree protocol (STP), rapid spanning-tree (RSTP), rapid per-VLAN spanning-tree (Rapid PVST+), multiple spanning-tree (MST), and per-VLAN spanning-tree (PVST). It supports the configuration of bridge priority, enabling and disabling spanning-tree, creating and deleting instances, and mapping virtual LAN (VLAN) to instances. This role is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10.
+This role facilitates the configuration of xSTP attributes. It supports multiple version of spanning-tree protocol (STP), rapid spanning-tree (RSTP), rapid per-VLAN spanning-tree (Rapid PVST+), multiple spanning-tree (MST), and per-VLAN spanning-tree (PVST). It supports the configuration of bridge priority, enabling and disabling spanning-tree, creating and deleting instances, and mapping virtual LAN (VLAN) to instances. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The xSTP role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
+The xSTP role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
 
 Role variables
 --------------
@@ -18,48 +18,48 @@ Role variables
 
 | Key        | Type                      | Description                                             | Support              |
 |------------|---------------------------|---------------------------------------------------------|----------------------|
-| ``type``       | string (required) | Configures the type of spanning-tree mode specified that can vary according to the OS device; os10 devices include RSTP, rapid-PVST, MST | os10 |
+| ``type``       | string (required) | Configures the type of spanning-tree mode specified that can vary according to the OS device; OS10 devices include RSTP, rapid-PVST, MST | os10 |
 | ``enable``  | boolean: true,false             | Enables/disables the spanning-tree protocol specified in the type variable | os10 |
-| ``mac_flush_timer`` | integer | Configures the mac_flush_timer value in os10 devices (0 to 500 range) | os10 |
+| ``mac_flush_timer`` | integer | Configures the mac_flush_timer value in OS10 devices (0 to 500 range) | os10 |
 | ``rstp``  | dictionary             | Configures rapid spanning-tree (see ``rstp.*``)  | os10 |
 | ``rstp.bridge_priority`` | integer | Configures bridge-priority for the spanning-tree (0 to 61440 range in multiples of 4096) | os10 |
-| ``rstp.max_age`` | integer  | Configures the max_age timer for RSTP (6 to 40 range in os10 devices) | os10 |
-| ``rstp.hello_time`` | integer | Configures the hello-time for RSTP (1 to 10 range in os10 devices) | os10 |
-| ``rstp.forward_time`` | integer | Configures the forward-time for RSTP (4 to 30 range in os10 devices) | os10 |
-| ``rstp.force_version`` | string: stp | Configures the force version for the BPDUs transmitted by RSTP in os10 devices | os10 |
-| ``rstp.mac_flush_threshold`` | integer | Configures the MAC flush threshold for RSTP (1 to 65535 range in os10 devices) | os10 |
+| ``rstp.max_age`` | integer  | Configures the max_age timer for RSTP (6 to 40 range in OS10 devices) | os10 |
+| ``rstp.hello_time`` | integer | Configures the hello-time for RSTP (1 to 10 range in OS10 devices) | os10 |
+| ``rstp.forward_time`` | integer | Configures the forward-time for RSTP (4 to 30 range in OS10 devices) | os10 |
+| ``rstp.force_version`` | string: stp | Configures the force version for the BPDUs transmitted by RSTP in OS10 devices | os10 |
+| ``rstp.mac_flush_threshold`` | integer | Configures the MAC flush threshold for RSTP (1 to 65535 range in OS10 devices) | os10 |
 | ``pvst``  | dictionary     | Configures per-VLAN spanning-tree protocol (see ``pvst.*``) | os10 |
 | ``pvst.vlan`` | list | Configures the VLAN for PVST (see ``vlan.*``)  | os10 |
 | ``vlan.range_or_id``  | string             | Configures a VLAN/range of VLANs for the per-VLAN spanning-tree protocol | os10 |
-| ``vlan.max_age`` | integer  | Configures the max_age timer for a VLAN (6 to 40 range in os10 devices) | os10 |
-| ``vlan.hello_time`` | integer | Configures the hello-time for a VLAN (1 to 10 range in os10 devices) | os10 |
-| ``vlan.forward_time`` | integer | Configures the forward-time for a VLAN (4 to 30 range in os10 devices) | os10 |
-| ``vlan.enable`` | boolean: true,false | Enables or disables spanning-tree for the associated VLAN range_or_id in os10 devices | os10 |
-| ``vlan.mac_flush_threshold`` | integer | Configures the MAC flush threshold for a VLAN (1 to 65535 range in os10 devices) | os10 |
-| ``vlan.root`` | string: primary,secondary | Designates the primary or secondary root for the associated VLAN range_or_id in os10 devices; mutually exclusive with *vlan.bridge_priority* | os10 |
+| ``vlan.max_age`` | integer  | Configures the max_age timer for a VLAN (6 to 40 range in OS10 devices) | os10 |
+| ``vlan.hello_time`` | integer | Configures the hello-time for a VLAN (1 to 10 range in OS10 devices) | os10 |
+| ``vlan.forward_time`` | integer | Configures the forward-time for a VLAN (4 to 30 range in OS10 devices) | os10 |
+| ``vlan.enable`` | boolean: true,false | Enables or disables spanning-tree for the associated VLAN range_or_id in OS10 devices | os10 |
+| ``vlan.mac_flush_threshold`` | integer | Configures the MAC flush threshold for a VLAN (1 to 65535 range in OS10 devices) | os10 |
+| ``vlan.root`` | string: primary,secondary | Designates the primary or secondary root for the associated VLAN range_or_id in OS10 devices; mutually exclusive with *vlan.bridge_priority* | os10 |
 | ``vlan.bridge_priority`` | integer | Configures bridge-priority for the per-VLAN spanning-tree (0 to 61440 range in multiples of 4096); mutually exclusive with *vlan.root* | os10 |
 | ``mstp``  | dictionary     | Configures multiple spanning-tree protocol (see ``mstp.*``)  | os10 |
-| ``mstp.max_age`` | integer  | Configures the max_age timer for MSTP (6 to 40 range in os10 devices) | os10 |
-| ``mstp.max_hops`` | integer | Configures the max-hops for MSTP (6 to 40 range in os10 devices) | os10 |
-| ``mstp.hello_time`` | integer | Configures the hello-time for MSTP (1 to 10 range in os10 devices) | os10 |
-| ``mstp.forward_time`` | integer | Configures the forward-time for MSTP (4 to 30 range in os10 devices) | os10 |
-| ``mstp.force_version`` | string: stp,rstp | Configures the force-version for the BPDUs transmitted by MSTP in os10 devices | os10 |
+| ``mstp.max_age`` | integer  | Configures the max_age timer for MSTP (6 to 40 range in OS10 devices) | os10 |
+| ``mstp.max_hops`` | integer | Configures the max-hops for MSTP (6 to 40 range in OS10 devices) | os10 |
+| ``mstp.hello_time`` | integer | Configures the hello-time for MSTP (1 to 10 range in OS10 devices) | os10 |
+| ``mstp.forward_time`` | integer | Configures the forward-time for MSTP (4 to 30 range in OS10 devices) | os10 |
+| ``mstp.force_version`` | string: stp,rstp | Configures the force-version for the BPDUs transmitted by MSTP in OS10 devices | os10 |
 | ``mstp.mstp_instances`` | list | Configures a MSTP instance (see ``mstp_instances.*``)  | os10 |
-| ``mstp_instances.number_or_range``     | integer                   | Configures the multiple spanning-tree instance number in os10 devices| os10 |
+| ``mstp_instances.number_or_range``     | integer                   | Configures the multiple spanning-tree instance number in OS10 devices| os10 |
 | ``mstp_instances.bridge_priority`` | integer | Configures the bridge-priority for the spanning-tree (0 to 61440 range in multiples of 4096); mutually exclusive with *mstp_instances.root* | os10 |
-| ``mstp_instances.enable`` | boolean: true,false | Enables or disables spanning-tree for the associated MSTP instance in os10 devices | os10 |
-| ``mstp_instances.mac_flush_threshold`` | integer | Configures the MAC flush-threshold for an MSTP instance (1 to 65535 range in os10 devices | os10 |
-| ``mstp_instances.root`` | string: primary,secondary | Designates the primary or secondary root for the associated MSTP instance in os10 devices; mutually exclusive with *mstp_instances.bridge_priority* | os10 |
-| ``mstp.mst_config`` | dictionary | Configures multiple spanning-tree (see ``mstp.mst_config.*``); supported in os10 devices | os10 |
+| ``mstp_instances.enable`` | boolean: true,false | Enables or disables spanning-tree for the associated MSTP instance in OS10 devices | os10 |
+| ``mstp_instances.mac_flush_threshold`` | integer | Configures the MAC flush-threshold for an MSTP instance (1 to 65535 range in OS10 devices | os10 |
+| ``mstp_instances.root`` | string: primary,secondary | Designates the primary or secondary root for the associated MSTP instance in OS10 devices; mutually exclusive with *mstp_instances.bridge_priority* | os10 |
+| ``mstp.mst_config`` | dictionary | Configures multiple spanning-tree (see ``mstp.mst_config.*``); supported in OS10 devices | os10 |
 | ``mst_config.name`` | string | Configures the name which is specified for the MSTP | os10 |
 | ``mst_config.revision`` | integer | Configures the revision number for MSTP | os10 |
 | ``mst_config.cfg_list`` | list | Configures the multiple spanning-tree list (see ``mst_config.cfg_list.*``) | os10 |
 | ``cfg_list.number`` | integer | Specifies the MSTP instance number | os10 |
-| ``cfg_list.vlans``      | string     | Configures a VLAN/range of VLANs by mapping it to an instance number in os10 devices | os10 |
+| ``cfg_list.vlans``      | string     | Configures a VLAN/range of VLANs by mapping it to an instance number in OS10 devices | os10 |
 | ``cfg_list.vlans_state`` | string: absent,present\* | Deletes a set of VLANs mapped to the spanning-tree instance if set to absent | os10 |
 | ``intf`` | list | Configures multiple spanning-tree in an interface (see ``intf.*``)  | os10 |
 | ``intf <interface name>``| dictionary | Configures the interface name (see ``intf.<interface name>.*``) | os10 |
-| ``intf.<interface name>.edge_port`` | boolean: true,false | Configures the EdgePort as dynamic if set to true in os10 devices; | os10 |
+| ``intf.<interface name>.edge_port`` | boolean: true,false | Configures the EdgePort as dynamic if set to true in OS10 devices; | os10 |
 | ``intf.<interface name>.bpdu_filter``| boolean: true,false | Enables or disables bpdufilter at the interface | os10 |
 | ``intf.<interface name>.bpdu_guard``| boolean: true,false | Enables or disables bpduguard at the interface | os10 |
 | ``intf.<interface name>.guard``| string: loop,root,none | Configures guard on the interface | os10 |

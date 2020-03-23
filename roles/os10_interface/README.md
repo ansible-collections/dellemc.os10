@@ -1,9 +1,9 @@
 Interface role
 ==============
 
-This role facilitates the configuration of interface attributes. It supports the configuration of admin state, description, MTU, IP address, IP helper, suppress_ra and port mode. This role is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10.
+This role facilitates the configuration of interface attributes. It supports the configuration of admin state, description, MTU, IP address, IP helper, suppress_ra and port mode. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The interface role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
+The interface role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
 
 Role variables
 --------------
@@ -28,18 +28,18 @@ Role variables
 | ``portmode`` | string | Configures port-mode according to the device type | os10  |
 | ``switchport`` | boolean: true,false\*  | Configures an interface in L2 mode | os10 |
 | ``admin``      | string: up,down\*              | Configures the administrative state for the interface; configuring the value as administratively "up" enables the interface; configuring the value as administratively "down" disables the interface | os10 |
-| ``mtu``        | integer                       | Configures the MTU size for L2 and L3 interfaces; example, 1280 to 65535 on os10 devices | os10 |
-| ``fanout``     | string:dual, single; string:10g-4x, 40g-1x, 25g-4x, 100g-1x, 50g-2x (os10)   | Configures fanout to the appropriate value in os10 devices.| os10 |
+| ``mtu``        | integer                       | Configures the MTU size for L2 and L3 interfaces; example, 1280 to 65535 on OS10 devices | os10 |
+| ``fanout``     | string:dual, single; string:10g-4x, 40g-1x, 25g-4x, 100g-1x, 50g-2x (os10)   | Configures fanout to the appropriate value in OS10 devices.| os10 |
 | ``suppress_ra`` | string; present,absent     | Configures IPv6 router advertisements if set to present | os10 |
 | ``ip_type_dynamic`` | boolean: true,false           | Configures IP address DHCP if set to true (*ip_and_mask* is ignored if set to true) | os10 |
 | ``ipv6_type_dynamic`` | boolean: true,false           | Configures an IPv6 address for DHCP if set to true (*ipv6_and_mask* is ignored if set to true) | os10 |
 | ``ipv6_autoconfig`` | boolean: true,false           | Configures stateless configuration of IPv6 addresses if set to true (*ipv6_and_mask* is ignored if set to true) | os10 |
-| ``vrf`` | string | Configures the specified VRF to be associated to the interface on os10 devices | os10 |
+| ``vrf`` | string | Configures the specified VRF to be associated to the interface on OS10 devices | os10 |
 | ``min_ra`` | string | Configures RA minimum interval time period | os10 |
 | ``max_ra`` | string | Configures RA maximum interval time period | os10 |
-| ``ip_and_mask`` | string | Configures the specified IP address to the interface on os10 devices | os10 |
+| ``ip_and_mask`` | string | Configures the specified IP address to the interface on OS10 devices | os10 |
 | ``virtual_gateway_ip``     | string     | Configures an anycast gateway IP address for a VXLAN virtual network | os10  |
-| ``ipv6_and_mask`` | string | Configures a specified IPv6 address to the interface on os10 devices | os10 |
+| ``ipv6_and_mask`` | string | Configures a specified IPv6 address to the interface on OS10 devices | os10 |
 | ``state_ipv6`` | string: absent,present\* | Deletes the IPV6 address if set to absent           | os10 | 
 | ``ip_helper`` | list | Configures DHCP server address objects (see ``ip_helper.*``) | os10 |
 | ``ip_helper.ip`` | string (required)         | Configures the IPv4 address of the DHCP server (A.B.C.D format)  | os10 |
@@ -77,7 +77,7 @@ The *os10_interface* role is built on modules included in the core Ansible code.
 Example playbook
 ----------------
 
-This example uses the *os10_interface* role to set up description, MTU, admin status, portmode, and switchport details for an interface. The example creates a *hosts* file with the switch details and orresponding variables. The hosts file should define the  *ansible_network_os* variable with corresponding Dell EMC networking OS name.
+This example uses the *os10_interface* role to set up description, MTU, admin status, portmode, and switchport details for an interface. The example creates a *hosts* file with the switch details and orresponding variables. The hosts file should define the  *ansible_network_os* variable with corresponding Dell EMC Networking OS name.
 
 When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, this variable is set to false. The example writes a simple playbook that only references the *os10_interface* role.
 

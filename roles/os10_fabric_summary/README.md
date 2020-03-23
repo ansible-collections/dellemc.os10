@@ -1,6 +1,6 @@
 os10_fabric_summary
 =====================================
-This role is used to get show system information of all the Dell EMC Power Switch platforms in the fabric, running Dell EMC SmartFabric OS1O.
+This role is used to get show system information of all the Dell EMC PowerSwitch platforms in the fabric, running Dell EMC SmartFabric OS1O.
 
 Connection variables
 --------------------

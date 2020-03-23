@@ -1,9 +1,9 @@
 VRF role
 ========
 
-This role facilitates to configure the basics of virtual routing and forwarding (VRF) that helps in the partition of physical routers to multiple virtual routers. This role is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10.
+This role facilitates to configure the basics of virtual routing and forwarding (VRF) that helps in the partition of physical routers to multiple virtual routers. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The vrf role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
+The vrf role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
 
 Role variables
 --------------
@@ -66,7 +66,7 @@ The *os10_vrf* role is built on modules included in the core Ansible code. These
 Example playbook
 ----------------
 
-This example uses the *os10_vrf* role to setup a VRF and associate it to an interface. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC networking OS name.
+This example uses the *os10_vrf* role to setup a VRF and associate it to an interface. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC Networking OS name.
 
 When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false. It writes a  simple playbook that references the *os10_vrf* role.
 
@@ -76,7 +76,7 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
   
     leaf1 ansible_host= <ip_address> 
 
-**Sample host_vars/leaf1 for os10 device
+**Sample host_vars/leaf1 for OS10 device
 
     hostname: leaf1
     ansible_become: yes

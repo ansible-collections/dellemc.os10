@@ -1,7 +1,7 @@
 NTP role
 ========
 
-This role facilitates the configuration of network time protocol (NTP) attributes. This role is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10. It specifically enables configuration of NTP server, NTP source, authentication and broadcast service in OS10. 
+This role facilitates the configuration of network time protocol (NTP) attributes. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. It specifically enables configuration of NTP server, NTP source, authentication and broadcast service in OS10. 
 
 The NTP role requires an SSH connection for connectivity to a Dell EMC Networking device. You can use any of the built-in OS connection variables .
 
@@ -67,7 +67,7 @@ The *os10_ntp* role is built on modules included in the core Ansible code. These
 Example playbook
 ----------------
 
-This example uses the *os10_ntp* role to set the NTP server, source ip, authentication and broadcast service. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC networking OS name. When the *os10_cfg_generate* variable is set to true, it generates the configuration commands as a .part file in *build_dir* path. By default it is set to false. The example writes a simple playbook that only references the *os10_ntp* role. 
+This example uses the *os10_ntp* role to set the NTP server, source ip, authentication and broadcast service. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC Networking OS name. When the *os10_cfg_generate* variable is set to true, it generates the configuration commands as a .part file in *build_dir* path. By default it is set to false. The example writes a simple playbook that only references the *os10_ntp* role. 
 
 By including the role, you automatically get access to all of the tasks to configure NTP attributes. The sample *host_vars* is for os10.
 

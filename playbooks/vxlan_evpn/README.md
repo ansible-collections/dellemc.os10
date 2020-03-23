@@ -1,5 +1,5 @@
 ﻿
-#  VxLAN Symmetric-IRB configuration using BGP EVPN using Dell EMC Ansible modules
+#  VxLAN Symmetric-IRB configuration using BGP EVPN using the Ansible collection for Dell EMC SmartFabric OS10
 
 
 This example describes how to use Ansible to build a LEAF - SPINE Topology with Dell EMC SmartFabric OS10 switches , using VxLAN Symmetric -IRB configuration Model.
@@ -32,7 +32,7 @@ Define the host, credentials, and transport.
 Use Ansible roles os10_interface and os10_vlan  to configure required VLANs. 
 Use Ansible role os10_bgp to configure BGP Unnumbered . 
 Use role os10_vxlan to configure VN networks, EVPN and Symmetric IRB functionality. 
-Use role os10_vlt to configure VLT between between leafs prim-vtep1 and sec-vtep1
+Use role os10_vlt to configure VLT between leaves prim-vtep1 and sec-vtep1
 
 
 **Step 4**
@@ -47,7 +47,7 @@ Define the host, credentials, and transport.
 Use Ansible roles os10_interface and os10_vlan  to configure required VLANs. 
 Use Ansible role os10_bgp to configure BGP Unnumbered. 
 Use role os10_vxlan to configure VN networks, EVPN and Symmetric IRB functionality. 
-Use role os10_vlt to configure VLT between between leafs prim-vtep2 and sec-vtep2
+Use role os10_vlt to configure VLT between leaves prim-vtep2 and sec-vtep2
 
 **Step 5**
 Create a playbook called  `datacenter.yaml`.

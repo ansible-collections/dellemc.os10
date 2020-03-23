@@ -1,9 +1,9 @@
 ﻿
 
 
-# Provision CLOS fabric using Dell EMC OS10 Ansible collections example
+# Provision CLOS fabric using the Ansible collection for Dell EMC SmartFabric OS10
 
-This example describes how to use Ansible to build a CLOS fabric with Dell EMC SmartFabric OS10 switches. The sample topology is a two-tier CLOS fabric with two spines and four leafs connected as mesh. eBGP is running between the two tiers. All switches in spine have the same AS number, and each leaf switch has a unique AS number. All AS numbers used are private.
+This example describes how to use Ansible to build a CLOS fabric with Dell EMC SmartFabric OS10 switches. The sample topology is a two-tier CLOS fabric with two spines and four leaves connected as mesh. eBGP is running between the two tiers. All switches in spine have the same AS number, and each leaf switch has a unique AS number. All AS numbers used are private.
 
 For application load-balancing purposes, the same prefix is advertised from multiple leaf switches and uses  _BGP multipath relax_  feature.
 

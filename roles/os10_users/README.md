@@ -1,9 +1,9 @@
 Users role
 ==========
 
-This role facilitates the configuration of global system user attributes. It supports the configuration of CLI users, and is abstracted for Dell EMC Power Switch platforms running Dell EMC SmartFabric OS10.
+This role facilitates the configuration of global system user attributes. It supports the configuration of CLI users, and is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The users role requires an SSH connection for connectivity to a Dell EMC Power Switch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
+The users role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
 
 Role variables
 --------------
@@ -19,7 +19,7 @@ Role variables
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
 | ``username`` | string (required)         | Configures the username which must adhere to specific format guidelines (valid usernames begin with A-Z, a-z, or 0-9 and can also contain `@#$%^&*-_= +;<>,.~` characters) | os10 |
-| ``password`` | string                    | Configures the password set for the username; password length must be at least eight characters in os10 devices | os10 |
+| ``password`` | string                    | Configures the password set for the username; password length must be at least eight characters in OS10 devices | os10 |
 | ``role`` | string                    | Configures the role assigned to the user | os10 |
 | ``state`` | string: absent,present\*     | Deletes a user account if set to absent  | os10 |
 

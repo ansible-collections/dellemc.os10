@@ -1,6 +1,6 @@
 ---
 # vars file for dellemc_networking.os10.os10_xstp, below gives a sample configuration
-# Sample variables for os10 device
+# Sample variables for OS10 device
 os10_xstp:
     type: rstp
     enable: true
@@ -60,7 +60,7 @@ os10_xstp:
             priority: 16
             cost: 8
 
-# Sample variables for os10 devices to configure root in pvst and mst
+# Sample variables for OS10 devices to configure root in pvst and mst
   
 os10_xstp:
     pvst:

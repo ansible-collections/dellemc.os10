@@ -1,5 +1,5 @@
 ---
-# Sample variables for os10 device
+# Sample variables for OS10 device
 os10_qos:
   policy_map:
    - name: testpolicy
