@@ -13,6 +13,8 @@
   hosts: localhost
   gather_facts: False
   connection: local
+  collections:
+    - dellemc_networking.os10
   tasks:
     - import_role:
         name: os10_network_validation
@@ -24,6 +26,8 @@
   hosts: localhost
   gather_facts: False
   connection: local
+  collections:
+    - dellemc_networking.os10
   tasks:
     - import_role:
         name: os10_network_validation
@@ -35,6 +39,8 @@
   hosts: localhost
   gather_facts: False
   connection: local
+  collections:
+    - dellemc_networking.os10
   tasks:
     - import_role:
         name: os10_network_validation
@@ -46,6 +52,8 @@
   hosts: localhost
   gather_facts: False
   connection: local
+  collections:
+    - dellemc_networking.os10
   tasks:
     - import_role:
         name: os10_network_validation
