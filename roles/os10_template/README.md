@@ -60,6 +60,8 @@ For the os10_template role plugins to be used you may need to specify the actual
     ---
     - name: PARSE SHOW IP INTERFACE BRIEF
       hosts: leaf1
+      collections:
+        - dellemc_networking.os10
       tasks:
         - import_role:
             name: os10_template

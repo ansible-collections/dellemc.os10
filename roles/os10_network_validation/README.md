@@ -167,6 +167,8 @@ This example uses the `dellemc_networking.os10.os10_network_validation` role to 
           hosts: localhost
           gather_facts: False
           connection: local
+          collections:
+            - dellemc_networking.os10
           tasks:
             - import_role:
                 name: os10_network_validation
@@ -179,6 +181,8 @@ This example uses the `dellemc_networking.os10.os10_network_validation` role to 
           hosts: localhost
           gather_facts: False
           connection: local
+          collections:
+            - dellemc_networking.os10
           tasks:
             - import_role:
                 name: os10_network_validation
@@ -191,6 +195,8 @@ This example uses the `dellemc_networking.os10.os10_network_validation` role to 
           hosts: localhost
           gather_facts: False
           connection: local
+          collections:
+            - dellemc_networking.os10
           tasks:
             - import_role:
                 name: os10_network_validation
@@ -203,6 +209,8 @@ This example uses the `dellemc_networking.os10.os10_network_validation` role to 
           hosts: localhost
           gather_facts: False
           connection: local
+          collections:
+            - dellemc_networking.os10
           tasks:
             - import_role:
                 name: os10_network_validation
