@@ -1,5 +1,6 @@
 ---
-# vars file for dellemc_networking.os10.os10_vrf, below gives a sample configuration
+# vars file for dellemc_networking.os10.os10_vrf,
+# below gives a sample configuration
 # Sample variables for OS10 device
 os10_vrf:
   vrfdetails:
@@ -18,8 +19,8 @@ os10_vrf:
         community_value: "60:70"
         state: "absent"
       map_ip_interface:
-       - intf_id : "loopback11"
-         state   : "present"
+       - intf_id: "loopback11"
+         state: "present"
 
 os_vrf_upd_src_loopback:
   vrfdetails:

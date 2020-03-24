@@ -1,3 +1,4 @@
+---
 site1-spine1 ansible_host=10.11.180.21 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10
 site1-spine2 ansible_host=10.11.180.22 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10
 site2-spine1 ansible_host=10.11.180.23 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10

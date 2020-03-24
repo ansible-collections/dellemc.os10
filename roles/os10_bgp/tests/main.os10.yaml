@@ -1,5 +1,6 @@
 ---
-# vars file for dellemc_networking.os10.os10_bgp, below gives a sample configuration
+# vars file for dellemc_networking.os10.os10_bgp,
+# below gives a sample configuration
 # Sample variables for OS10 device
 os10_bgp:
     asn: 12
@@ -63,7 +64,7 @@ os10_bgp:
         password: bgppassword
         route_reflector_client: true
         src_loopback: 0
-        address_family: 
+        address_family:
           - type: ipv4
             activate: true
             state: present
@@ -111,4 +112,3 @@ os10_bgp:
         - route_type: l2vpn
       state: present
     state: present
-
