@@ -1,5 +1,6 @@
 ---
-# vars file for dellemc_networking.os10.os10_lldp, below gives a sample configuration
+# vars file for dellemc_networking.os10.os10_lldp,
+# below gives a sample configuration
 # Sample variables for OS10 device
 os10_lldp:
   enable: false

@@ -1,14 +1,14 @@
 ---
-# vars file for dellemc_networking.os10.os10_interface 
+# vars file for dellemc_networking.os10.os10_interface
 # Sample variables for OS10 device
 os10_interface:
     ethernet 1/1/32:
             desc: "Connected to Core 2"
-            mtu: 2500    
+            mtu: 2500
             portmode:
             admin: up
             switchport: False
-            ip_and_mask: 
+            ip_and_mask:
             ip_type_dynamic: True
             ipv6_type_dynamic: True
     ethernet 1/1/12:
@@ -43,7 +43,7 @@ os10_interface:
               state: "present"
 
     vlan 100:
-            ip_and_mask: 
+            ip_and_mask:
             ipv6_and_mask: 2001:4898:5808:ffaf::1/64
             state_ipv6: present
             ip_helper:
