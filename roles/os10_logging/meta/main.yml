@@ -4,12 +4,12 @@ galaxy_info:
   author: Dell EMC Networking Engineering
   description: The os10_logging role facilitates the configuration of logging attributes in devices running Dell EMC Networking Operating Systems.
   company: Dell Technologies
-  license:  Apache 2.0
+  license: Apache 2.0
   min_ansible_version: 2.2
 
   platforms:
   - name: os10
-  
+
   galaxy_tags:
     - networking
     - dell

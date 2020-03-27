@@ -1,9 +1,9 @@
 # Copyright (c) 2020 Dell Inc.
 ---
 galaxy_info:
-  author: Dell EMC Networking Engineering 
+  author: Dell EMC Networking Engineering
   description: >
-       The os10_vrrp role facilitates the configuration of Virtual Router Redundancy Protocol (VRRP) attributes in 
+       The os10_vrrp role facilitates the configuration of Virtual Router Redundancy Protocol (VRRP) attributes in
        devices running Dell EMC Networking Operating Systems.
   license: Apache 2.0
   min_ansible_version: 2.2
@@ -13,8 +13,7 @@ galaxy_info:
 
   galaxy_tags:
     - networking
-    - dell 
+    - dell
     - dellemc
     - emc
     - os10
-    
