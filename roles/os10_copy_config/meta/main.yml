@@ -1,19 +1,19 @@
 # Copyright (c) 2020 Dell Inc.
 ---
 galaxy_info:
-  author: Dell EMC Networking Engineering 
-  description: > 
-                This role shall be used to push the backup running configuration into the device. 
-                This role shall merge the configuration in the template file with the running configuration of the device 
-  license:  Apache 2.0
+  author: Dell EMC Networking Engineering
+  description: >
+                This role shall be used to push the backup running configuration into the device.
+                This role shall merge the configuration in the template file with the running configuration of the device
+  license: Apache 2.0
   min_ansible_version: 2.2
 
   platforms:
-  - name: os10 
+  - name: os10
 
   galaxy_tags:
     - networking
-    - dell 
+    - dell
     - emc
     - dellemc
     - os10
