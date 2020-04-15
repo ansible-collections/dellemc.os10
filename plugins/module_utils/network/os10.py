@@ -78,7 +78,7 @@ def check_args(module, warnings):
 def get_config(module, flags=None):
     flags = [] if flags is None else flags
 
-    cmd = 'show running-config '
+    cmd = 'show running-configuration'
     cmd += ' '.join(flags)
     cmd = cmd.strip()
 
