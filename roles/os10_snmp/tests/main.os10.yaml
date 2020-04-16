@@ -12,6 +12,11 @@ os10_snmp:
     snmp_traps:
       - name: all
         state: present
+    snmp_view:
+      - name: view_1
+        oid_subtree: 2
+        include: false
+        state: absent
     snmp_host:
       - ip: 1.1.1.1
         communitystring: c1
