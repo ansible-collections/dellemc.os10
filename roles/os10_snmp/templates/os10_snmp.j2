@@ -12,6 +12,11 @@ os10_snmp:
     snmp_traps: 
       - name: all
         state: present
+    snmp_view:
+      - name: view_1
+        oid_subtree: 2
+        include: true
+        state: absent
     snmp_host:
       - ip: 1.1.1.1
         communitystring: c1
@@ -80,7 +85,28 @@ snmp-server enable traps {{ val.name }}
         {% endif %}
       {% endfor %}
     {% endif %}
-   
+
+  {% elif key == "snmp_view" %}
+    {% if value %}
+      {% for item in value %}
+        {% if item.name is defined and item.name %}
+          {% if item.oid_subtree is defined and item.oid_subtree %}
+            {% if item.state is defined and item.state == "absent" %}
+no snmp-server view {{ item.name }} {{ item.oid_subtree }}
+            {% else %}
+              {% if item.include is defined %}
+                {% if item.include %}
+snmp-server view {{ item.name }} {{ item.oid_subtree }} included
+                {% elif not item.include %}
+snmp-server view {{ item.name }} {{ item.oid_subtree }} excluded
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
   {% elif key == "snmp_host" and value %}
     {% for item in value %}
       {% if item.ip is defined and item.ip %}

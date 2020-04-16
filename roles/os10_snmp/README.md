@@ -33,6 +33,12 @@ Role variables
 | ``snmp_traps`` | list | Configures SNMP traps (see ``snmp_traps.*``) | os10  |
 | ``snmp_traps.name`` | string | Enables SNMP traps   | os10 |
 | ``snmp_traps.state`` | string: absent,present\* | Deletes the SNMP trap if set to absent | os10 |
+| ``snmp_view`` | list | Configures SNMPv3 view information (see ``snmp_view.*``) | os10 |
+| ``snmp_view.name`` | string | Configures the SNMP view name (20 characters maximum) | os10 |
+| ``snmp_view.oid_subtree`` | integer | Configures the SNMP view for the OID subtree | os10 |
+| ``snmp_view.include`` | boolean: true,false | Specifies whether the MIB family should be included or excluded from the view | os10 |
+| ``snmp_view.state`` | string: absent,present\* | Deletes the SNMP view if set to absent | os10 |
+
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified. 
 
@@ -91,6 +97,11 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
         snmp_traps: 
           - name: all
             state: present
+        snmp_view:
+          - name: view_1
+            oid_subtree: 2
+            include: true
+            state: absent
         snmp_host:
           - ip: 1.1.1.1
             communitystring: c1
