@@ -1,0 +1,174 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{#############################################
+Purpose:
+Configure IPv6 RA Guard commands for OS10 Devices
+os10_raguard:
+      enable: true
+      policy:
+        - policy_name: test
+          device_role: 
+            value: router
+            state: present
+          managed_config_flag: 
+            value: "on"
+            state: present
+          other_config_flag: 
+            value: "on"
+            state: present
+          mtu: 
+            value: 1280
+            state: present
+          reachable_time: 
+            value: 100
+            state: present
+          retrans_timer: 
+            value: 100
+            state: present
+          router_lifetime: 
+            value: 10
+            state: present
+          router_preference: 
+            value: high
+            state: present
+          match:
+            - type: prefix_list
+              name: test_prefix
+              state: present
+            - type: access_list
+              name: test_access
+              state: present
+            - type: mac_list
+              name: test_mac
+              state: present
+          state: present
+      intf:
+        ethernet 1/1/2:
+          policy_name: test
+          vlan: 10
+          state: present
+        ethernet 1/1/3:
+          policy_name: test
+          vlan: all
+          state: present
+        ethernet 1/1/4:
+          policy_name: test
+          vlan: 10,11,12,15
+          state: present
+###############################################}
+{% if os10_raguard is defined and os10_raguard %}
+    {% if os10_raguard.enable is defined %}
+      {% if os10_raguard.enable %}
+ipv6 nd ra-guard enable     
+      {% else %}
+no ipv6 nd ra-guard enable     
+      {% endif %}
+    {% endif %}
+    {% if os10_raguard.policy is defined and os10_raguard.policy %}
+      {% for item in os10_raguard.policy %}
+        {% if item.policy_name is defined and item.policy_name %}
+          {% if item.state is defined and item.state == "absent" %}
+no ipv6 nd ra-guard policy {{ item.policy_name }}
+          {% else %}
+ipv6 nd ra-guard policy {{ item.policy_name }}
+            {% if item.device_role is defined and item.device_role %}
+              {% if item.device_role.state is defined and item.device_role.state == "absent" %}
+no device-role {{ item.device_role }}
+              {% else %}
+device-role {{ item.device_role.value }}
+              {% endif %}
+            {% endif %}
+            {% if item.device_role is defined and item.device_role.value == "router" %} 
+              {% if item.managed_config_flag is defined and item.managed_config_flag %}
+                {% if item.managed_config_flag.state is defined and item.managed_config_flag.state == "absent" %}
+no managed-config-flag {{ item.managed_config_flag.value }}
+                {% else %}
+managed-config-flag {{ item.managed_config_flag.value }}
+                {% endif %}
+              {% endif %}
+              {% if item.other_config_flag is defined and item.other_config_flag %}
+                {% if item.other_config_flag.state is defined and item.other_config_flag.state == "absent" %}
+no other-config-flag {{ item.other_config_flag.value }}
+                {% else %}
+other-config-flag {{ item.other_config_flag.value }}
+                {% endif %}
+              {% endif %}
+              {% if item.mtu is defined and item.mtu %}
+                {% if item.mtu.state is defined and item.mtu.state == "absent" %}
+no mtu {{ item.mtu.value }}
+                {% else %}
+mtu {{ item.mtu.value }}
+                {% endif %}
+              {% endif %}  
+              {% if item.reachable_time is defined and item.reachable_time %}
+                {% if item.reachable_time.state is defined and item.reachable_time.state == "absent" %}
+no reachable-time {{ item.reachable_time.value }}
+                {% else %}
+reachable-time {{ item.reachable_time.value }}
+                {% endif %}
+              {% endif %}
+              {% if item.retrans_timer is defined and item.retrans_timer %}
+                {% if item.retrans_timer.state is defined and item.retrans_timer.state == "absent" %}
+no retrans-timer {{ item.retrans_timer.value }}
+                {% else %}
+retrans-timer {{ item.retrans_timer.value }}
+                {% endif %}
+              {% endif %}
+              {% if item.router_lifetime is defined and item.router_lifetime %}
+                {% if item.router_lifetime.state is defined and item.router_lifetime.state == "absent" %}
+no router-lifetime {{ item.router_lifetime.value }}
+                {% else %}
+router-lifetime {{ item.router_lifetime.value }}
+                {% endif %}
+              {% endif %}
+              {% if item.router_preference is defined and item.router_preference %}
+                {% if item.router_preference.state is defined and item.router_preference.state == "absent" %}
+no router-preference maximum
+                {% else %}
+router-preference maximum {{ item.router_preference.value }}
+                {% endif %}
+              {% endif %}
+              {% if item.match is defined and item.match %}
+                {% for item1 in item.match %}
+                  {% if item1.type is defined %}
+                    {% if item1.type == "prefix_list" %}
+                      {% if item1.state is defined and item1.state == "absent" %}
+no match ra ipv6-prefix-list {{ item1.name }}
+                      {% else %}
+match ra ipv6-prefix-list {{ item1.name }}
+                      {% endif %}
+                    {% endif %}  
+                    {% if item1.type == "access_list" %}
+                      {% if item1.state is defined and item1.state == "absent" %}
+no match ra ipv6-access-list {{ item1.name }}
+                      {% else %}
+match ra ipv6-access-list {{ item1.name }}
+                      {% endif %}
+                    {% endif %}  
+                    {% if item1.type == "mac_list" %}
+                      {% if item1.state is defined and item1.state == "absent" %}
+no match ra mac-access-list {{ item1.name }}
+                      {% else %}
+match ra mac-access-list {{ item1.name }}
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %} 
+            {% endif %} 
+          {% endif %}
+        {% endif %}
+      {% endfor %}  
+    {% endif %}
+    {% if os10_raguard.intf is defined and os10_raguard.intf %}
+      {% for key in os10_raguard.intf.keys() %}
+interface {{ key }}
+        {% if os10_raguard.intf[key].policy_name is defined and os10_raguard.intf[key].policy_name %}
+          {% if os10_raguard.intf[key].state is defined and os10_raguard.intf[key].state == "absent" %}
+no ipv6 nd ra-guard attach-policy {{ os10_raguard.intf[key].policy_name }} vlan {{ os10_raguard.intf[key].vlan }}     
+          {% else %}
+ipv6 nd ra-guard attach-policy {{ os10_raguard.intf[key].policy_name }} vlan {{ os10_raguard.intf[key].vlan }}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}  
+{% endif %}    
