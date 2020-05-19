@@ -8,7 +8,7 @@ The VLAN role requires an SSH connection for connectivity to a Dell EMC PowerSwi
 Role variables
 --------------
 
-- Role is abstracted using the *ansible_network_os* variable that can take dellemc_networking.os10.os10 value
+- Role is abstracted using the *ansible_network_os* variable that can take dellemc.os10.os10 value
 - If *os10_cfg_generate* is set to true, the variable generates the role configuration commands in a file
 - Any role variable with a corresponding state variable set to absent negates the configuration of that variable
 - For variables with no state variable, setting an empty value for the variable negates the corresponding configuration
@@ -78,7 +78,7 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
-    ansible_network_os: dellemc_networking.os10.os10
+    ansible_network_os: dellemc.os10.os10
     build_dir: ../temp/temp_os10
 
     os10_vlan:
@@ -109,7 +109,7 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
 
     - hosts: leaf1
       roles:
-         - dellemc_networking.os10.os10_vlan
+         - dellemc.os10.os10_vlan
                 
 **Run**
 

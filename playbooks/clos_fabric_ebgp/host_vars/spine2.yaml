@@ -1,7 +1,7 @@
 hostname: spine2
 ansible_ssh_user: xxxxx
 ansible_ssh_pass: xxxxx
-ansible_network_os: dellemc_networking.os10.os10
+ansible_network_os: dellemc.os10.os10
 spine_hostname: "spine-2"
 os10_interface:
     ethernet 1/1/1:

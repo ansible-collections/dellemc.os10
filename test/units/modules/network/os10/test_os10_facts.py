@@ -26,7 +26,7 @@ import json
 from units.compat.mock import patch
 from units.modules.utils import set_module_args
 from .os10_module import TestDellos10Module, load_fixture
-from ansible_collections.dellemc_networking.os10.plugins.modules import os10_facts
+from ansible_collections.dellemc.os10.plugins.modules import os10_facts
 
 
 class TestDellos10Facts(TestDellos10Module):

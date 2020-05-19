@@ -8,4 +8,4 @@ cli:
 
 os10_cli_user: xxxx
 os10_cli_pass: xxxx
-ansible_network_os: dellemc_networking.os10.os10
+ansible_network_os: dellemc.os10.os10

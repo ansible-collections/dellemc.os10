@@ -22,18 +22,18 @@ device running Dell EMC SmartFabric OS10.
 ## Collection Installation
 Install the latest version of OS10 collection from Ansible Galaxy:
 
-    ansible-galaxy collection install dellemc_networking.os10
+    ansible-galaxy collection install dellemc.os10
 
 To install a specific version, a version range identifier must be specified. For example, to install the most recent version that is greater than or equal to 1.0.0 and less than 2.0.0:
 
-    ansible-galaxy collection install 'dellemc_networking.os10:>=1.0.0,<2.0.0'
+    ansible-galaxy collection install 'dellemc.os10:>=1.0.0,<2.0.0'
 
 ## Sample playbook
 
     - hosts: os10_sw1
       connection: network_cli
       collections:
-        - dellemc_networking.os10
+        - dellemc.os10
       roles:
         - os10_vlan
 
@@ -45,7 +45,7 @@ To install a specific version, a version range identifier must be specified. For
     # parameters for connection type network_cli
     ansible_ssh_user: xxxx
     ansible_ssh_pass: xxxx
-    ansible_network_os: dellemc_networking.os10.os10
+    ansible_network_os: dellemc.os10.os10
 
 ## Sample inventory.yaml
 

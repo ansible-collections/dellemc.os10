@@ -2,7 +2,7 @@
 - hosts: datacenter
   connection: network_cli
   collections:
-    - dellemc_networking.os10
+    - dellemc.os10
   vars:
     build_dir: "/home/administrator/ansible/debug"
   roles:

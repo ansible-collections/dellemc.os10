@@ -8,7 +8,7 @@ The Logging role requires an SSH connection for connectivity to a Dell EMC Power
 Role variables
 --------------
 
-- Role is abstracted using the *ansible_network_os* variable that can take dellemc_networking.os10.os10 value
+- Role is abstracted using the *ansible_network_os* variable that can take dellemc.os10.os10 value
 - If the *os10_cfg_generate* variable is set to true, it generates the role configuration commands in a file
 - Any role variable with a corresponding state variable set to absent negates the configuration of that variable
 - Setting an empty value for any variable negates the corresponding configuration
@@ -71,7 +71,7 @@ This example uses the *os10_logging* role to completely set up logging servers. 
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
-    ansible_network_os: dellemc_networking.os10.os10
+    ansible_network_os: dellemc.os10.os10
     build_dir: ../temp/temp_os10
 	  
     os10_logging:
@@ -90,7 +90,7 @@ This example uses the *os10_logging* role to completely set up logging servers. 
 
     - hosts: leaf1
       roles:
-         - dellemc_networking.os10.os10_logging
+         - dellemc.os10.os10_logging
 
 **Run**
 

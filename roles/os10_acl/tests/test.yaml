@@ -2,4 +2,4 @@
 - hosts: datacenter
   connection: network_cli
   roles:
-    - dellemc_networking.os10.os10_acl
+    - dellemc.os10.os10_acl

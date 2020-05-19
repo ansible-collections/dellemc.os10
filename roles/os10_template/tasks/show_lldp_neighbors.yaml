@@ -18,4 +18,4 @@
       name: lldp_facts
     register: result
     vars:
-      - ansible_network_os: dellemc_networking.os10.os10
+      - ansible_network_os: dellemc.os10.os10

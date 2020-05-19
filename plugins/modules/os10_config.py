@@ -25,7 +25,7 @@ description:
     for segmenting configuration into sections.  This module provides
     an implementation for working with OS10 configuration sections in
     a deterministic way.
-extends_documentation_fragment: dellemc_networking.os10.os10
+extends_documentation_fragment: dellemc.os10.os10
 options:
   lines:
     description:
@@ -200,10 +200,10 @@ backup_path:
   sample: /playbooks/ansible/backup/os10_config.2016-07-16@22:28:34
 """
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.dellemc_networking.os10.plugins.module_utils.network.os10 import get_config, get_sublevel_config
-from ansible_collections.dellemc_networking.os10.plugins.module_utils.network.os10 import os10_argument_spec, check_args
-from ansible_collections.dellemc_networking.os10.plugins.module_utils.network.os10 import load_config, run_commands
-from ansible_collections.dellemc_networking.os10.plugins.module_utils.network.os10 import WARNING_PROMPTS_RE
+from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import get_config, get_sublevel_config
+from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import os10_argument_spec, check_args
+from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import load_config, run_commands
+from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import WARNING_PROMPTS_RE
 from ansible.module_utils.network.common.config import NetworkConfig, dumps
 
 

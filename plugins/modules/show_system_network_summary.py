@@ -4,7 +4,7 @@
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved. Dell, EMC, and other trademarks are trademarks of Dell Inc. or its subsidiaries. Other trademarks may be trademarks of their respective owners."
 
 import re
-from ansible_collections.dellemc_networking.os10.plugins.module_utils.network.base_network_show import BaseNetworkShow as BaseNetworkShow
+from ansible_collections.dellemc.os10.plugins.module_utils.network.base_network_show import BaseNetworkShow as BaseNetworkShow
 
 DOCUMENTATION = '''
 module: show_system_network_summary_ansible_module

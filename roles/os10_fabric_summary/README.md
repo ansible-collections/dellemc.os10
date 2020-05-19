@@ -35,10 +35,10 @@ The *os10_fabric_summary* role has a simple playbook that only references the *o
 
 **Sample hosts file**
 
-        site1-spine1 ansible_host=10.11.180.21 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10
-        site1-spine2 ansible_host=10.11.180.22 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10
-        site2-spine1 ansible_host=10.11.180.23 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10
-        site2-spine2 ansible_host=10.11.180.24 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10
+        site1-spine1 ansible_host=10.11.180.21 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc.os10.os10
+        site1-spine2 ansible_host=10.11.180.22 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc.os10.os10
+        site2-spine1 ansible_host=10.11.180.23 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc.os10.os10
+        site2-spine2 ansible_host=10.11.180.24 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc.os10.os10
         [spine]
         site1-spine1
         site1-spine2
@@ -57,7 +57,7 @@ The *os10_fabric_summary* role has a simple playbook that only references the *o
        timeout: 300
     os10_cli_user: xxxx
     os10_cli_pass: xxxx
-    ansible_network_os: dellemc_networking.os10.os10
+    ansible_network_os: dellemc.os10.os10
 
 **Simple playbook to setup fabric summary - provision.yaml**
 

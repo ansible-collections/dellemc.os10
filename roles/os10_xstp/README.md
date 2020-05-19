@@ -9,7 +9,7 @@ Role variables
 
 - *os10_xstp*(dictionary) contains the hostname (dictionary)
 - Hostname is the value of the *hostname* variable that corresponds to the name of the OS device
-- Role is abstracted using the *ansible_network_os* variable that can take dellemc_networking.os10.os10 value
+- Role is abstracted using the *ansible_network_os* variable that can take dellemc.os10.os10 value
 - Any role variable with a corresponding state variable set to absent negates the configuration of that variable
 - Setting an empty value to any variable negates the corresponding configuration
 - Variables and values are case-sensitive
@@ -120,7 +120,7 @@ It writes a simple playbook that only references the *os10_xstp* role. By includ
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
-    ansible_network_os: dellemc_networking.os10.os10
+    ansible_network_os: dellemc.os10.os10
     build_dir: ../temp/temp_os10
 
 **Sample vars/main.yml**
@@ -189,7 +189,7 @@ It writes a simple playbook that only references the *os10_xstp* role. By includ
 
     - hosts: spine
       roles:
-         - dellemc_networking.os10.os10_xstp
+         - dellemc.os10.os10_xstp
  
 **Run**
 

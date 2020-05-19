@@ -4,4 +4,4 @@
   gather_facts: False
   connection: local
   roles:
-    - dellemc_networking.os10.os10_fabric_summary
+    - dellemc.os10.os10_fabric_summary

@@ -45,7 +45,7 @@ class Cliconf(CliconfBase):
     def get_device_info(self):
         device_info = {}
 
-        device_info['network_os'] = 'dellemc_networking.os10.os10'
+        device_info['network_os'] = 'dellemc.os10.os10'
         reply = self.get('show version')
         data = to_text(reply, errors='surrogate_or_strict').strip()
 

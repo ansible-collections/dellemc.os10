@@ -2,7 +2,7 @@
 - hosts: LeafAndSpineSwitch
   connection: network_cli
   collections:
-    - dellemc_networking.os10
+    - dellemc.os10
   tasks:
     - import_role:
         name: os10_template
