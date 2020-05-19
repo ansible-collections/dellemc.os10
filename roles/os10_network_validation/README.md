@@ -1,4 +1,4 @@
-dellemc_networking.os10.os10_network_validation
+dellemc.os10.os10_network_validation
 =========================
 
 This roles is used to verify network validation. It validates network features of a wiring connection, BGP neighbors, the MTU between neighbors, and VLT pairing with Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
@@ -69,15 +69,15 @@ The `os10_fabric_summary` role must be included to query system network summary 
 Example playbook
 ----------------
 
-This example uses the `dellemc_networking.os10.os10_network_validation` role to verify network validations. It creates a *hosts* file with the switch details and corresponding variables.
+This example uses the `dellemc.os10.os10_network_validation` role to verify network validations. It creates a *hosts* file with the switch details and corresponding variables.
 
 
 **Sample hosts file**
 
-        site1-spine1 ansible_host=10.11.180.21 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10
-        site1-spine2 ansible_host=10.11.180.22 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10
-        site2-spine1 ansible_host=10.11.180.23 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10
-        site2-spine2 ansible_host=10.11.180.24 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc_networking.os10.os10
+        site1-spine1 ansible_host=10.11.180.21 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc.os10.os10
+        site1-spine2 ansible_host=10.11.180.22 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc.os10.os10
+        site2-spine1 ansible_host=10.11.180.23 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc.os10.os10
+        site2-spine2 ansible_host=10.11.180.24 os10_cli_user=admin os10_cli_pass=admin ansible_network_os=dellemc.os10.os10
         [spine]
         site1-spine1
         site1-spine2
@@ -96,7 +96,7 @@ This example uses the `dellemc_networking.os10.os10_network_validation` role to 
 
     os10_cli_user: xxxx
     os10_cli_pass: xxxx
-    ansible_network_os: dellemc_networking.os10.os10
+    ansible_network_os: dellemc.os10.os10
 
 
 **Sample ``group_var/all``**
@@ -168,7 +168,7 @@ This example uses the `dellemc_networking.os10.os10_network_validation` role to 
           gather_facts: False
           connection: local
           collections:
-            - dellemc_networking.os10
+            - dellemc.os10
           tasks:
             - import_role:
                 name: os10_network_validation
@@ -182,7 +182,7 @@ This example uses the `dellemc_networking.os10.os10_network_validation` role to 
           gather_facts: False
           connection: local
           collections:
-            - dellemc_networking.os10
+            - dellemc.os10
           tasks:
             - import_role:
                 name: os10_network_validation
@@ -196,7 +196,7 @@ This example uses the `dellemc_networking.os10.os10_network_validation` role to 
           gather_facts: False
           connection: local
           collections:
-            - dellemc_networking.os10
+            - dellemc.os10
           tasks:
             - import_role:
                 name: os10_network_validation
@@ -210,7 +210,7 @@ This example uses the `dellemc_networking.os10.os10_network_validation` role to 
           gather_facts: False
           connection: local
           collections:
-            - dellemc_networking.os10
+            - dellemc.os10
           tasks:
             - import_role:
                 name: os10_network_validation

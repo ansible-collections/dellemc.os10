@@ -3,7 +3,7 @@
   gather_facts: no
   connection: network_cli
   collections:
-    - dellemc_networking.os10
+    - dellemc.os10
   roles:
     - os10_interface
     - os10_bgp

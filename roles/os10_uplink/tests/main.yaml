@@ -1,5 +1,5 @@
 ---
-# vars file for dellemc_networking.os10.os10_uplink,
+# vars file for dellemc.os10.os10_uplink,
 # below gives a sample configuration
 # Sample variables for OS10 device
 os10_uplink:

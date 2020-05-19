@@ -1,5 +1,5 @@
 ---
-# defaults file for dellemc_networking.os10.os10_aaa
+# defaults file for dellemc.os10.os10_aaa
 attribute_type:
     mandatory: mandatory
     on_for_login_auth: on-for-login-auth

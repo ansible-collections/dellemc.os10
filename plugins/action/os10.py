@@ -30,7 +30,7 @@ from ansible.module_utils._text import to_text
 from ansible.module_utils.connection import Connection
 from ansible.plugins.action.network import ActionModule as ActionNetworkModule
 from ansible.module_utils.network.common.utils import load_provider
-from ansible_collections.dellemc_networking.os10.plugins.module_utils.network.os10 import os10_provider_spec
+from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import os10_provider_spec
 from ansible.utils.display import Display
 
 display = Display()
@@ -53,7 +53,7 @@ class ActionModule(ActionNetworkModule):
             provider = load_provider(os10_provider_spec, self._task.args)
             pc = copy.deepcopy(self._play_context)
             pc.connection = 'network_cli'
-            pc.network_os = 'dellemc_networking.os10.os10'
+            pc.network_os = 'dellemc.os10.os10'
             pc.remote_addr = provider['host'] or self._play_context.remote_addr
             pc.port = int(provider['port'] or self._play_context.port or 22)
             pc.remote_user = provider['username'] or self._play_context.connection_user

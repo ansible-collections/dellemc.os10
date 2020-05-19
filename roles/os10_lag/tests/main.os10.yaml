@@ -1,5 +1,5 @@
 ---
-# vars file for dellemc_networking.os10.os10_lag
+# vars file for dellemc.os10.os10_lag
 # Sample variables for OS10 device
 os10_lag:
   Po 12:

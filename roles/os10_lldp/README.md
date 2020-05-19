@@ -8,7 +8,7 @@ The LLDP role requires an SSH connection for connectivity to a Dell EMC PowerSwi
 Role variables
 --------------
 
-- Role is abstracted using the *ansible_network_os* variable that can take dellemc_networking.os10.os10 value
+- Role is abstracted using the *ansible_network_os* variable that can take dellemc.os10.os10 value
 - If *os10_cfg_generate* is set to true, the variable generates the role configuration commands in a file
 - Any role variable with a corresponding state variable set to absent negates the configuration of that variable
 - Setting an empty value for any variable negates the corresponding configuration
@@ -91,7 +91,7 @@ This example uses the *os10_lldp* role to configure protocol lldp. It creates a 
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
-    ansible_network_os: dellemc_networking.os10.os10
+    ansible_network_os: dellemc.os10.os10
     build_dir: ../temp/temp_os10
     os10_lldp:
       enable: false
@@ -142,7 +142,7 @@ This example uses the *os10_lldp* role to configure protocol lldp. It creates a 
 
     - hosts: leaf1
       roles:
-         - dellemc_networking.os10.os10_lldp
+         - dellemc.os10.os10_lldp
 
 **Run**
 

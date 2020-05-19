@@ -54,7 +54,7 @@ This example uses the *os10_image_upgrade* role to upgrade/install software imag
     hostname: leaf1
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
-    ansible_network_os: dellemc_networking.os10.os10
+    ansible_network_os: dellemc.os10.os10
     os10_image_upgrade:
       operation_type: install
       software_image_url: tftp://10.16.148.8/PKGS_OS10-Enterprise-10.2.9999E.5790-installer-x86_64.bin
@@ -64,7 +64,7 @@ This example uses the *os10_image_upgrade* role to upgrade/install software imag
 
     - hosts: leaf1
       roles:
-         - dellemc_networking.os10.os10_image_upgrade
+         - dellemc.os10.os10_image_upgrade
                 
 **Run**
 

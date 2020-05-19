@@ -1,5 +1,5 @@
 ---
-# vars file for dellemc_networking.os10.os10_vrrp,
+# vars file for dellemc.os10.os10_vrrp,
 # below gives a example configuration
 # Sample variables for OS10 device
 os10_vrrp:

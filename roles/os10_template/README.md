@@ -43,14 +43,14 @@ For the os10_template role plugins to be used you may need to specify the actual
 
 **Sample hosts file**
 
-    leaf1 ansible_host= <ip_address> ansible_network_os=dellemc_networking.os10.os10 ansible_ssh_user=xxxxx ansible_ssh_pass=xxxxx
+    leaf1 ansible_host= <ip_address> ansible_network_os=dellemc.os10.os10 ansible_ssh_user=xxxxx ansible_ssh_pass=xxxxx
 
 
 **Simple playbook to setup system - leaf.yaml**
 
     - hosts: leaf1
       roles:
-         - dellemc_networking.os10.os10_template
+         - dellemc.os10.os10_template
 
 
 
@@ -61,7 +61,7 @@ For the os10_template role plugins to be used you may need to specify the actual
     - name: PARSE SHOW IP INTERFACE BRIEF
       hosts: leaf1
       collections:
-        - dellemc_networking.os10
+        - dellemc.os10
       tasks:
         - import_role:
             name: os10_template

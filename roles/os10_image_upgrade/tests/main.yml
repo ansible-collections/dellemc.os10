@@ -1,5 +1,5 @@
 ---
-# vars file for dellemc_networking.os10.os10_image_upgrade,
+# vars file for dellemc.os10.os10_image_upgrade,
 # below gives a example configuration
 
 os10_image_upgrade:

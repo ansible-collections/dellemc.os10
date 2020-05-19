@@ -83,7 +83,7 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
-    ansible_network_os: dellemc_networking.os10.os10
+    ansible_network_os: dellemc.os10.os10
     build_dir: ../temp/temp_os10
     os10_vrrp:
         vrrp:
@@ -133,7 +133,7 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
 
     - hosts: leaf1
       roles:
-         - dellemc_networking.os10.os10_vrrp
+         - dellemc.os10.os10_vrrp
                 
 **Run**
 

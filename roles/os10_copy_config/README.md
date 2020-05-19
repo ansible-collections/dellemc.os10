@@ -54,7 +54,7 @@ This example uses the *os10_copy_config* role to push the configuration file int
     ansible_become_pass: xxxxx
     ansible_ssh_user: xxxxx
     ansible_ssh_pass: xxxxx
-    ansible_network_os: dellemc_networking.os10.os10
+    ansible_network_os: dellemc.os10.os10
 
     # This variable shall be applied in the below jinja template for each host by defining here
     os10_bgp
@@ -126,7 +126,7 @@ This example uses the *os10_copy_config* role to push the configuration file int
 
     - hosts: leaf1
       roles:
-         - dellemc_networking.os10.os10_copy_config
+         - dellemc.os10.os10_copy_config
 
 **Run**
 

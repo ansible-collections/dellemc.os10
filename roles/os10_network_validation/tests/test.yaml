@@ -5,7 +5,7 @@
   gather_facts: False
   connection: local
   roles:
-     - dellemc_networking.os10.os10_network_validation
+     - dellemc.os10.os10_network_validation
 
 # Sample playbook to validate wiring validation
 ---
@@ -14,7 +14,7 @@
   gather_facts: False
   connection: local
   collections:
-    - dellemc_networking.os10
+    - dellemc.os10
   tasks:
     - import_role:
         name: os10_network_validation
@@ -27,7 +27,7 @@
   gather_facts: False
   connection: local
   collections:
-    - dellemc_networking.os10
+    - dellemc.os10
   tasks:
     - import_role:
         name: os10_network_validation
@@ -40,7 +40,7 @@
   gather_facts: False
   connection: local
   collections:
-    - dellemc_networking.os10
+    - dellemc.os10
   tasks:
     - import_role:
         name: os10_network_validation
@@ -53,7 +53,7 @@
   gather_facts: False
   connection: local
   collections:
-    - dellemc_networking.os10
+    - dellemc.os10
   tasks:
     - import_role:
         name: os10_network_validation

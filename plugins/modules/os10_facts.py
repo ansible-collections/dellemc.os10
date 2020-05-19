@@ -25,7 +25,7 @@ description:
     base network fact keys with C(ansible_net_<fact>).  The facts
     module will always collect a base set of facts from the device
     and can enable or disable collection of additional facts.
-extends_documentation_fragment: dellemc_networking.os10.os10
+extends_documentation_fragment: dellemc.os10.os10
 options:
   gather_subset:
     description:
@@ -128,8 +128,8 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
-from ansible_collections.dellemc_networking.os10.plugins.module_utils.network.os10 import run_commands
-from ansible_collections.dellemc_networking.os10.plugins.module_utils.network.os10 import os10_argument_spec, check_args
+from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import run_commands
+from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import os10_argument_spec, check_args
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.six import iteritems
 
