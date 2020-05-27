@@ -131,8 +131,8 @@ import time
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import run_commands
 from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import os10_argument_spec, check_args
-from ansible.module_utils.network.common.utils import ComplexList
-from ansible.module_utils.network.common.parsing import Conditional
+from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.utils import ComplexList
+from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.parsing import Conditional
 from ansible.module_utils.six import string_types
 
 def to_lines(stdout):

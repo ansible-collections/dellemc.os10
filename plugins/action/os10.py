@@ -28,8 +28,8 @@ import copy
 from ansible import constants as C
 from ansible.module_utils._text import to_text
 from ansible.module_utils.connection import Connection
-from ansible.plugins.action.network import ActionModule as ActionNetworkModule
-from ansible.module_utils.network.common.utils import load_provider
+from ansible_collections.ansible.netcommon.plugins.action.network import ActionModule as ActionNetworkModule
+from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.utils import load_provider
 from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import os10_provider_spec
 from ansible.utils.display import Display
 
