@@ -29,12 +29,27 @@ os10_system:
         tcp_udp_selection:
           - field: l4-source-port
             state: present
-
+    max_ra: 15
+    min_ra: 10
 
 ###############################################}
 {% if os10_system is defined and os10_system %}
 {% if os10_system.hostname is defined and os10_system.hostname %}
 hostname {{ os10_system.hostname }}
+{% endif %}
+{% if os10_system.max_ra is defined %}
+   {% if os10_system.max_ra %}
+ipv6 nd max-ra-interval {{ os10_system.max_ra }}
+   {% else %}
+no ipv6 nd max-ra-interval
+   {% endif %}
+{% endif %}
+{% if os10_system.min_ra is defined %}
+   {% if os10_system.min_ra %}
+ipv6 nd min-ra-interval {{ os10_system.min_ra }}
+   {% else %}
+no ipv6 nd min-ra-interval
+   {% endif %}
 {% endif %}
 {% for key,value in os10_system.items() %}
   {% if key == "hardware_forwarding" %}

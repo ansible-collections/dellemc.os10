@@ -48,6 +48,9 @@ Role variables
 | ``flowcontrol.mode`` | string:   receive,transmit  | Configures the flowcontrol mode   | os10 |
 | ``flowcontrol.enable`` | string:   on,off  | Configures the flowcontrol mode on  | os10 |
 | ``flowcontrol.state`` | string: absent,present\* | Deletes the flowcontrol if set to absent   | os10 |
+| ``ipv6_bgp_unnum`` | dictionary | Configures the ipv6 bgp unnum attributes (see ``ipv6_bgp_unnum.*``) below | os10 |
+| ``ipv6_bgp_unnum.state`` | string: absent,present\* | Disable auto discovery of BGP unnumbered peer if set to absent | os10 |
+| ``ipv6_bgp_unnum.peergroup_type`` | string: ebgp,ibgp | Specify the type of template to inherit from | os10 |
 
 > **NOTE**: Asterisk (*) denotes the default value if none is specified.
 
@@ -147,6 +150,13 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
                 admin: up
         range ethernet 1/1/1-1/1/32:
                 mtu: 2500
+        port-channel 10:
+                admin: up
+                switchport: False
+                suppress_ra:
+                ipv6_bgp_unnum:
+                    state: present
+                    peergroup_type: ebgp
 
 **Simple playbook to setup system - leaf.yaml**
 

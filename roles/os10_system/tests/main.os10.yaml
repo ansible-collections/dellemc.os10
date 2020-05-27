@@ -27,3 +27,5 @@ os10_system:
         tcp_udp_selection:
           - field: l4-source-port
             state: present
+    max_ra: 15
+    min_ra: 10

@@ -68,8 +68,13 @@ Role variables
 | ``neighbor.interface`` | string      | Configures the BGP neighbor interface details | os10  |
 | ``neighbor.name`` | string (required)         | Configures the BGP peer-group with this name; supported only when the neighbor is a peer group; mutually exclusive with *neighbor.ip* | os10 |
 | ``neighbor.type`` | string (required): ipv4,ipv6,peergroup       | Specifies the BGP neighbor type   | os10 |
+| ``neighbor.auto_peer`` |string:  unnumbered-auto | Enable AUTO discovery of neighbors | os10 |
 | ``neighbor.password`` | string      | Configures the BGP neighbor password  | os10  |
 | ``neighbor.peergroup_type`` | string (ibgp, ebgp)   | Configures the BGP neighbor peer group type| os10  |
+| ``neighbor.ebgp_peergroup`` | string | Configures the peer-group to all auto-discovered external neighbors | os10 |
+| ``neighbor.ebgp_peergroup_state`` | string: present,absent | Removes the peer group from all auto-discoverd external neighbors | os10 |
+| ``neighbor.ibgp_peergroup`` | string | Configures the peer-group to all auto-discovered internal neighbors | os10 |
+| ``neighbor.ibgp_peergroup_state`` | string: present,absent | Removes the peer group from all auto-discoverd internal neighbors | os10 |
 | ``neighbor.route_reflector_client`` | boolean      | Configures router reflector client on the BGP neighbor. | os10  |
 | ``neighbor.local_as`` | integer     | Configures the local AS for the BGP peer | os10  |
 | ``neighbor.weight`` | integer     | Configures the default weight for routes from the neighbor interface | os10  |
@@ -217,6 +222,14 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
           - address: "2001:4898:5808:ffa0::/126"
             state: present
         neighbor:
+          - name: ebgp_pg
+            type: peergroup
+            bfd: yes
+            state: present
+          - name: ibgp_pg
+            type: peergroup
+            weight: 10
+            state: present
           - type: ipv4
             interface: vlan20
             send_community:
@@ -269,6 +282,32 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
           - type: ipv6
             remote_asn: 14
             ip: 2001:4898:5808:ffa2::1
+            state: present
+          - type: ipv6
+            description: "U_site2-spine1-Auto Discovered peers"
+            auto_peer: unnumbered-auto
+            ebgp_peergroup: ebgp_pg
+            ebgp_peergroup_state: absent
+            ibgp_peergroup: ibgp_pg
+            ibgp_peergroup_state: present
+            sender_loop_detect: true
+            password: bgppassword
+            address_family:
+              - type: ipv4
+                activate: true
+                sender_loop_detect: true
+                state: present
+                allow_as_in: 5
+                next_hop_self: true
+                soft_reconf: true
+              - type: l2vpn
+                activate: true
+                sender_loop_detect: false
+                state: present
+            send_community:
+              - type: standard
+                state: present
+            admin: up
             state: present
         redistribute:
           - route_type: static

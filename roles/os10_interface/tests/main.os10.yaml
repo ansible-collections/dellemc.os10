@@ -54,3 +54,10 @@ os10_interface:
             mtu: 2500
             admin: up
             switchport: False
+    port-channel 10:
+        admin: up
+        switchport: False
+        suppress_ra:
+        ipv6_bgp_unnum:
+            state: present
+            peergroup_type: ebgp
