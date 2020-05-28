@@ -204,7 +204,7 @@ from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import g
 from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import os10_argument_spec, check_args
 from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import load_config, run_commands
 from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import WARNING_PROMPTS_RE
-from ansible.module_utils.network.common.config import NetworkConfig, dumps
+from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.config import NetworkConfig, dumps
 
 
 
