@@ -33,7 +33,13 @@ os10_interface:
             ip_and_mask: "15.1.1.1/24"
             virtual_gateway_ip: "15.1.1.254"
             admin: up
-
+    port-channel 10:
+        admin: up
+        switchport: False
+        suppress_ra:
+        ipv6_bgp_unnum:
+            state: present
+            peergroup_type: ebgp
 
 #####################################################}
 {% if os10_interface is defined and os10_interface %}
@@ -210,6 +216,15 @@ interface {{ interface_key }}
  no shutdown
     {% elif intf_vars.admin == "down" %}
  shutdown
+    {% endif %}
+  {% endif %}
+  {% if intf_vars.ipv6_bgp_unnum is defined and intf_vars.ipv6_bgp_unnum %}
+    {% if intf_vars.ipv6_bgp_unnum.state == "absent" %}
+ no ipv6 bgp unnumbered
+    {% elif intf_vars.ipv6_bgp_unnum.state == "present" and intf_vars.ipv6_bgp_unnum.peergroup_type == "ebgp" %}
+ ipv6 bgp unnumbered ebgp-template
+    {% elif intf_vars.ipv6_bgp_unnum.state == "present" and intf_vars.ipv6_bgp_unnum.peergroup_type == "ibgp" %}
+ ipv6 bgp unnumbered ibgp-template
     {% endif %}
   {% endif %}
   {% endif %}

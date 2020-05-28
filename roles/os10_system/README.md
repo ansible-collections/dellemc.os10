@@ -39,6 +39,8 @@ Role variables
 | ``load_balance.tcp_udp_selection`` | list    | Configures TCP UDP ports for load balancing configurations (see ``tcp_udp_selection.*``) | os10 |
 | ``tcp_udp_selection.field`` | string | Configures TCP UDP port fields to use in hashing algorithm | os10 |
 | ``tcp_udp_selection.state`` | string: absent,present\* | Deletes the TCP UDP ports if set to absent | os10 |
+| ``min_ra`` | string | Configure global RA minimum interval value, applicable to all interfaces across VRFs | os10 |
+| ``max_ra`` | string | Configure global RA maximum interval value, applicable to all interfaces across VRFs | os10 |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified. 
 
@@ -112,7 +114,9 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
             tcp_udp_selection:
               - field: l4-source-port
                 state: present
- 
+        max_ra: 15
+        min_ra: 10
+
 **Simple playbook to setup system - leaf.yaml**
 
     - hosts: leaf1
