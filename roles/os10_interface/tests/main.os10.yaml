@@ -61,3 +61,8 @@ os10_interface:
         ipv6_bgp_unnum:
             state: present
             peergroup_type: ebgp
+    vlan 10:
+            ip_and_mask: "10.1.1.1/24"
+            virtual_gateway_ip: "10.1.1.254"
+            virtual_gateway_ipv6: "10:1:1::254"
+            admin: up

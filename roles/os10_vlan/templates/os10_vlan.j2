@@ -23,6 +23,12 @@ os10_vlan:
         - port: port-channel 1
           state: "present"
       state: "present"
+  vlan 10:
+      description: "vlan with anycast GW"
+      ip_and_mask: "10.1.1.1/24"
+      virtual_gateway_ip: "10.1.1.254"
+      virtual_gateway_ipv6: "10:1:1::254"
+      state: "present"
 
 #########################################}
 {% if os10_vlan is defined and os10_vlan %}
@@ -79,6 +85,29 @@ interface {{ ports.port }}
      {% endfor %}
    {% endif %}
 
+   {% if vlan_vars.ip_and_mask is defined %}
+     {% if vlan_vars.ip_and_mask %}
+ ip address {{ vlan_vars.ip_and_mask }}
+     {% else %}
+ no ip address
+     {% endif %}
+   {% endif %}
+
+   {% if vlan_vars.virtual_gateway_ip is defined %}
+     {% if vlan_vars.virtual_gateway_ip %}
+ ip virtual-router address {{ vlan_vars.virtual_gateway_ip }}
+     {% else %}
+ no ip virtual-router address
+     {% endif %}
+   {% endif %}
+
+   {% if vlan_vars.virtual_gateway_ipv6 is defined %}
+     {% if vlan_vars.virtual_gateway_ipv6 %}
+ ipv6 virtual-router address {{ vlan_vars.virtual_gateway_ipv6 }}
+     {% else %}
+ no ipv6 virtual-router address
+     {% endif %}
+   {% endif %}
 
   {% endif %}
   {% endif %}

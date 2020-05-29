@@ -23,3 +23,9 @@ os10_vlan:
         - port: port-channel 1
           state: "present"
       state: "present"
+    vlan 10:
+      description: "vlan with anycast GW"
+      ip_and_mask: "10.1.1.1/24"
+      virtual_gateway_ip: "10.1.1.254"
+      virtual_gateway_ipv6: "10:1:1::254"
+      state: "present"
