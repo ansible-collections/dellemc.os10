@@ -38,8 +38,9 @@ Role variables
 | ``min_ra`` | string | Configures RA minimum interval time period | os10 |
 | ``max_ra`` | string | Configures RA maximum interval time period | os10 |
 | ``ip_and_mask`` | string | Configures the specified IP address to the interface on OS10 devices | os10 |
-| ``virtual_gateway_ip``     | string     | Configures an anycast gateway IP address for a VXLAN virtual network | os10  |
 | ``ipv6_and_mask`` | string | Configures a specified IPv6 address to the interface on OS10 devices | os10 |
+| ``virtual_gateway_ip``     | string     | Configures an anycast gateway IP address for a VXLAN virtual network as well as VLAN i    nterfaces| os10  |
+| ``virtual_gateway_ipv6``     | string     | Configures an anycast gateway IPv6 address for VLAN interfaces| os10  |
 | ``state_ipv6`` | string: absent,present\* | Deletes the IPV6 address if set to absent           | os10 | 
 | ``ip_helper`` | list | Configures DHCP server address objects (see ``ip_helper.*``) | os10 |
 | ``ip_helper.ip`` | string (required)         | Configures the IPv4 address of the DHCP server (A.B.C.D format)  | os10 |
@@ -157,6 +158,11 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
                 ipv6_bgp_unnum:
                     state: present
                     peergroup_type: ebgp
+        vlan 10:
+                ip_and_mask: "10.1.1.1/24"
+                virtual_gateway_ip: "10.1.1.254"
+                virtual_gateway_ipv6: "10:1:1::254"
+                admin: up
 
 **Simple playbook to setup system - leaf.yaml**
 

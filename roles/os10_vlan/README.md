@@ -34,6 +34,9 @@ Role variables
 | ``untagged_members.port`` | string | Specifies valid device interface names to be untagged for each VLAN | os10 |
 | ``untagged_members.state`` | string: absent,present | Deletes the untagged association for the VLAN if set to absent | os10 |
 | ``state``           | string: absent,present\*          | Deletes the VLAN corresponding to the ID if set to absent | os10 |
+| ``virtual_gateway_ip``     | string     | Configures an anycast gateway IPv4 address for VLAN interfaces| os10  |
+| ``virtual_gateway_ipv6``     | string     | Configures an anycast gateway IPv6 address for VLAN interfaces| os10  |
+| ``ip_and_mask`` | string | Configures the specified IP address to the interface on OS10 devices | os10 |
                                                                                                       
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
@@ -101,6 +104,12 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
           untagged_members:
             - port: port-channel 1
               state: "present"
+          state: "present"
+        vlan 10:
+          description: "vlan with anycast GW"
+          ip_and_mask: "10.1.1.1/24"
+          virtual_gateway_ip: "10.1.1.254"
+          virtual_gateway_ipv6: "10:1:1::254"
           state: "present"
 
 > **NOTE**: Interfaces should be created, which can be done using os10_interface role
