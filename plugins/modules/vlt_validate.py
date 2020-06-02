@@ -1,19 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import (absolute_import, division, print_function)
+
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
+from __future__ import (absolute_import, division, print_function)
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils._text import to_native
 from collections import OrderedDict
 import traceback
+__metaclass__ = type
 
 DOCUMENTATION = '''
 module: vlt_validate
 short_description: Validate the vlt info, raise an error if peer is not in up state
 description:
 
-Troubleshoot the show vlt info and raise an error if peer is not up.
+  - Troubleshoot the show vlt info and raise an error if peer is not up.
 
 options:
     show_vlt:
@@ -50,7 +54,8 @@ tasks:
    with_items: "{{ groups['all'] }}"
    register: show_run_vlt
  - set_fact:
-      output_vlt:  "{{ output_vlt|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_vlt': item.stdout.0}] }}"
+      output_vlt:  "{{ output_vlt|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item,
+                                                 'stdout_show_vlt': item.stdout.0}] }}"
    loop: "{{ show_run_vlt.results }}"
  - debug: var=output_vlt
  - name: "Get Dell EMC OS10 Show vlt info"

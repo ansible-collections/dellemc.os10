@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
+from __future__ import (absolute_import, division, print_function)
+
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
 from ansible.module_utils.basic import AnsibleModule
@@ -8,13 +11,14 @@ from ansible.module_utils._text import to_native
 from collections import OrderedDict
 import re
 import traceback
+__metaclass__ = type
 
 DOCUMENTATION = '''
 module: mtu_validate
 short_description: Validate the MTU value for lldp neighbors
 description:
 
-Get the wiring info using lldp output and show system network summary.
+  - Get the wiring info using lldp output and show system network summary.
 
 options:
     show_lldp_neighbors_list:
@@ -51,7 +55,8 @@ tasks:
    with_items: "{{ groups['all'] }}"
    register: show_lldp
  - set_fact:
-      output:  "{{ output|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_lldp': item.stdout.0, 'stdout_show_ip': item.stdout.1 }] }}"
+      output:  "{{ output|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item,
+                                         'stdout_show_lldp': item.stdout.0, 'stdout_show_ip': item.stdout.1 }] }}"
    loop: "{{ show_lldp.results }}"
  - debug: var=output
  - local_action: copy content={{ output }} dest=show1

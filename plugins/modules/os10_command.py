@@ -135,6 +135,7 @@ from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.u
 from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.parsing import Conditional
 from ansible.module_utils.six import string_types
 
+
 def to_lines(stdout):
     for item in stdout:
         if isinstance(item, string_types):

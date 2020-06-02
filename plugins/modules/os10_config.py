@@ -207,7 +207,6 @@ from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import W
 from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.config import NetworkConfig, dumps
 
 
-
 def get_candidate(module):
     candidate = NetworkConfig(indent=1)
     if module.params['src']:

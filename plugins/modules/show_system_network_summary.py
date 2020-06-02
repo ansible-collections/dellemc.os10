@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved. Dell, EMC, and other trademarks are trademarks of Dell Inc. or its subsidiaries. Other trademarks may be trademarks of their respective owners."
+from __future__ import (absolute_import, division, print_function)
+
+__copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
 import re
 from ansible_collections.dellemc.os10.plugins.module_utils.network.base_network_show import BaseNetworkShow as BaseNetworkShow
+__metaclass__ = type
 
 DOCUMENTATION = '''
 module: show_system_network_summary_ansible_module
 short_description: Operations for show_system_network output in json/yaml format.
 description:
 
-Get the show system inforamtion of a Leaf-Spine.
+  - Get the show system inforamtion of a Leaf-Spine.
 
 options:
     output_type:

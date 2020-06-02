@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import (absolute_import, division, print_function)
+
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
 from ansible.module_utils.basic import AnsibleModule
@@ -8,13 +10,14 @@ from ansible.module_utils._text import to_native
 from collections import OrderedDict
 import re
 import traceback
+__metaclass__ = type
 
 DOCUMENTATION = '''
 module: wiring_validate
 short_description: Validate the wiring based on the planned wiring details
 description:
 
-Get the wiring info using lldp output and show system network summary.
+  - Get the wiring info using lldp output and show system network summary.
 
 options:
     show_lldp_neighbors_list:
@@ -51,7 +54,8 @@ tasks:
   register: show_lldp
 - local_action: copy content={{ show_lldp }} dest=show
 - set_fact:
-     output_lldp:  "{{ output_lldp|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_lldp': item.stdout}] }}"
+     output_lldp:  "{{ output_lldp|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item,
+                                                  'stdout_show_lldp': item.stdout}] }}"
   loop: "{{ show_lldp.results }}"
 - debug: var=output_lldp
 - name: "Get Dell EMC OS10 Show system"

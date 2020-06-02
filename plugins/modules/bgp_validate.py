@@ -1,19 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import (absolute_import, division, print_function)
+
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils._text import to_native
 from collections import OrderedDict
 import traceback
+__metaclass__ = type
 
 DOCUMENTATION = '''
 module: bgp_validate
 short_description: Validate the bgp neighbor state,raise error if it is not in established state
 description:
 
-Troubleshoot the bgp neighor state info using show ip bgp summary and show ip interface brief.
+  - Troubleshoot the bgp neighor state info using show ip bgp summary and show ip interface brief.
 
 options:
     show_ip_bgp:
@@ -50,7 +53,8 @@ tasks:
     with_items: "{{ groups['all'] }}"
     register: show_bgp
   - set_fact:
-       output_bgp:  "{{ output_bgp|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_bgp': item.stdout.0, 'stdout_show_ip': item.stdout.1}] }}"
+       output_bgp:  "{{ output_bgp|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item,
+                                                  'stdout_show_bgp': item.stdout.0, 'stdout_show_ip': item.stdout.1}] }}"
     loop: "{{ show_bgp.results }}"
   - debug: var=output_bgp
   - local_action: copy content={{ output_bgp }} dest=show
