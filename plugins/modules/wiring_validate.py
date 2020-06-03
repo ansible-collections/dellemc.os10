@@ -189,7 +189,7 @@ class WiringValidation(object):
                                         != "unknown"):
                                     reason = (
                                         "Destination switch is not an expected value, "
-                                        "expected switch: {},port: {}; actual switch: {}(svc-tag:{}, node_mac:{}), port: {}" .format(
+                                        "expected switch: {0},port: {1}; actual switch: 2{}(svc-tag:{3}, node_mac:{4}), port: {5}" .format(
                                             planned_neighbors["dest_switch"],
                                             planned_neighbors["dest_port"],
                                             actual_neighbors["dest_switch"],
@@ -201,7 +201,7 @@ class WiringValidation(object):
                                 else:
                                     reason = (
                                         "Destination switch is not an expected value, "
-                                        "expected switch: {},port: {}; actual switch: {}, port: {}" .format(
+                                        "expected switch: {0},port: {1}; actual switch: {2}, port: {3}" .format(
                                             planned_neighbors["dest_switch"],
                                             planned_neighbors["dest_port"],
                                             actual_neighbors["dest_switch"],
@@ -213,14 +213,14 @@ class WiringValidation(object):
                                 bflag = True
                                 reason = (
                                     "Destination switch port is not an expected value, "
-                                    "expected port: {} actual port: {}" .format(
+                                    "expected port: {0} actual port: {1}" .format(
                                         planned_neighbors["dest_port"],
                                         actual_neighbors["dest_port"]))
                                 planned_neighbors["reason"] = reason
                                 planned_neighbors["error_type"] = "link-mismatch"
                                 break
                     if not bflag:
-                        reason = "link is not found for source switch: {},port: {}".format(
+                        reason = "link is not found for source switch: {0},port: {1}".format(
                             planned_neighbors["source_switch"], planned_neighbors["source_port"])
                         planned_neighbors["reason"] = reason
                         planned_neighbors["error_type"] = "link-missing"

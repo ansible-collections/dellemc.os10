@@ -6,7 +6,7 @@ from __future__ import (absolute_import, division, print_function)
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
 import re
-from ansible_collections.dellemc.os10.plugins.module_utils.network.base_network_show import BaseNetworkShow as BaseNetworkShow
+from ansible_collections.dellemc.os10.plugins.module_utils.network.base_network_show import BaseNetworkShow
 __metaclass__ = type
 
 DOCUMENTATION = '''
@@ -45,7 +45,7 @@ tasks:
     provider: "{{ hostvars[item].cli }}"
   with_items: "{{ groups['all'] }}"
   register: show_system
-- set_fact: 
+- set_fact:
      output:  "{{ output|default([])+ [{'inv_name': item.item, 'host': item.invocation.module_args.provider.host, 'stdout_show_system': item.stdout}] }}"
   loop: "{{ show_system.results }}"
 - debug: var=output

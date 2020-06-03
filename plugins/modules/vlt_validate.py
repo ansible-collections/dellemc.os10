@@ -5,7 +5,6 @@ from __future__ import (absolute_import, division, print_function)
 
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
-from __future__ import (absolute_import, division, print_function)
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils._text import to_native
 from collections import OrderedDict
@@ -139,7 +138,7 @@ class VltValidation(object):
                     temp_dict["intended_primary"] = intended_primary
                     temp_dict["intended_secondary"] = intended_secondary
                     temp_dict["secondary"] = actual_secondary
-                    reason = "config mismatch as {} is expected, but the actual secondary is {} " .format(
+                    reason = "config mismatch as {0} is expected, but the actual secondary is {1} " .format(
                         intended_secondary, actual_secondary)
                     temp_dict["possible_reason"] = reason
                     final_out.append(temp_dict)
