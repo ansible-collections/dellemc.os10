@@ -10,6 +10,7 @@ LIB_IMP_ERR = None
 ERR_MSG = None
 try:
     import xmltodict
+    import yaml
     HAS_LIB = True
 except Exception as e:
     HAS_LIB = False
@@ -35,10 +36,7 @@ class BaseNetworkShow(object):
 
         return xmltodict.parse(value)
 
-    # import yaml should be added on top to align with standard when yaml
-    # format is supported
     def dict_to_yaml(self, value):
-        import yaml
         return yaml.safe_dump(value, default_flow_style=False)
 
 

@@ -200,9 +200,8 @@ class BgpValidation(object):
             intf_info = value.get(neighbor_ip)
             if intf_info is None:
                 continue
-            else:
-                final_intf_info = intf_info
-                break
+            final_intf_info = intf_info
+            break
         return final_intf_info
 
     def get_bgp_final_nbr_list(self, bgp_dict, intf_dict):
@@ -230,7 +229,7 @@ class BgpValidation(object):
                     if bgp_state != "established":
                         if oper_status != "up":
                             reason = (
-                                "remote port {} {} is {}" .format(
+                                "remote port {0} {1} is {2}" .format(
                                     dest_switch, remote_port, oper_status))
                             error_type = "remote_port_down"
                         final_dict["error_type"] = error_type
@@ -261,7 +260,7 @@ class BgpValidation(object):
                         intended_list.append(actual_nbr)
                     planned_nbr_list.remove(actual_bgp_neighbor)
                 else:
-                    reason = "neighbor {} is not an intended, please add this neighbor in the intended_bgp_neighbors".format(
+                    reason = "neighbor {0} is not an intended, please add this neighbor in the intended_bgp_neighbors".format(
                         actual_bgp_neighbor)
                     actual_nbr["bgp_neighbor"] = "-"
                     actual_nbr["error_type"] = "not_an_intended_neighbor"
