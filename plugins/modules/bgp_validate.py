@@ -1,18 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import (absolute_import, division, print_function)
 
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
-from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils._text import to_native
-from collections import OrderedDict
-import traceback
 __metaclass__ = type
 
 DOCUMENTATION = '''
 module: bgp_validate
+author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Validate the bgp neighbor state,raise error if it is not in established state
 description:
 
@@ -33,13 +31,11 @@ options:
             - planned neighbours input from group_var to compare actual
         type: 'list',
         required: True
-       required: True
 '''
 EXAMPLES = '''
-Copy below YAML into a playbook (e.g. play.yml) and run as follows:
+Copy below YAML into a playbook (e.g. play.yml) and run it:
 
-$ ansible-playbook -i inv play.yml
-name: show system Configuration
+name: Validate BGP configuration
 hosts: localhost
 connection: local
 gather_facts: False
@@ -76,6 +72,11 @@ tasks:
       show_ip_intf_brief: "{{ show_ip_intf_list.results  }}"
       bgp_neighbors: "{{ intended_bgp_neighbors }}"
 '''
+
+from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils._text import to_native
+from collections import OrderedDict
+import traceback
 
 
 class BgpValidation(object):

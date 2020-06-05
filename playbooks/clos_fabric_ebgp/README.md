@@ -1,4 +1,4 @@
-﻿
+
 
 
 # Provision CLOS fabric using the Ansible collection for Dell EMC SmartFabric OS10

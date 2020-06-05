@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 from __future__ import (absolute_import, division, print_function)
@@ -13,6 +13,7 @@ __metaclass__ = type
 
 DOCUMENTATION = '''
 module: vlt_validate
+author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Validate the vlt info, raise an error if peer is not in up state
 description:
 

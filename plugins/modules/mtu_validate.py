@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 
@@ -15,6 +15,7 @@ __metaclass__ = type
 
 DOCUMENTATION = '''
 module: mtu_validate
+author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Validate the MTU value for lldp neighbors
 description:
 

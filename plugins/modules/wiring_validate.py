@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 from __future__ import (absolute_import, division, print_function)
@@ -14,6 +14,7 @@ __metaclass__ = type
 
 DOCUMENTATION = '''
 module: wiring_validate
+author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Validate the wiring based on the planned wiring details
 description:
 
@@ -189,7 +190,7 @@ class WiringValidation(object):
                                         != "unknown"):
                                     reason = (
                                         "Destination switch is not an expected value, "
-                                        "expected switch: {0},port: {1}; actual switch: 2{}(svc-tag:{3}, node_mac:{4}), port: {5}" .format(
+                                        "expected switch: {0},port: {1}; actual switch: {2}(svc-tag:{3}, node_mac:{4}), port: {5}" .format(
                                             planned_neighbors["dest_switch"],
                                             planned_neighbors["dest_port"],
                                             actual_neighbors["dest_switch"],
@@ -209,7 +210,7 @@ class WiringValidation(object):
                                 planned_neighbors["reason"] = reason
                                 planned_neighbors["error_type"] = "link-mismatch"
                                 break
-                            elif(actual_neighbors["dest_port"] != planned_neighbors["dest_port"]):
+                            if(actual_neighbors["dest_port"] != planned_neighbors["dest_port"]):
                                 bflag = True
                                 reason = (
                                     "Destination switch port is not an expected value, "

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 from __future__ import (absolute_import, division, print_function)
@@ -11,6 +11,7 @@ __metaclass__ = type
 
 DOCUMENTATION = '''
 module: show_system_network_summary_ansible_module
+author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Operations for show_system_network output in json/yaml format.
 description:
 
