@@ -1,14 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import (absolute_import, division, print_function)
 
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
-from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils._text import to_native
-from collections import OrderedDict
-import traceback
 __metaclass__ = type
 
 DOCUMENTATION = '''
@@ -23,24 +20,24 @@ options:
     show_vlt:
         description:
             - show vlt output
-        type: 'list',
+        type: 'list'
         required: True
     show_system_network_summary:
          description:
             - show system summary output
-         type: 'list',
+         type: 'list'
          required: True
     intended_vlt_pairs:
          description:
             - intended vlt pair intput to verify with actual
-         type: 'list',
-         required': True
+         type: 'list'
+         required: True
 
 '''
 EXAMPLES = '''
 Copy below YAML into a playbook (e.g. play.yml) and run as follows:
 
-$ ansible-playbook -i inv play.yml
+#$ ansible-playbook -i inv play.yml
 name: show system Configuration
 hosts: localhost
 connection: local
@@ -87,6 +84,11 @@ tasks:
    register: show_vlt_info
 
 '''
+
+from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils._text import to_native
+from collections import OrderedDict
+import traceback
 
 
 class VltValidation(object):

@@ -93,4 +93,3 @@ os10_vlan:
         state: "present"
         access_vlan: "false"
     state: "present"
-

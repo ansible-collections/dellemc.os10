@@ -1,16 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import (absolute_import, division, print_function)
 
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
-import re
-from ansible_collections.dellemc.os10.plugins.module_utils.network.base_network_show import BaseNetworkShow
 __metaclass__ = type
 
 DOCUMENTATION = '''
-module: show_system_network_summary_ansible_module
+module: show_system_network_summary
 author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Operations for show_system_network output in json/yaml format.
 description:
@@ -19,18 +18,21 @@ description:
 
 options:
     output_type:
+        type: str
         description:
             - json or yaml
             - Default value is json
+        default: json
         required: False
-    cli_response:
+    cli_responses:
+        type: list
         description:
             - show system command xml output
 '''
 EXAMPLES = '''
 Copy below YAML into a playbook (e.g. play.yml) and run as follows:
 
-$ ansible-playbook -i inv show.yml
+#$ ansible-playbook -i inv show.yml
 name: show system Configuration
 hosts: localhost
 connection: local
@@ -57,6 +59,9 @@ tasks:
   register: show_system_network_summary
 - debug: var=show_system_network_summary
 '''
+
+import re
+from ansible_collections.dellemc.os10.plugins.module_utils.network.base_network_show import BaseNetworkShow
 
 
 class ShowSystemNetworkSummary(BaseNetworkShow):

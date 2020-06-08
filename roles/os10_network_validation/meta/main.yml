@@ -18,4 +18,4 @@ galaxy_info:
     - os10
 
   dependencies:
-    - role: os10_fabric_summary
+    - role: os10_fabric_summary

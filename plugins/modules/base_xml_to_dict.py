@@ -25,8 +25,9 @@ options:
         required: True
 '''
 EXAMPLES = '''
-Copy below YAML into a playbook (e.g. play.yml) and run it:
+Copy below YAML into a playbook (e.g. play.yml) and run as follows:
 
+#$ ansible-playbook -i inv play.yml
 name: setup the plabook to get show command output in dict format
 hosts: localhost
 connection: local

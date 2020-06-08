@@ -34,6 +34,7 @@ options:
         in the device running-config. Be sure to note the configuration
         command syntax as some commands are automatically modified by the
         device config parser. This argument is mutually exclusive with I(src).
+    type: list
     aliases: ['commands']
   parents:
     description:
@@ -41,6 +42,7 @@ options:
         the commands should be checked against.  If the parents argument
         is omitted, the commands are checked against the set of top
         level or global commands.
+    type: list
   src:
     description:
       - Specifies the source path to the file that contains the configuration
@@ -48,6 +50,7 @@ options:
         either be the full path on the Ansible control host or a relative
         path from the playbook or role root directory. This argument is
         mutually exclusive with I(lines).
+    type: path
   before:
     description:
       - The ordered set of commands to push on to the command stack if
@@ -55,12 +58,14 @@ options:
         the opportunity to perform configuration commands prior to pushing
         any changes without affecting how the set of commands are matched
         against the system.
+    type: list
   after:
     description:
       - The ordered set of commands to append to the end of the command
         stack if a change needs to be made.  Just like with I(before) this
         allows the playbook designer to append a set of commands to be
         executed after the command set.
+    type: list
   match:
     description:
       - Instructs the module on the way to perform the matching of
@@ -71,6 +76,7 @@ options:
         must be an equal match.  Finally, if match is set to I(none), the
         module will not attempt to compare the source configuration with
         the running configuration on the remote device.
+    type: str
     default: line
     choices: ['line', 'strict', 'exact', 'none']
   replace:
@@ -81,6 +87,7 @@ options:
         mode.  If the replace argument is set to I(block) then the entire
         command block is pushed to the device in configuration mode if any
         line is not correct.
+    type: str
     default: line
     choices: ['line', 'block']
   update:
@@ -92,6 +99,7 @@ options:
         device running configuration.  When you set this argument to I(check)
         the configuration updates are determined but not actually configured
         on the remote device.
+    type: str
     default: merge
     choices: ['merge', 'check']
   save:
@@ -110,6 +118,7 @@ options:
         every task in a playbook.  The I(config) argument allows the
         implementer to pass in the configuration to use as the base
         config for comparison.
+    type: str
   backup:
     description:
       - This argument will cause the module to create a full backup of
@@ -130,6 +139,7 @@ options:
           - The filename to be used to store the backup configuration. If the the filename
             is not given it will be generated based on the hostname, current time and date
             in format defined by <hostname>_config.<current-date>@<current-time>
+        type: str
       dir_path:
         description:
           - This option provides the path ending with directory name in which the backup

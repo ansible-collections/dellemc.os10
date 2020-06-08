@@ -20,21 +20,22 @@ options:
     show_ip_bgp:
         description:
             - show ip bgp summary output
-        type: 'list',
+        type: 'list'
         required: True
     show_ip_intf_brief:
         description:
             - show ip interface brief output
-        type: 'list',
+        type: 'list'
     bgp_neighbors:
         description:
             - planned neighbours input from group_var to compare actual
-        type: 'list',
+        type: 'list'
         required: True
 '''
 EXAMPLES = '''
-Copy below YAML into a playbook (e.g. play.yml) and run it:
+Copy below YAML into a playbook (e.g. play.yml) and run as follows:
 
+#$ ansible-playbook -i inv play.yml
 name: Validate BGP configuration
 hosts: localhost
 connection: local
