@@ -139,14 +139,20 @@ os10_bgp:
       multiplier: 3
       role: active
       state: present
-    vrf:
-      name: "test"
-      address_type: ipv4
-      redistribute:
-        - route_type: l2vpn
-      state: present
+    vrf :
+      name: "GREEN"
+      address_family:
+         type: ipv4
+         redistribute:
+           - route_type: l2vpn
+             address_type: ipv4
+             state: present
+      neighbor:
+        - type: ipv4
+          ip: "172.16.1.1"
+          remote_asn: 65400
+          admin: up
     state: present
-
 ################################}
 {% if os10_bgp is defined and os10_bgp %}
 {% set bgp_vars = os10_bgp %}
@@ -693,13 +699,18 @@ router bgp {{ bgp_vars.asn }}
     {% endfor %}
     {% if bgp_vars.vrf is defined %}
      vrf {{ bgp_vars.vrf.name  }}
-      {% if bgp_vars.vrf.address_type is defined and  bgp_vars.vrf.state is defined and bgp_vars.vrf.state == "absent"  %}
+
+      {% if bgp_vars.vrf.address_family is defined and  bgp_vars.vrf.state is defined and bgp_vars.vrf.state == "absent"  %}
+      no address-family {{ bgp_vars.vrf.address_family.type }} unicast
       no address-family {{ bgp_vars.vrf.address_type }} unicast
       {% else %}
-      address-family {{ bgp_vars.vrf.address_type }} unicast
+      address-family {{ bgp_vars.vrf.address_family.type }} unicast
       {% endif %}
-      {% if bgp_vars.vrf.redistribute is defined %}
-        {% for route in bgp_vars.vrf.redistribute %}
+      {% if bgp_vars.vrf.router_id is defined %}
+      router-id {{ bgp_vars.vrf.router_id }}
+      {% endif %}
+      {% if bgp_vars.vrf.address_family.redistribute is defined %}
+        {% for route in bgp_vars.vrf.address_family.redistribute %}
           {% if route.route_type is defined %}
             {% if route.state is defined and route.state == "absent" %}
               no redistribute {{ route.route_type }}
@@ -723,6 +734,27 @@ router bgp {{ bgp_vars.asn }}
               {% endif %}
             {% endif %}
           {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if bgp_vars.vrf.neighbor is defined %}
+        {% for ngbr in bgp_vars.vrf.neighbor %}
+            {% if ngbr.interface is defined %}
+            neighbor interface {{ ngbr.interface }}
+            {% else %}
+               {% if ngbr.ip is defined %}
+                   neighbor {{ ngbr.ip }}
+               {% endif %}
+            {% endif %}
+            {% if ngbr.remote_asn is defined %}
+            remote-as {{ ngbr.remote_asn }}
+            {% endif %}
+            {% if ngbr.admin is defined %}
+               {%if ngbr.admin == "up" %}
+               no shutdown
+               {% else %}
+                shutdown
+               {% endif %}
+            {% endif %}
         {% endfor %}
       {% endif %}
     {% endif %}

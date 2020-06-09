@@ -129,12 +129,21 @@ Role variables
 | ``bfd_all_neighbors.role``| string: active, passive | Configures BFD role | os10 |
 | ``bfd_all_neighbors.state`` |string: absent,present\*    | Deletes BFD for all neighbors if set to absent | os10 |
 | ``state`` |  string: absent,present\*    | Deletes the local router BGP instance if set to absent      | os10 |
-| ``vrf`` | dictionary | Enables VRF for BGP neighbors | os10 |
-| ``vrf.name`` | string (Required) | Configures VRF name | os10 |
-| ``vrf.address_type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | os10 |
-| ``vrf.redistribute`` | dictionary | Enables redistribute option | os10 |
-| ``vrf.state`` |string: absent,present\*    | Deletes the vrf if set to absent | os10 |
-| ``redistribute.route_type`` | string (l2vpn, ospf, bgp, connected) | Configure redistribute type | os10 |
+| ``vrf`` | dictionary | Enables VRF under BGP | dellos10 |
+| ``vrf.name`` | string (Required)| Configures VRF name | dellos10 |
+| ``vrf.router_id`` | string | Configures Router ID for VRF | dellos10 |
+| ``vrf.address_family`` | dictionary | Enables address familyaddress | dellos10 |
+| ``vrf.address_family.type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | dellos10 |
+| ``vrf.redistribute`` | dictionary | Enables redistribute option | dellos10 |
+| ``vrf.redistribute.route_type`` | string (l2vpn, ospf, bgp, connected) | Configure redistribute type | dellos10 |
+| ``vrf.redistribute.address_type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | dellos10 |
+| ``vrf.redistribute.state `` | string (required) | Configures the state as present or absent | dellos10 |
+| ``vrf.neighbor`` | list | Configures IPv4 BGP neighbors under vrf | dellos10 |
+| ``vrf.neighbor.admin`` | string: up,down  | Configures the administrative state of the neighbor in vrf | dellos10 |
+| ``vrf.neighbor.type`` | string : ipv4,ipv6 | Specifies the BGP neighbor type under vrf  | dellos10 |
+| ``vrf.neighbor.ip`` | string | Configures the IP address of the BGP neighbor in vrf  | dellos10 |
+| ``vrf.neighbor.interface`` | string  | Configures the BGP neighbor interface in vrf | dellos10  |
+| ``vrf.neighbor.remote_asn`` | integer  | Configures the remote AS for the BGP peer in vrf | dellos10  |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
@@ -320,12 +329,19 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
           multiplier: 3
           role: active
           state: present
-        vrf:
-          name: "test"
-          address_type: ipv4
-          redistribute:
-            - route_type: l2vpn
-          state: present
+        vrf :
+          name: "GREEN"
+          address_family:
+             type: ipv4
+             redistribute:
+               - route_type: l2vpn
+                 address_type: ipv4
+                 state: present
+          neighbor:
+            - type: ipv4
+              ip: "172.16.1.1"
+          remote_asn: 65400
+          admin: up
         state: present
 
 
