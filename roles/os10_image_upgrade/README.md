@@ -16,7 +16,8 @@ Role variables
 | ``operation_type``   | string: cancel,install | Displays the type of image operation | os10 |
 | ``software_image_url`` | string          | Configures the URL path to the image file | os10 |
 | ``software_version`` | string         | Displays the software version of the image file | os10 |
-                                                                                                      
+| ``number_of_retries`` | int         | Configures the numbe of retries to check the status of image install process | os10 |
+
 Connection variables
 --------------------
 
@@ -59,6 +60,7 @@ This example uses the *os10_image_upgrade* role to upgrade/install software imag
       operation_type: install
       software_image_url: tftp://10.16.148.8/PKGS_OS10-Enterprise-10.2.9999E.5790-installer-x86_64.bin
       software_version: 10.2.9999E
+      number_of_retries: 50
 
 **Simple playbook to setup system - leaf.yaml**
 
