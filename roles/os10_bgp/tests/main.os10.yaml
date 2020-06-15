@@ -139,7 +139,7 @@ os10_bgp:
       multiplier: 3
       role: active
       state: present
-    vrf :
+    vrf:
       name: "GREEN"
       address_family:
          type: ipv4
