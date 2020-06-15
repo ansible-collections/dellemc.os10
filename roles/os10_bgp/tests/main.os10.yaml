@@ -139,10 +139,17 @@ os10_bgp:
       multiplier: 3
       role: active
       state: present
-    vrf:
-      name: "test"
-      address_type: ipv4
-      redistribute:
-        - route_type: l2vpn
-      state: present
+    vrf :
+      name: "GREEN"
+      address_family:
+         type: ipv4
+         redistribute:
+           - route_type: l2vpn
+             address_type: ipv4
+             state: present
+      neighbor:
+        - type: ipv4
+          ip: "172.16.1.1"
+          remote_asn: 65400
+          admin: up
     state: present
