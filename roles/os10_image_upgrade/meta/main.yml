@@ -4,7 +4,7 @@ galaxy_info:
   author: Dell EMC Networking Engineering
   description: The os10_image_upgrade role facilitates install/upgrade software image for OS10 switches
   license: Apache 2.0
-  min_ansible_version: 2.2
+  min_ansible_version: 2.9.6
 
   platforms:
   - name: os10

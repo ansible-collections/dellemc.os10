@@ -5,7 +5,7 @@ galaxy_info:
   author: Dell EMC Networking Engineering
   description: This role provides the system network information of all the switches in the fabric Dell EMC Networking Operating Systems.
   license: Apache 2.0
-  min_ansible_version: 2.2
+  min_ansible_version: 2.9.6
 
   platforms:
   - name: os10
