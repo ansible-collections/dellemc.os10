@@ -1,42 +1,43 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+from __future__ import (absolute_import, division, print_function)
 
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
-from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils._text import to_native
-from collections import OrderedDict
-import traceback
+__metaclass__ = type
 
 DOCUMENTATION = '''
 module: vlt_validate
+author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Validate the vlt info, raise an error if peer is not in up state
 description:
 
-Troubleshoot the show vlt info and raise an error if peer is not up.
+  - Troubleshoot the show vlt info and raise an error if peer is not up.
 
 options:
     show_vlt:
         description:
             - show vlt output
-        type: 'list',
+        type: 'list'
         required: True
     show_system_network_summary:
          description:
             - show system summary output
-         type: 'list',
+         type: 'list'
          required: True
     intended_vlt_pairs:
          description:
             - intended vlt pair intput to verify with actual
-         type: 'list',
-         required': True
+         type: 'list'
+         required: True
 
 '''
 EXAMPLES = '''
 Copy below YAML into a playbook (e.g. play.yml) and run as follows:
 
-$ ansible-playbook -i inv play.yml
+#$ ansible-playbook -i inv play.yml
 name: show system Configuration
 hosts: localhost
 connection: local
@@ -50,7 +51,8 @@ tasks:
    with_items: "{{ groups['all'] }}"
    register: show_run_vlt
  - set_fact:
-      output_vlt:  "{{ output_vlt|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_vlt': item.stdout.0}] }}"
+      output_vlt:  "{{ output_vlt|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item,
+                                                 'stdout_show_vlt': item.stdout.0}] }}"
    loop: "{{ show_run_vlt.results }}"
  - debug: var=output_vlt
  - name: "Get Dell EMC OS10 Show vlt info"
@@ -82,6 +84,11 @@ tasks:
    register: show_vlt_info
 
 '''
+
+from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils._text import to_native
+from collections import OrderedDict
+import traceback
 
 
 class VltValidation(object):
@@ -134,7 +141,7 @@ class VltValidation(object):
                     temp_dict["intended_primary"] = intended_primary
                     temp_dict["intended_secondary"] = intended_secondary
                     temp_dict["secondary"] = actual_secondary
-                    reason = "config mismatch as {} is expected, but the actual secondary is {} " .format(
+                    reason = "config mismatch as {0} is expected, but the actual secondary is {1} " .format(
                         intended_secondary, actual_secondary)
                     temp_dict["possible_reason"] = reason
                     final_out.append(temp_dict)

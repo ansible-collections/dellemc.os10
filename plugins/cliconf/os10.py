@@ -40,6 +40,7 @@ from ansible.module_utils._text import to_bytes, to_text
 from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.utils import to_list
 from ansible.plugins.cliconf import CliconfBase, enable_mode
 
+
 class Cliconf(CliconfBase):
 
     def get_device_info(self):

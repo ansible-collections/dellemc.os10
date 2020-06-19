@@ -1,9 +1,8 @@
 #!/usr/bin/python
-from ansible.module_utils._text import to_native
-from ansible.module_utils.basic import AnsibleModule
-from collections import OrderedDict
-import xmltodict
-import traceback
+
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+from __future__ import (absolute_import, division, print_function)
 
 __copyright__ = "(c) Copyright 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
@@ -12,13 +11,15 @@ __metaclass__ = type
 
 DOCUMENTATION = '''
 module: base_xml_to_dict
+author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Operations for show command output convertion from xml to json format.
 description:
 
-Get the show system inforamtion of a Leaf-Spine.
+  - Get the show system inforamtion of a Leaf-Spine.
 
 options:
-    cli_response:
+    cli_responses:
+        type: str
         description:
             - show command xml output
         required: True
@@ -26,7 +27,7 @@ options:
 EXAMPLES = '''
 Copy below YAML into a playbook (e.g. play.yml) and run as follows:
 
-$ ansible-playbook -i inv show.yml
+#$ ansible-playbook -i inv play.yml
 name: setup the plabook to get show command output in dict format
 hosts: localhost
 connection: local
@@ -46,6 +47,21 @@ tasks:
     cli_responses: "{{ item }}"
   loop: "{{ show.stdout }}"
 '''
+
+from ansible.module_utils._text import to_native
+from ansible.module_utils.basic import AnsibleModule
+from collections import OrderedDict
+import traceback
+
+LIB_IMP_ERR = None
+ERR_MSG = None
+try:
+    import xmltodict
+    HAS_LIB = True
+except Exception as e:
+    HAS_LIB = False
+    ERR_MSG = to_native(e)
+    LIB_IMP_ERR = traceback.format_exc()
 
 
 class XmlToDictAnsibleModule(object):
@@ -98,6 +114,9 @@ class XmlToDictAnsibleModule(object):
 
 def main():
     module_instance = XmlToDictAnsibleModule()
+    if not HAS_LIB:
+        module_instance.module.fail_json(msg=ERR_MSG,
+                                         exception=LIB_IMP_ERR)
     module_instance.perform_action()
 
 

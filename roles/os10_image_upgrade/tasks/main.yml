@@ -21,7 +21,7 @@
           commands: "show image status"
         register: result
         until: result.stdout.0.find("In progress") < 1
-        retries: 50
+        retries: "{{ os10_image_upgrade.number_of_retries }}"
         delay: 15
       - name: "Wait for image {{ os10_image_upgrade.operation_type }} operation"
         os10_command:

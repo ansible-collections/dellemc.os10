@@ -6,7 +6,7 @@ galaxy_info:
                 This role shall be used to push the backup running configuration into the device.
                 This role shall merge the configuration in the template file with the running configuration of the device
   license: Apache 2.0
-  min_ansible_version: 2.2
+  min_ansible_version: 2.9.6
 
   platforms:
   - name: os10

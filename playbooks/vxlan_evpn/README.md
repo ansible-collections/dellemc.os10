@@ -1,4 +1,4 @@
-﻿
+
 #  VxLAN Symmetric-IRB configuration using BGP EVPN using the Ansible collection for Dell EMC SmartFabric OS10
 
 

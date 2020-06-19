@@ -1,42 +1,42 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+from __future__ import (absolute_import, division, print_function)
 
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
-from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils._text import to_native
-from collections import OrderedDict
-import re
-import traceback
+__metaclass__ = type
 
 DOCUMENTATION = '''
 module: wiring_validate
+author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Validate the wiring based on the planned wiring details
 description:
 
-Get the wiring info using lldp output and show system network summary.
+  - Get the wiring info using lldp output and show system network summary.
 
 options:
     show_lldp_neighbors_list:
         description:
             - show lldp neighbor output
-        type: 'list',
+        type: 'list'
         required: True
     show_system_network_summary:
         description:
             - show system network summary output
-        type: 'list',
+        type: 'list'
         required: True
     planned_neighbors:
         description:
             - planned neighbours input from group_var to compare actual
-        type: 'list',
+        type: 'list'
         required: True
 '''
 EXAMPLES = '''
 Copy below YAML into a playbook (e.g. play.yml) and run as follows:
 
-$ ansible-playbook -i inv play.yml
+#$ ansible-playbook -i inv play.yml
 name: show system Configuration
 hosts: localhost
 connection: local
@@ -51,7 +51,8 @@ tasks:
   register: show_lldp
 - local_action: copy content={{ show_lldp }} dest=show
 - set_fact:
-     output_lldp:  "{{ output_lldp|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_lldp': item.stdout}] }}"
+     output_lldp:  "{{ output_lldp|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item,
+                                                  'stdout_show_lldp': item.stdout}] }}"
   loop: "{{ show_lldp.results }}"
 - debug: var=output_lldp
 - name: "Get Dell EMC OS10 Show system"
@@ -65,6 +66,12 @@ tasks:
     show_system_network_summary: "{{ show_system_network_summary.msg.results }}"
     planned_neighbors: "{{ intended_neighbors }}"
 '''
+
+from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils._text import to_native
+from collections import OrderedDict
+import re
+import traceback
 
 
 class WiringValidation(object):
@@ -185,7 +192,7 @@ class WiringValidation(object):
                                         != "unknown"):
                                     reason = (
                                         "Destination switch is not an expected value, "
-                                        "expected switch: {},port: {}; actual switch: {}(svc-tag:{}, node_mac:{}), port: {}" .format(
+                                        "expected switch: {0},port: {1}; actual switch: {2}(svc-tag:{3}, node_mac:{4}), port: {5}" .format(
                                             planned_neighbors["dest_switch"],
                                             planned_neighbors["dest_port"],
                                             actual_neighbors["dest_switch"],
@@ -197,7 +204,7 @@ class WiringValidation(object):
                                 else:
                                     reason = (
                                         "Destination switch is not an expected value, "
-                                        "expected switch: {},port: {}; actual switch: {}, port: {}" .format(
+                                        "expected switch: {0},port: {1}; actual switch: {2}, port: {3}" .format(
                                             planned_neighbors["dest_switch"],
                                             planned_neighbors["dest_port"],
                                             actual_neighbors["dest_switch"],
@@ -205,18 +212,18 @@ class WiringValidation(object):
                                 planned_neighbors["reason"] = reason
                                 planned_neighbors["error_type"] = "link-mismatch"
                                 break
-                            elif(actual_neighbors["dest_port"] != planned_neighbors["dest_port"]):
+                            if(actual_neighbors["dest_port"] != planned_neighbors["dest_port"]):
                                 bflag = True
                                 reason = (
                                     "Destination switch port is not an expected value, "
-                                    "expected port: {} actual port: {}" .format(
+                                    "expected port: {0} actual port: {1}" .format(
                                         planned_neighbors["dest_port"],
                                         actual_neighbors["dest_port"]))
                                 planned_neighbors["reason"] = reason
                                 planned_neighbors["error_type"] = "link-mismatch"
                                 break
                     if not bflag:
-                        reason = "link is not found for source switch: {},port: {}".format(
+                        reason = "link is not found for source switch: {0},port: {1}".format(
                             planned_neighbors["source_switch"], planned_neighbors["source_port"])
                         planned_neighbors["reason"] = reason
                         planned_neighbors["error_type"] = "link-missing"

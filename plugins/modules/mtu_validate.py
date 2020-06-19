@@ -1,42 +1,42 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+from __future__ import (absolute_import, division, print_function)
 
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
-from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils._text import to_native
-from collections import OrderedDict
-import re
-import traceback
+__metaclass__ = type
 
 DOCUMENTATION = '''
 module: mtu_validate
+author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Validate the MTU value for lldp neighbors
 description:
 
-Get the wiring info using lldp output and show system network summary.
+  - Get the wiring info using lldp output and show system network summary.
 
 options:
     show_lldp_neighbors_list:
         description:
             - show lldp neighbor output
-        type: 'list',
+        type: 'list'
         required: True
     show_system_network_summary:
         description:
             - show system network summary output
-        type: 'list',
+        type: 'list'
         required: True
     show_ip_intf_brief:
         description:
             - show ip intf brief
-        type: 'list',
+        type: 'list'
         required: True
 '''
 EXAMPLES = '''
-Copy below YAML into a playbook (e.g. play.yml) and run as follows:
+Copy below YAML into a playbook (e.g. play.yml) and run follows:
 
-$ ansible-playbook -i inv play.yml
+#$ ansible-playbook -i inv play.yml
 name: show mtu mismatch info
 hosts: localhost
 connection: local
@@ -51,7 +51,8 @@ tasks:
    with_items: "{{ groups['all'] }}"
    register: show_lldp
  - set_fact:
-      output:  "{{ output|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_lldp': item.stdout.0, 'stdout_show_ip': item.stdout.1 }] }}"
+      output:  "{{ output|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item,
+                                         'stdout_show_lldp': item.stdout.0, 'stdout_show_ip': item.stdout.1 }] }}"
    loop: "{{ show_lldp.results }}"
  - debug: var=output
  - local_action: copy content={{ output }} dest=show1
@@ -73,6 +74,12 @@ tasks:
      show_system_network_summary: "{{ show_system_network_summary.msg.results }}"
      show_ip_intf_brief: "{{ show_ip_intf_list.results }}"
 '''
+
+from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils._text import to_native
+from collections import OrderedDict
+import re
+import traceback
 
 
 class MtuValidation(object):

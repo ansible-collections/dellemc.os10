@@ -1,42 +1,42 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+from __future__ import (absolute_import, division, print_function)
 
 __copyright__ = "(c) 2020 Dell Inc. or its subsidiaries. All rights reserved."
 
-from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils._text import to_native
-from collections import OrderedDict
-import traceback
+__metaclass__ = type
 
 DOCUMENTATION = '''
 module: bgp_validate
+author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Validate the bgp neighbor state,raise error if it is not in established state
 description:
 
-Troubleshoot the bgp neighor state info using show ip bgp summary and show ip interface brief.
+  - Troubleshoot the bgp neighor state info using show ip bgp summary and show ip interface brief.
 
 options:
     show_ip_bgp:
         description:
             - show ip bgp summary output
-        type: 'list',
+        type: 'list'
         required: True
     show_ip_intf_brief:
         description:
             - show ip interface brief output
-        type: 'list',
+        type: 'list'
     bgp_neighbors:
         description:
             - planned neighbours input from group_var to compare actual
-        type: 'list',
+        type: 'list'
         required: True
-       required: True
 '''
 EXAMPLES = '''
 Copy below YAML into a playbook (e.g. play.yml) and run as follows:
 
-$ ansible-playbook -i inv play.yml
-name: show system Configuration
+#$ ansible-playbook -i inv play.yml
+name: Validate BGP configuration
 hosts: localhost
 connection: local
 gather_facts: False
@@ -50,7 +50,8 @@ tasks:
     with_items: "{{ groups['all'] }}"
     register: show_bgp
   - set_fact:
-       output_bgp:  "{{ output_bgp|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item, 'stdout_show_bgp': item.stdout.0, 'stdout_show_ip': item.stdout.1}] }}"
+       output_bgp:  "{{ output_bgp|default([])+ [{'host': item.invocation.module_args.provider.host, 'inv_name': item.item,
+                                                  'stdout_show_bgp': item.stdout.0, 'stdout_show_ip': item.stdout.1}] }}"
     loop: "{{ show_bgp.results }}"
   - debug: var=output_bgp
   - local_action: copy content={{ output_bgp }} dest=show
@@ -72,6 +73,11 @@ tasks:
       show_ip_intf_brief: "{{ show_ip_intf_list.results  }}"
       bgp_neighbors: "{{ intended_bgp_neighbors }}"
 '''
+
+from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils._text import to_native
+from collections import OrderedDict
+import traceback
 
 
 class BgpValidation(object):
@@ -196,9 +202,8 @@ class BgpValidation(object):
             intf_info = value.get(neighbor_ip)
             if intf_info is None:
                 continue
-            else:
-                final_intf_info = intf_info
-                break
+            final_intf_info = intf_info
+            break
         return final_intf_info
 
     def get_bgp_final_nbr_list(self, bgp_dict, intf_dict):
@@ -226,7 +231,7 @@ class BgpValidation(object):
                     if bgp_state != "established":
                         if oper_status != "up":
                             reason = (
-                                "remote port {} {} is {}" .format(
+                                "remote port {0} {1} is {2}" .format(
                                     dest_switch, remote_port, oper_status))
                             error_type = "remote_port_down"
                         final_dict["error_type"] = error_type
@@ -257,7 +262,7 @@ class BgpValidation(object):
                         intended_list.append(actual_nbr)
                     planned_nbr_list.remove(actual_bgp_neighbor)
                 else:
-                    reason = "neighbor {} is not an intended, please add this neighbor in the intended_bgp_neighbors".format(
+                    reason = "neighbor {0} is not an intended, please add this neighbor in the intended_bgp_neighbors".format(
                         actual_bgp_neighbor)
                     actual_nbr["bgp_neighbor"] = "-"
                     actual_nbr["error_type"] = "not_an_intended_neighbor"
