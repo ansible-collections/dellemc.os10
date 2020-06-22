@@ -371,12 +371,24 @@ router bgp {{ bgp_vars.asn }}
           {% if route.address_type is defined and route.address_type %}
  address-family {{ route.address_type }} unicast
             {% if route.state is defined and route.state == "absent" %}
+              {% if route.route_type == "imported_bgp" %}
+  no redistribute imported-bgp-routes vrf {{ route.imported_bgp_vrf_name }}
+              {% else %}
   no redistribute {{ route.route_type }}
+              {% endif %}
             {% else %}
               {% if route.route_map_name is defined and route.route_map_name %}
+                {% if route.route_type == "imported_bgp" %}
+  redistribute imported-bgp-routes vrf {{ route.imported_bgp_vrf_name }} route-map {{ route.route_map_name }}
+                {% else %}
   redistribute {{ route.route_type }} route-map {{ route.route_map_name }}
+                {% endif %}
               {% else %}
+                {% if route.route_type == "imported_bgp" %}
+  redistribute imported-bgp-routes vrf {{ route.imported_bgp_vrf_name }}
+                {% else %}
   redistribute {{ route.route_type }}
+                {% endif %}
               {% endif %}
             {% endif %}
           {% endif %}
@@ -713,11 +725,17 @@ router bgp {{ bgp_vars.asn }}
         {% for route in bgp_vars.vrf.address_family.redistribute %}
           {% if route.route_type is defined %}
             {% if route.state is defined and route.state == "absent" %}
+              {% if route.route_type == "imported_bgp" %}
+              no redistribute imported-bgp-routes vrf {{ route.imported_bgp_vrf_name }}
+              {% else %}
               no redistribute {{ route.route_type }}
+              {% endif %}
             {% else %}
               {% if route.route_map_name is defined and route.route_map_name %}
                 {% if route.route_type == "ospf" and route.ospf_id %}
               redistribute {{ route.route_type }} route.ospf_id route-map {{ route.route_map_name }}
+                {% elif route.route_type == "imported_bgp" %}
+              redistribute imported-bgp-routes vrf {{ route.imported_bgp_vrf_name }} route-map {{ route.route_map_name }}
                 {% elif route.route_type == "l2vpn" %}
               redistribute {{ route.route_type }} evpn route-map {{ route.route_map_name }}
                 {% else %}
@@ -726,6 +744,8 @@ router bgp {{ bgp_vars.asn }}
               {% else %}
                 {% if route.route_type == "ospf" and route.ospf_id %}
               redistribute {{ route.route_type }} route.ospf_id
+                {% elif route.route_type == "imported_bgp" %}
+              redistribute imported-bgp-routes vrf {{ route.imported_bgp_vrf_name }}
                 {% elif route.route_type == "l2vpn" %}
               redistribute {{ route.route_type }} evpn
                 {% else %}
