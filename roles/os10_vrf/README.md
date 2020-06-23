@@ -23,15 +23,19 @@ Role variables
 | ``vrfdetails.state``       | string    | Deletes the VRF instance name if set to absent | os10 |
 | ``vrfdetails.ip_route_import``  | string    | VRF IP config subcommands | os10 |
 | ``ip_route_import.community_value``  | string    | RT community value | os10 |
+| ``ip_route_import.route_map_value``  | string    | Route map value | os10 |
 | ``ip_route_import.state``  | string    | Delete the IP config if set to absent | os10 |
 | ``vrfdetails.ip_route_export``  | string    | VRF IP config subcommands | os10 |
 | ``ip_route_export.community_value``  | string    | RT community value | os10 |
+| ``ip_route_export.route_map_value``  | string    | Route map value | os10 |
 | ``ip_route_export.state``  | string    | Delete the IP config if set to absent | os10 |
 | ``vrfdetails.ipv6_route_import``  | string    | VRF IPv6 config subcommands | os10 |
 | ``ipv6_route_import.community_value``  | string    | RT community value | os10 |
+| ``ipv6_route_import.route_map_value``  | string    | Route map value | os10 |
 | ``ipv6_route_import.state``  | string    | Delete the IP config if set to absent | os10 |
 | ``vrfdetails.ipv6_route_export``  | string    | VRF IPv6 config subcommands | os10 |
 | ``ipv6_route_import.community_value``  | string    | RT community value | os10 |
+| ``ipv6_route_export.route_map_value``  | string    | Route map value | os10 |
 | ``ipv6_route_import.state``  | string    | Delete the IP config if set to absent | os10 |
 | ``vrfdetails.map_ip_interface``  | list        | Specifies list of valid interface names | os10 |
 | ``map_ip_interface.intf_id``  | string    | Specifies valid interface name | os10 |
@@ -93,15 +97,19 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
             ip_route_import:
               community_value: "10:20"
               state: "present"
+              route_map_value: "test4"
             ip_route_export:
               community_value: "30:40"
               state: "present"
+              route_map_value: "test3"
             ipv6_route_import:
               community_value: "40:50"
               state: "absent"
+              route_map_value: "test2"
             ipv6_route_export:
               community_value: "60:70"
               state: "absent"
+              route_map_value: "test2"
             map_ip_interface:
              - intf_id : "loopback11"
                state   : "present"

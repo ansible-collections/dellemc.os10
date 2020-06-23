@@ -29,6 +29,12 @@ os10_route_map:
        - ip_type: ipv4
          access_group: testaccess
          prefix_list: testprefix
+         source_protocol_ebgp: "present"
+         source_protocol_ibgp: "present"
+         source_protocol_evpn: "present"
+         source_protocol_ospf: "present"
+         source_protocol_static: "present"
+         source_protocol_connected: "present"
       set:
         local_pref: 1200
         metric_type: internal
@@ -197,6 +203,54 @@ route-map {{ vars.name }} permit 10
                   {% else %}
  no match {{ ip }} address prefix-list a
                   {% endif %}
+                {% endif %}
+              {% endif %}
+              {% if match.source_protocol_ebgp is defined and match.source_protocol_ebgp %}
+                {% if match.source_protocol_ebgp == "present" %}
+ match source-protocol bgp ebgp
+                {% endif %}
+                {% if match.source_protocol_ebgp == "absent" %}
+ no match source-protocol bgp ebgp
+                {% endif %}
+              {% endif %}
+              {% if match.source_protocol_ibgp is defined and match.source_protocol_ibgp %}
+                {% if match.source_protocol_ibgp == "present" %}
+ match source-protocol bgp ibgp
+                {% endif %}
+                {% if match.source_protocol_ibgp == "absent" %}
+ no match source-protocol bgp ibgp
+                {% endif %}
+              {% endif %}
+              {% if match.source_protocol_evpn is defined and match.source_protocol_evpn %}
+                {% if match.source_protocol_evpn == "present" %}
+ match source-protocol bgp evpn
+                {% endif %}
+                {% if match.source_protocol_evpn == "absent" %}
+ no match source-protocol bgp evpn
+                {% endif %}
+              {% endif %}
+              {% if match.source_protocol_ospf is defined and match.source_protocol_ospf %}
+                {% if match.source_protocol_ospf == "present" %}
+ match source-protocol ospf
+                {% endif %}
+                {% if match.source_protocol_ospf == "absent" %}
+ no match source-protocol ospf
+                {% endif %}
+              {% endif %}
+              {% if match.source_protocol_static is defined and match.source_protocol_static %}
+                {% if match.source_protocol_static == "present" %}
+ match source-protocol static
+                {% endif %}
+                {% if match.source_protocol_static == "absent" %}
+ no match source-protocol static
+                {% endif %}
+              {% endif %}
+              {% if match.source_protocol_connected is defined and match.source_protocol_connected %}
+                {% if match.source_protocol_connected == "present" %}
+ match source-protocol connected
+                {% endif %}
+                {% if match.source_protocol_connected == "absent" %}
+ no match source-protocol connected
                 {% endif %}
               {% endif %}
             {% endfor %}

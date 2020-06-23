@@ -9,15 +9,19 @@ os10_vrf:
      ip_route_import:
        community_value: 10:15
        state: "absent"
+       route_map_value: test1
      ip_route_export:
        commnity_value: 20:30
        state: "present"
+       route_map_value: test2
      ipv6_route_import:
        community_value: 10:15
        state: "present"
+       route_map_value: test3
      ipv6_route_export:
        commnity_value: 20:30
        state: "present"
+       route_map_value: test4
      map_ip_interface:
        -intf_id : loopback6
         state   : "present"
@@ -38,7 +42,11 @@ ip vrf {{ vrf.vrf_name }}
           {% set route_vars = vrf.ip_route_import %}
             {% if route_vars.community_value is defined and route_vars.community_value %}
               {% if route_vars.state == 'present' %}
+                {% if route_vars.route_map_value is defined and route_vars.route_map_value %}
+ ip route-import {{ route_vars.community_value  }} route-map {{ route_vars.route_map_value }}
+                {% else %}
  ip route-import {{ route_vars.community_value  }}
+                {% endif %}
               {% else %}
  no ip route-import {{ route_vars.community_value }}
               {% endif %}
@@ -48,7 +56,11 @@ ip vrf {{ vrf.vrf_name }}
           {% set route_vars = vrf.ipv6_route_import %}
             {% if route_vars.community_value is defined and route_vars.community_value %}
               {% if route_vars.state == 'present' %}
+                {% if route_vars.route_map_value is defined and route_vars.route_map_value %}
+ ipv6 route-import {{ route_vars.community_value  }} route-map {{ route_vars.route_map_value }}
+                {% else %}
  ipv6 route-import {{ route_vars.community_value  }}
+                {% endif %}
               {% else %}
  no ipv6 route-import {{ route_vars.community_value }}
               {% endif %}
@@ -58,7 +70,11 @@ ip vrf {{ vrf.vrf_name }}
           {% set route_vars = vrf.ip_route_export %}
             {% if route_vars.community_value is defined and route_vars.community_value %}
               {% if route_vars.state == 'present' %}
+                {% if route_vars.route_map_value is defined and route_vars.route_map_value %}
+ ip route-export {{ route_vars.community_value  }} route-map {{ route_vars.route_map_value }}
+                {% else %}
  ip route-export {{ route_vars.community_value  }}
+                {% endif %}
               {% else %}
  no ip route-export {{ route_vars.community_value }}
               {% endif %}
@@ -68,7 +84,11 @@ ip vrf {{ vrf.vrf_name }}
           {% set route_vars = vrf.ipv6_route_export %}
             {% if route_vars.community_value is defined and route_vars.community_value %}
               {% if route_vars.state == 'present' %}
+                {% if route_vars.route_map_value is defined and route_vars.route_map_value %}
+ ipv6 route-export {{ route_vars.community_value  }} route-map {{ route_vars.route_map_value }}
+                {% else %}
  ipv6 route-export {{ route_vars.community_value  }}
+                {% endif %}
               {% else %}
  no ipv6 route-export {{ route_vars.community_value }}
               {% endif %}

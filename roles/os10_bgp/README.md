@@ -117,8 +117,9 @@ Role variables
 | ``neighbor.description`` | string | Configures neighbor description | os10 |
 | ``neighbor.state`` | string: absent,present\* | Deletes the IPv4 BGP neighbor if set to absent | os10 |
 | ``redistribute`` | list | Configures the redistribute list to get information from other routing protocols (see ``redistribute.*``) | os10 |
-| ``redistribute.route_type`` | string (required): static,connected        | Configures the name of the routing protocol to redistribute | os10 |
+| ``redistribute.route_type`` | string (required): static,connected,imported_bgp        | Configures the name of the routing protocol to redistribute | os10 |
 | ``redistribute.route_map_name`` | string        | Configures the route-map to redistribute | os10 |
+| ``redistribute.imported_bgp_vrf_name`` | string        | Configures the redistribute imported bgp vrf name | os10 |
 | ``redistribute.route_map`` |  string: absent,present\*    | Deletes the route-map to redistribute if set to absent        | os10 |
 | ``redistribute.address_type`` | string (required): ipv4,ipv6                  | Configures the address type of IPv4 or IPv6 routes | os10 |
 | ``redistribute.state`` | string: absent,present\* | Deletes the redistribution information if set to absent | os10 |
@@ -135,7 +136,8 @@ Role variables
 | ``vrf.address_family`` | dictionary | Enables address familyaddress | dellos10 |
 | ``vrf.address_family.type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | dellos10 |
 | ``vrf.redistribute`` | dictionary | Enables redistribute option | dellos10 |
-| ``vrf.redistribute.route_type`` | string (l2vpn, ospf, bgp, connected) | Configure redistribute type | dellos10 |
+| ``vrf.redistribute.imported_bgp_vrf_name`` | string        | Configures the redistribute imported bgp vrf name | os10 |
+| ``vrf.redistribute.route_type`` | string (l2vpn, ospf, bgp, connected, imported_bgp) | Configure redistribute type | dellos10 |
 | ``vrf.redistribute.address_type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | dellos10 |
 | ``vrf.redistribute.state `` | string (required) | Configures the state as present or absent | dellos10 |
 | ``vrf.neighbor`` | list | Configures IPv4 BGP neighbors under vrf | dellos10 |
