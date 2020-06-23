@@ -38,6 +38,7 @@ To install a specific version, a version range identifier must be specified. For
         - os10_vlan
 
 > **NOTE**: When using Ansible 2.9, the environment variable ANSIBLE_NETWORK_GROUP_MODULES should be set to 'os10' to use the os10-collections in the playbook.
+
 >           export ANSIBLE_NETWORK_GROUP_MODULES=os10
 
 ## Sample host_vars/os10_sw1.yaml
