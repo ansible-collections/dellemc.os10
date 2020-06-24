@@ -1,10 +1,9 @@
 # Ansible collection for Dell EMC SmartFabric OS10
 
 ## Collection contents
-The Ansible network collection for Dell EMC SmartFabric OS10 includes Ansible modules, plugins and roles required to work on Dell EMC PowerSwitch platforms running SmartFabric OS10. It also includes sample playbooks and documentation that illustrate how the collection can be used.
+This collection includes Ansible modules, plugins and roles required to work on Dell EMC PowerSwitch platforms running SmartFabric OS10. Sample playbooks and documentation are also included to show how the collection can be used.
 
 ### Ansible modules
-The following modules are part of this collection:
 
 - **os10_command.py** — Run commands on devices running Dell EMC SmartFabric OS10
 
@@ -13,14 +12,13 @@ The following modules are part of this collection:
 - **os10_facts.py** — Collect facts from devices running Dell EMC SmartFabric OS10
 
 ### Ansible roles
-Collection roles facilitate provisioning of devices running Dell EMC SmartFabric OS10. Roles included in the collection cover most of the functionality required to operate OS10, such as os10_acl, os10_bgp, os10_vxlan, and so on. The docs directory in the collection includes documentation for each role.
+Roles facilitate provisioning of devices running Dell EMC SmartFabric OS10. These roles explain how to use SmartFabric OS10 and include os10_acl, os10_bgp, os10_vxlan, and so on. The docs directory includes documentation for each role.
 
 ### Playbooks
-The playbooks directory includes sample playbooks that show the usage of the OS10 collection for provisioning
-device running Dell EMC SmartFabric OS10.
+Sample playbooks are included for provisioning devices running Dell EMC SmartFabric OS10.
 
-## Collection installation
-Install the latest version of OS10 collection from Ansible Galaxy:
+## Installation
+Use this command to install the latest version of OS10 collection from Ansible Galaxy:
 
     ansible-galaxy collection install dellemc.os10
 
@@ -37,7 +35,7 @@ To install a specific version, a version range identifier must be specified. For
       roles:
         - os10_vlan
 
-> **NOTE**: When using Ansible 2.9, the environment variable ANSIBLE_NETWORK_GROUP_MODULES should be set to 'os10' to use the os10-collections in the playbook.
+> **NOTE**: When using Ansible 2.9, the ANSIBLE_NETWORK_GROUP_MODULES environment variable should be set to 'os10' to use the os10-collections in the playbook.
 
 >           export ANSIBLE_NETWORK_GROUP_MODULES=os10
 
@@ -61,3 +59,6 @@ To install a specific version, a version range identifier must be specified. For
 
     [os10]
     os10_sw1 ansible_host=100.104.28.119
+
+
+(c) 2020 Dell Inc. or its subsidiaries. All rights reserved.
