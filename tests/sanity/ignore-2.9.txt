@@ -1,0 +1,4 @@
+plugins/action/os10.py action-plugin-docs
+plugins/action/textfsm_parser.py action-plugin-docs
+plugins/modules/wiring_validate.py pylint:duplicate-code
+tests/units/modules/network/os10/test_os10_facts.py pylint:duplicate-code
