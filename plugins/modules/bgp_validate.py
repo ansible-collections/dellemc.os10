@@ -26,6 +26,7 @@ options:
         description:
             - show ip interface brief output
         type: 'list'
+        required: True
     bgp_neighbors:
         description:
             - planned neighbours input from group_var to compare actual

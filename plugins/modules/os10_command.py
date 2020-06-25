@@ -17,7 +17,7 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 DOCUMENTATION = """
 ---
 module: os10_command
-version_added: "2.2"
+version_added: "2.9.6"
 author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Run commands on remote devices running Dell OS10
 description:
@@ -37,6 +37,7 @@ options:
         module is not returned until the condition is satisfied or
         the number of retries has expired.
     type: list
+    elements: dict
     required: true
   wait_for:
     description:
@@ -46,7 +47,8 @@ options:
         within the configured number of I(retries), the task fails.
         See examples.
     type: list
-    version_added: "2.2"
+    elements: str
+    version_added: "2.9.6"
   match:
     description:
       - The I(match) argument is used in conjunction with the
@@ -58,7 +60,7 @@ options:
     type: str
     default: all
     choices: [ all, any ]
-    version_added: "2.5"
+    version_added: "2.9.6"
   retries:
     description:
       - Specifies the number of retries a command should be tried
@@ -169,9 +171,9 @@ def main():
     """
     argument_spec = dict(
         # { command: <str>, prompt: <str>, response: <str> }
-        commands=dict(type='list', required=True),
+        commands=dict(type='list', elements='dict', required=True),
 
-        wait_for=dict(type='list'),
+        wait_for=dict(type='list', elements='str'),
         match=dict(default='all', choices=['all', 'any']),
 
         retries=dict(default=10, type='int'),

@@ -62,13 +62,13 @@ os10_xstp:
             cost: 8
 
 # Sample variables for OS10 devices to configure root in pvst and mst
----
-os10_xstp:
-    pvst:
-      vlan:
-        - range_or_id: 10
-          root: primary
-    mstp:
-      mstp_instances:
-        - number_or_range: 1
-          root: secondary
+#---
+#os10_xstp:
+#    pvst:
+#      vlan:
+#        - range_or_id: 10
+#          root: primary
+#    mstp:
+#      mstp_instances:
+#        - number_or_range: 1
+#          root: secondary
