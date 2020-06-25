@@ -1,0 +1,8 @@
+plugin_routing:
+  action:
+    os10_config:
+      redirect: dellemc.os10.os10
+    os10_command:
+      redirect: dellemc.os10.os10
+    os10_facts:
+      redirect: dellemc.os10.os10
