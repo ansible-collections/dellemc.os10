@@ -82,7 +82,7 @@ jobs:
         
       - name: Generate coverage report.
         run: ansible-test coverage xml -v --requirements --group-by command --group-by version
-        working-directory: ./ansible_collections/dellemc.os10
+        working-directory: ./ansible_collections/dellemc/os10
 
       - uses: codecov/codecov-action@v1
         with:
