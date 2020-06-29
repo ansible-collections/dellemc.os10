@@ -16,7 +16,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
         with:
-          path: ansible_collections/dellemc.os10
+          path: ansible_collections/dellemc/os10
 
       - name: Set up Python 3.6
         uses: actions/setup-python@v1
@@ -36,7 +36,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
         with:
-          path: ansible_collections/dellemc.os10
+          path: ansible_collections/dellemc/os10
 
       - name: Set up Python 3.6
         uses: actions/setup-python@v1
@@ -71,7 +71,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
         with:
-          path: ansible_collections/dellemc.os10
+          path: ansible_collections/dellemc/os10
           
       - name: Install ansible-base (stable-2.10)
         run: pip install https://github.com/ansible/ansible/archive/stable-2.10.tar.gz --disable-pip-version-check
