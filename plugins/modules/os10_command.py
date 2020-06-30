@@ -17,7 +17,6 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 DOCUMENTATION = """
 ---
 module: os10_command
-version_added: "2.9.6"
 author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Run commands on remote devices running Dell OS10
 description:
@@ -48,7 +47,6 @@ options:
         See examples.
     type: list
     elements: str
-    version_added: "2.9.6"
   match:
     description:
       - The I(match) argument is used in conjunction with the
@@ -60,7 +58,6 @@ options:
     type: str
     default: all
     choices: [ all, any ]
-    version_added: "2.9.6"
   retries:
     description:
       - Specifies the number of retries a command should be tried

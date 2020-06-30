@@ -17,7 +17,6 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 DOCUMENTATION = """
 ---
 module: os10_config
-version_added: "2.9.6"
 author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Manage Dell EMC Networking OS10 configuration sections
 description:
@@ -150,7 +149,6 @@ options:
             and backup configuration will be copied in C(filename) within I(backup) directory.
         type: path
     type: dict
-    version_added: "2.9.6"
 """
 
 EXAMPLES = """

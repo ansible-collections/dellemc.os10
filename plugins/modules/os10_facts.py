@@ -16,7 +16,6 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 DOCUMENTATION = """
 ---
 module: os10_facts
-version_added: "2.2"
 author: "Senthil Kumar Ganesan (@skg-net)"
 short_description: Collect facts from remote devices running Dell EMC Networking OS10
 description:
