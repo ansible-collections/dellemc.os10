@@ -1,4 +1,4 @@
-# Ansible collection for Dell EMC SmartFabric OS10
+# Ansible Network Collection for Dell EMC SmartFabric OS10
 
 ## Collection contents
 This collection includes Ansible modules, plugins and roles required to work on Dell EMC PowerSwitch platforms running SmartFabric OS10. Sample playbooks and documentation are also included to show how the collection can be used.

@@ -26,6 +26,7 @@ options:
         required: False
     cli_responses:
         type: list
+        required: True
         description:
             - show system command xml output
 '''

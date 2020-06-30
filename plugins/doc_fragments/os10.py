@@ -25,7 +25,6 @@ options:
             device over the specified transport.  The value of host is used as
             the destination address for the transport.
         type: str
-        required: true
       port:
         description:
           - Specifies the port to use when building the connection to the remote
