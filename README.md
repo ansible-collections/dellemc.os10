@@ -18,7 +18,7 @@ Roles facilitate provisioning of devices running Dell EMC SmartFabric OS10. Thes
 Sample playbooks are included for provisioning devices running Dell EMC SmartFabric OS10.
 
 ## Installation
-Use this command to install the latest version of OS10 collection from Ansible Galaxy:
+Use this command to install the latest version of the OS10 collection from Ansible Galaxy:
 
     ansible-galaxy collection install dellemc.os10
 
@@ -35,7 +35,7 @@ To install a specific version, a version range identifier must be specified. For
       roles:
         - os10_vlan
 
-> **NOTE**: When using Ansible 2.9, the ANSIBLE_NETWORK_GROUP_MODULES environment variable should be set to 'os10' to use the os10-collections in the playbook.
+> **NOTE**: When using Ansible 2.9, the ANSIBLE_NETWORK_GROUP_MODULES environment variable should be set to 'os10' to use the OS10 collections in the playbook.
 
 >           export ANSIBLE_NETWORK_GROUP_MODULES=os10
 
