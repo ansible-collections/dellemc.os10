@@ -27,6 +27,12 @@ os10_route_map:
        - ip_type: ipv4
          access_group: testaccess
          prefix_list: testprefix
+         source_protocol_ebgp: present
+         source_protocol_ibgp: present
+         source_protocol_evpn: present
+         source_protocol_static: present
+         source_protocol_ospf: present
+         source_protocol_connected: present
       set:
          local_pref: 1200
          metric_type: internal

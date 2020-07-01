@@ -43,6 +43,12 @@ Role variables
 | ``route_map.match`` | list | Configures the route-map to match values from the route table (see ``match.*``) | os10 |
 | ``match.ip_type`` | string (required): ipv4,ipv6   | Configures the IPv4/IPv6 address to match    | os10 |
 | ``match.access_group`` | string     | Configures the access-group or list to match                  | os10 |
+| ``match.source_protocol_ebgp`` | string     | Configures the source protocol to EBGP to match       | os10 |
+| ``match.source_protocol_ibgp`` | string     | Configures the source protocol to IBGP to match       | os10 |
+| ``match.source_protocol_evpn`` | string     | Configures the source protocol to EVPN to match       | os10 |
+| ``match.source_protocol_static`` | string     | Configures the source protocol to STATIC to match       | os10 |
+| ``match.source_protocol_connected`` | string     | Configures the source protocol to CONNECTED to match       | os10 |
+| ``match.source_protocol_ospf`` | string     | Configures the source protocol to OSPF to match       | os10 |
 | ``match.prefix_list`` | string     | Configures the IP prefix-list to match against                  | os10 |
 | ``route_map.state`` | string, choices: present\*,absent   | Deletes the route-map if set to absent  | os10 |
 | ``as_path`` | list | Configures the BGP AS path filter (see ``as_path.*``) | os10 |
@@ -142,6 +148,12 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
            - ip_type: ipv4
              access_group: testaccess
              prefix_list: testprefix
+             source_protocol_ebgp: present
+             source_protocol_ibgp: present
+             source_protocol_evpn: present
+             source_protocol_static: present
+             source_protocol_ospf: present
+             source_protocol_connected: present
           set:
             local_pref: 1200
             metric_type: internal
