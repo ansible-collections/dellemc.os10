@@ -23,11 +23,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os10_template* role is built on  modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.This role needs textfsm to be installed in the controller,if not it will be installed using ansible pip module.
-
 
 Example playbook
 ----------------

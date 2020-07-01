@@ -50,10 +50,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os10_flow_monitor* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.3.0.
 
 Example playbook
 ----------------

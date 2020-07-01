@@ -12,7 +12,7 @@ This collection includes Ansible modules, plugins and roles required to work on 
 - **os10_facts.py** — Collect facts from devices running Dell EMC SmartFabric OS10
 
 ### Ansible roles
-Roles facilitate provisioning of devices running Dell EMC SmartFabric OS10. These roles explain how to use SmartFabric OS10 and include os10_acl, os10_bgp, os10_vxlan, and so on. The docs directory includes documentation for each role.
+Roles facilitate provisioning of devices running Dell EMC SmartFabric OS10. These roles explain how to use SmartFabric OS10 and include os10_acl, os10_bgp, os10_vxlan, and so on. The documentation for each role is at [OS10 roles documentation](https://github.com/ansible-collections/dellemc.os10/blob/master/docs/roles.rst)
 
 ### Playbooks
 Sample playbooks are included for provisioning devices running Dell EMC SmartFabric OS10.
