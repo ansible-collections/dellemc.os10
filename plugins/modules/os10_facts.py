@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: os10_facts
 author: "Senthil Kumar Ganesan (@skg-net)"
-short_description: Collect facts from remote devices running Dell EMC Networking OS10
+short_description: Collect facts from devices running Dell EMC SmartFabric OS10
 description:
   - Collects a base set of device facts from a remote device that
     is running OS10.  This module prepends all of the

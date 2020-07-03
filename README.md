@@ -26,6 +26,9 @@ To install a specific version, a version range identifier must be specified. For
 
     ansible-galaxy collection install 'dellemc.os10:>=1.0.0,<2.0.0'
 
+## Dependency
+Ansible version 2.10 or later
+
 ## Sample playbook
 
     - hosts: os10_sw1
@@ -34,10 +37,6 @@ To install a specific version, a version range identifier must be specified. For
         - dellemc.os10
       roles:
         - os10_vlan
-
-> **NOTE**: When using Ansible 2.9, the ANSIBLE_NETWORK_GROUP_MODULES environment variable should be set to 'os10' to use the OS10 collections in the playbook.
-
->           export ANSIBLE_NETWORK_GROUP_MODULES=os10
 
 ## Sample host_vars/os10_sw1.yaml
 
