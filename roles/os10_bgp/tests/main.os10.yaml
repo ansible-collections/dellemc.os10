@@ -27,6 +27,11 @@ os10_bgp:
         value: 15 750 2000 60
         route_map: qq
         state: present
+    address_family_ipv6:
+      aggregate_address:
+         - ip_and_mask: 2001:4898:5808:ffa0::/126
+           state: present
+           summary_only: true
     best_path:
        as_path: ignore
        as_path_state: present

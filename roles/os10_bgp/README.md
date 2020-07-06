@@ -37,6 +37,7 @@ Role variables
 | ``address_family_ipv4`` | dictionary | Configures IPv4 address family parameters (see ``address_family_ipv4.*``) | os10 |
 | ``address_family_ipv4.aggregate_addr`` | list | Configures IPv4 BGP aggregate entries (see ``aggregate_addr.*``) | os10 |
 | ``aggregate_addr.ip_and_mask`` | string | Configures the IPv4 BGP aggregate address | os10 |
+| ``address_family_ipv4.summary_only`` | boolean | Sets address to summary-only if true | dellos10 |
 | ``aggregate_addr.state`` | string: absent,present\* | Deletes an IPv4 BGP aggregate entry if set to absent   | os10 |
 | ``address_family_ipv4.dampening`` | dictionary | Configures route-flap dampening (see ``dampening.*``) | os10 |
 | ``dampening.value`` | dictionary | Configures dampening values (<half-life time> <start value to reuse> <start value to suppress> <max duration> format; default 15 750 2000 60) | os10 |
@@ -45,6 +46,7 @@ Role variables
 | ``address_family_ipv6`` | dictionary | Configures IPv6 address family parameters (see ``address_family_ipv6.*``) | os10 |
 | ``address_family_ipv6.aggregate_addr`` | list | Configures IPv6 BGP aggregate entries (see ``aggregate_addr.*``) | os10 |
 | ``aggregate_addr.ip_and_mask`` | string | Configures the IPv6 BGP aggregate address | os10 |
+| ``address_family_ipv6.summary_only`` | boolean | Sets address to summary-only if true | dellos10 |
 | ``aggregate_addr.state`` | string: absent,present\* | Deletes an IPv6 BGP aggregate entry if set to absent   | os10 |
 | ``address_family_ipv6.dampening`` | dictionary | Configures route-flap dampening (see ``dampening.*``) | os10 |
 | ``dampening.value`` | dictionary | Configures dampening values (<half-life time> <start value to reuse> <start value to suppress> <max duration> format; default 15 750 2000 60) | os10 |
@@ -215,10 +217,16 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
           aggregate_address:
              - ip_and_mask: 1.1.1.1/16
                state: present
+               summary_only: true
           dampening:
             value: 15 750 2000 60
             route_map: qq
             state: present
+        address_family_ipv6:
+          aggregate_address:
+             - ip_and_mask: 2001:4898:5808:ffa0::/126
+               state: present
+               summary_only: true
         best_path:
            as_path: ignore
            as_path_state: present
