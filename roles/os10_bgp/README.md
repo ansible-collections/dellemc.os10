@@ -37,7 +37,7 @@ Role variables
 | ``address_family_ipv4`` | dictionary | Configures IPv4 address family parameters (see ``address_family_ipv4.*``) | os10 |
 | ``address_family_ipv4.aggregate_addr`` | list | Configures IPv4 BGP aggregate entries (see ``aggregate_addr.*``) | os10 |
 | ``aggregate_addr.ip_and_mask`` | string | Configures the IPv4 BGP aggregate address | os10 |
-| ``address_family_ipv4.summary_only`` | boolean | Sets address to summary-only if true | dellos10 |
+| ``address_family_ipv4.summary_only`` | boolean | Sets address to summary-only if true | os10 |
 | ``aggregate_addr.state`` | string: absent,present\* | Deletes an IPv4 BGP aggregate entry if set to absent   | os10 |
 | ``address_family_ipv4.dampening`` | dictionary | Configures route-flap dampening (see ``dampening.*``) | os10 |
 | ``dampening.value`` | dictionary | Configures dampening values (<half-life time> <start value to reuse> <start value to suppress> <max duration> format; default 15 750 2000 60) | os10 |
@@ -46,7 +46,7 @@ Role variables
 | ``address_family_ipv6`` | dictionary | Configures IPv6 address family parameters (see ``address_family_ipv6.*``) | os10 |
 | ``address_family_ipv6.aggregate_addr`` | list | Configures IPv6 BGP aggregate entries (see ``aggregate_addr.*``) | os10 |
 | ``aggregate_addr.ip_and_mask`` | string | Configures the IPv6 BGP aggregate address | os10 |
-| ``address_family_ipv6.summary_only`` | boolean | Sets address to summary-only if true | dellos10 |
+| ``address_family_ipv6.summary_only`` | boolean | Sets address to summary-only if true | os10 |
 | ``aggregate_addr.state`` | string: absent,present\* | Deletes an IPv6 BGP aggregate entry if set to absent   | os10 |
 | ``address_family_ipv6.dampening`` | dictionary | Configures route-flap dampening (see ``dampening.*``) | os10 |
 | ``dampening.value`` | dictionary | Configures dampening values (<half-life time> <start value to reuse> <start value to suppress> <max duration> format; default 15 750 2000 60) | os10 |
@@ -132,22 +132,22 @@ Role variables
 | ``bfd_all_neighbors.role``| string: active, passive | Configures BFD role | os10 |
 | ``bfd_all_neighbors.state`` |string: absent,present\*    | Deletes BFD for all neighbors if set to absent | os10 |
 | ``state`` |  string: absent,present\*    | Deletes the local router BGP instance if set to absent      | os10 |
-| ``vrf`` | dictionary | Enables VRF under BGP | dellos10 |
-| ``vrf.name`` | string (Required)| Configures VRF name | dellos10 |
-| ``vrf.router_id`` | string | Configures Router ID for VRF | dellos10 |
-| ``vrf.address_family`` | dictionary | Enables address familyaddress | dellos10 |
-| ``vrf.address_family.type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | dellos10 |
-| ``vrf.redistribute`` | dictionary | Enables redistribute option | dellos10 |
+| ``vrf`` | dictionary | Enables VRF under BGP | os10 |
+| ``vrf.name`` | string (Required)| Configures VRF name | os10 |
+| ``vrf.router_id`` | string | Configures Router ID for VRF | os10 |
+| ``vrf.address_family`` | dictionary | Enables address familyaddress | os10 |
+| ``vrf.address_family.type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | os10 |
+| ``vrf.redistribute`` | dictionary | Enables redistribute option | os10 |
 | ``vrf.redistribute.imported_bgp_vrf_name`` | string        | Configures the redistribute imported bgp vrf name | os10 |
-| ``vrf.redistribute.route_type`` | string (l2vpn, ospf, bgp, connected, imported_bgp) | Configure redistribute type | dellos10 |
-| ``vrf.redistribute.address_type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | dellos10 |
-| ``vrf.redistribute.state `` | string (required) | Configures the state as present or absent | dellos10 |
-| ``vrf.neighbor`` | list | Configures IPv4 BGP neighbors under vrf | dellos10 |
-| ``vrf.neighbor.admin`` | string: up,down  | Configures the administrative state of the neighbor in vrf | dellos10 |
-| ``vrf.neighbor.type`` | string : ipv4,ipv6 | Specifies the BGP neighbor type under vrf  | dellos10 |
-| ``vrf.neighbor.ip`` | string | Configures the IP address of the BGP neighbor in vrf  | dellos10 |
-| ``vrf.neighbor.interface`` | string  | Configures the BGP neighbor interface in vrf | dellos10  |
-| ``vrf.neighbor.remote_asn`` | integer  | Configures the remote AS for the BGP peer in vrf | dellos10  |
+| ``vrf.redistribute.route_type`` | string (l2vpn, ospf, bgp, connected, imported_bgp) | Configure redistribute type | os10 |
+| ``vrf.redistribute.address_type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | os10 |
+| ``vrf.redistribute.state `` | string (required) | Configures the state as present or absent | os10 |
+| ``vrf.neighbor`` | list | Configures IPv4 BGP neighbors under vrf | os10 |
+| ``vrf.neighbor.admin`` | string: up,down  | Configures the administrative state of the neighbor in vrf | os10 |
+| ``vrf.neighbor.type`` | string : ipv4,ipv6 | Specifies the BGP neighbor type under vrf  | os10 |
+| ``vrf.neighbor.ip`` | string | Configures the IP address of the BGP neighbor in vrf  | os10 |
+| ``vrf.neighbor.interface`` | string  | Configures the BGP neighbor interface in vrf | os10  |
+| ``vrf.neighbor.remote_asn`` | integer  | Configures the remote AS for the BGP peer in vrf | os10  |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
