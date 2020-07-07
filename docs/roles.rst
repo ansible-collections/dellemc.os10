@@ -19,7 +19,7 @@ The `os10_acl <https://github.com/ansible-collections/dellemc.os10/blob/master/r
 BFD role
 --------
 
-The `os10_bfd <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_bfd/README.md>`_ This role facilitates the configuration of BFD global attributes, and is abstracted for dellos10. It specifically enables configuration of BFD interval , min_rx, multiplier, and role.
+The `os10_bfd <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_bfd/README.md>`_ role facilitates the configuration of BFD global attributes, and is abstracted for dellos10. It specifically enables configuration of BFD interval , min_rx, multiplier, and role.
 
 
 BGP role
@@ -49,7 +49,7 @@ The `os10_ecmp <https://github.com/ansible-collections/dellemc.os10/blob/master/
 Fabric-Summary role
 -------------------
 
-The `os10_fabric_summary <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_fabric_summary/README.md>`_ This role facilitates to get show system information of all the switches in the fabric.
+The `os10_fabric_summary <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_fabric_summary/README.md>`_ role facilitates to get show system information of all the switches in the fabric.
 
 
 Flow-monitor role
@@ -92,7 +92,7 @@ The `os10_logging <https://github.com/ansible-collections/dellemc.os10/blob/mast
 Network-Validation role
 -----------------------
 
-The `os10_network_validation <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_network_validation/README.md>`_ This role facilitates to verify the Networks. It validates networking features of wiring connection, BGP neighbors, MTU between neighbors and VLT pair.
+The `os10_network_validation <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_network_validation/README.md>`_ role facilitates to verify the Networks. It validates networking features of wiring connection, BGP neighbors, MTU between neighbors and VLT pair.
 
 
 NTP role
@@ -140,13 +140,13 @@ The `os10_system <https://github.com/ansible-collections/dellemc.os10/blob/maste
 TEMPLATE role
 -------------
 
-The `os10_template <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_template/README.md>`_ This role facilitates the TEXTFSM parsing engine. TextFSM is a template based state machine . It takes the raw string input from the CLI of network devices OS10, run them through a TEXTFSM template and return structured text in the form of a Python dictionary.
+The `os10_template <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_template/README.md>`_ role facilitates the TEXTFSM parsing engine. TextFSM is a template based state machine . It takes the raw string input from the CLI of network devices OS10, run them through a TEXTFSM template and return structured text in the form of a Python dictionary.
 
 
 UPLINK role
 -----------
 
-The `os10_uplink <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_uplink/README.md>`_ This role facilitates the configuration of uplink attributes, and is abstracted for OS10. It specifically enables configuration of association between upstream and downstream interfaces known as uplink-state group.
+The `os10_uplink <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_uplink/README.md>`_ role facilitates the configuration of uplink attributes, and is abstracted for OS10. It specifically enables configuration of association between upstream and downstream interfaces known as uplink-state group.
 
 
 Users role

@@ -25,7 +25,7 @@ description:
     argument that will cause the module to wait for a specific condition
     before returning or timing out if the condition is not met.
   - This module does not support running commands in configuration mode.
-    Please use M(os10_config) to configure the OS10 devices.
+    Please use M(os10_config) to configure OS10 devices.
 extends_documentation_fragment: dellemc.os10.os10
 options:
   commands:
