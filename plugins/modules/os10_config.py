@@ -18,7 +18,7 @@ DOCUMENTATION = """
 ---
 module: os10_config
 author: "Senthil Kumar Ganesan (@skg-net)"
-short_description: Manage Dell EMC Networking OS10 configuration sections
+short_description: Manage Dell EMC SmartFabric OS10 configuration sections
 description:
   - OS10 configurations use a simple block indent file syntax
     for segmenting configuration into sections.  This module provides
