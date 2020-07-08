@@ -23,10 +23,16 @@ os10_bgp:
       aggregate_address:
          - ip_and_mask: 1.1.1.1/16
            state: present
+           summary_only: true
       dampening:
         value: 15 750 2000 60
         route_map: qq
         state: present
+    address_family_ipv6:
+      aggregate_address:
+         - ip_and_mask: 2001:4898:5808:ffa0::/126
+           state: present
+           summary_only: true
     best_path:
        as_path: ignore
        as_path_state: present
@@ -304,7 +310,43 @@ router bgp {{ bgp_vars.asn }}
     {% if bgp_vars.address_family_ipv4 is defined and bgp_vars.address_family_ipv4 %}
       {% set af_vars = bgp_vars.address_family_ipv4 %}
  address-family ipv4 unicast
-    {% elif bgp_vars.address_family_ipv6 is defined and bgp_vars.address_family_ipv6 %}
+    {% endif %}
+    {% if af_vars is defined and af_vars %}
+      {% if af_vars.aggregate_address is defined and af_vars.aggregate_address %}
+        {% for addr in af_vars.aggregate_address %}
+          {% if addr.ip_and_mask is defined and addr.ip_and_mask %}
+            {% if addr.state is defined and addr.state == "absent" %}
+  no aggregate-address {{ addr.ip_and_mask }}
+            {% else %}
+              {% if addr.summary_only is defined and addr.summary_only %}
+  aggregate-address {{ addr.ip_and_mask }} summary-only
+              {% else %}
+  aggregate-address {{ addr.ip_and_mask }}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if af_vars.dampening is defined and af_vars.dampening %}
+        {% if af_vars.dampening.state is defined and af_vars.dampening.state == "absent" %}
+  no dampening
+        {% else %}
+          {% if af_vars.dampening.value is defined and af_vars.dampening.value %}
+            {% if af_vars.dampening.route_map is defined and af_vars.dampening.route_map %}
+  dampening {{ af_vars.dampening.value }} route-map {{ af_vars.dampening.route_map }}
+            {% else %}
+  dampening {{ af_vars.dampening.value }}
+            {% endif %}
+          {% else %}
+            {% if af_vars.dampening.route_map is defined and af_vars.dampening.route_map %}
+  dampening 15 750 2000 60 route-map {{ af_vars.dampening.route_map }}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+    {% if bgp_vars.address_family_ipv6 is defined and bgp_vars.address_family_ipv6 %}
       {% set af_vars = bgp_vars.address_family_ipv6 %}
  address-family ipv6 unicast
     {% endif %}
@@ -315,7 +357,11 @@ router bgp {{ bgp_vars.asn }}
             {% if addr.state is defined and addr.state == "absent" %}
   no aggregate-address {{ addr.ip_and_mask }}
             {% else %}
+              {% if addr.summary_only is defined and addr.summary_only %}
+  aggregate-address {{ addr.ip_and_mask }} summary-only
+              {% else %}
   aggregate-address {{ addr.ip_and_mask }}
+              {% endif %}
             {% endif %}
           {% endif %}
         {% endfor %}
