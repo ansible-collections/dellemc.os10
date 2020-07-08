@@ -191,4 +191,4 @@ xSTP role
 The `os10_xstp <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_xstp/README.md>`_ role facilitates the configuration of xSTP attributes. This role supports multiple version of spanning-tree protocol (STP), rapid spanning-tree (RSTP) protocol, multiple spanning-tree (MST), and per-VLAN spanning-tree (PVST). This role supports the configuration of bridge priority, enabling and disabling spanning-tree, creating and deleting instances, and mapping virtual LAN (VLAN) to instances.
 
 
-(c) 2020 Dell Inc. or its subsidiaries. All Rights Reserved.
+\(c) 2020 Dell Inc. or its subsidiaries. All Rights Reserved.
