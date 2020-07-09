@@ -2,24 +2,25 @@
 Ansible Network Collection Roles for Dell EMC SmartFabric OS10 
 ##############################################################
 
-The roles facilitates provisioning of devices running Dell EMC SmartFabric OS10. This information describes each of the roles.
+The roles facilitate provisioning of devices running Dell EMC SmartFabric OS10. This document describes each of the roles.
 
 AAA role
 --------
 
-The `os10_aaa <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_aaa/README.md>`_ role facilitates the configuration of authentication authorization acccounting (AAA), and supports the configuration of TACACS and RADIUS server and AAA.
+The `os10_aaa <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_aaa/README.md>`_ role facilitates the configuration of Authentication Authorization and Accounting (AAA), and supports the configuration of TACACS and RADIUS server and AAA.
 
 
 ACL role
 --------
 
-The `os10_acl <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_acl/README.md>`_ role facilitates the configuration of an access control list (ACL). It supports the configuration of different types of ACLs (standard and extended) for both IPv4 and IPv6, and assigns the access-class to line terminals.
+The `os10_acl <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_acl/README.md>`_ role facilitates the configuration of Access Control lists. It supports the configuration of different types of ACLs (standard and extended) for both IPv4 and IPv6, and assigns the access-class to line terminals.
+
 
 
 BFD role
 --------
 
-The `os10_bfd <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_bfd/README.md>`_ role facilitates the configuration of BFD global attributes, and is abstracted for dellos10. It specifically enables configuration of BFD interval , min_rx, multiplier, and role.
+The `os10_bfd <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_bfd/README.md>`_ role facilitates the configuration of BFD global attributes. It specifically enables configuration of BFD interval , min_rx, multiplier, and role.
 
 
 BGP role
@@ -55,13 +56,13 @@ The `os10_fabric_summary <https://github.com/ansible-collections/dellemc.os10/bl
 Flow-monitor role
 -----------------
 
-The `os10_flow_monitor <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_flow_monitor/README.md>`_ role facilitates the configuration of ACL flow-based monitoring attributes. Flow-based mirroring is a mirroring session in which traffic matches specified policies that are mirrored to a destination port. Port-based mirroring maintains a database that contains all monitoring sessions, including port monitor sessions.
+The `os10_flow_monitor <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_flow_monitor/README.md>`_ role facilitates the configuration of ACL flow-based monitoring attributes. In Flow-based mirroring, the ingress traffic, matching the specified policies are mirrored to a destination port. Port-based mirroring maintains a database that contains all monitoring sessions, including port monitor sessions.
 
 
 Image-upgrade role
 ------------------
 
-The `os10_image_upgrade <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_image_upgrade/README.md>`_ role facilitates upgrades or installation of an OS10 software image.
+The `os10_image_upgrade <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_image_upgrade/README.md>`_ role facilitates installation of OS10 software images.
 
 
 
