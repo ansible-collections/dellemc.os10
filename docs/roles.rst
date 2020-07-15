@@ -47,7 +47,7 @@ ECMP role
 The `os10_ecmp <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_ecmp/README.md>`_ role facilitates the configuration of equal cost multi-path (ECMP). It supports the configuration of ECMP for IPv4.
 
 
-Fabric-Summary role
+Fabric-summary role
 -------------------
 
 The `os10_fabric_summary <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_fabric_summary/README.md>`_ role facilitates to get show system information of all the switches in the fabric.
