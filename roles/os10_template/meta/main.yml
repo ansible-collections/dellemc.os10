@@ -4,7 +4,7 @@ galaxy_info:
   role_name: os10_template
   author: Dell EMC Networking Engineering
   description: The os10_template role facilitates to provide the structured output from CLI in devices running on Dell EMC Networking Operating Systems.
-  license: Apache 2.0
+  license: GPLv3
   min_ansible_version: 2.9.6
 
   platforms:

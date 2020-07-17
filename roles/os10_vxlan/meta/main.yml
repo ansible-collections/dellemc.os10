@@ -6,7 +6,7 @@ galaxy_info:
   description: >
                 The os10_vxlan role facilitates the configuration of nve evpn and virtual network attributes in devices
                 running Dell EMC Networking Operating Systems.
-  license: Apache 2.0
+  license: GPLv3
   min_ansible_version: 2.9.6
 
   platforms:

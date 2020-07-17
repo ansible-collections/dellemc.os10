@@ -16,7 +16,6 @@ ACL role
 The `os10_acl <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_acl/README.md>`_ role facilitates the configuration of Access Control lists. It supports the configuration of different types of ACLs (standard and extended) for both IPv4 and IPv6, and assigns the access-class to line terminals.
 
 
-
 BFD role
 --------
 
@@ -63,7 +62,6 @@ Image-upgrade role
 ------------------
 
 The `os10_image_upgrade <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_image_upgrade/README.md>`_ role facilitates installation of OS10 software images.
-
 
 
 Interface role
