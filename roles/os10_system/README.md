@@ -1,7 +1,7 @@
 System role
 ===========
 
-This role facilitates the configuration of global system attributes, and is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. It specifically enables configuration of hostname and enable password for OS10.
+This role facilitates the configuration of global system attributes, and is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. It specifically enables configuration of hostname and hashing algorithm for OS10.
 
 The os10_system role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
 
@@ -62,10 +62,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os10_system* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
 
 Example playbook
 ----------------

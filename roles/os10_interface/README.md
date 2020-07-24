@@ -39,7 +39,7 @@ Role variables
 | ``max_ra`` | string | Configures RA maximum interval time period | os10 |
 | ``ip_and_mask`` | string | Configures the specified IP address to the interface on OS10 devices | os10 |
 | ``ipv6_and_mask`` | string | Configures a specified IPv6 address to the interface on OS10 devices | os10 |
-| ``virtual_gateway_ip``     | string     | Configures an anycast gateway IP address for a VXLAN virtual network as well as VLAN i    nterfaces| os10  |
+| ``virtual_gateway_ip``     | string     | Configures an anycast gateway IP address for a VXLAN virtual network as well as VLAN interfaces| os10  |
 | ``virtual_gateway_ipv6``     | string     | Configures an anycast gateway IPv6 address for VLAN interfaces| os10  |
 | ``state_ipv6`` | string: absent,present\* | Deletes the IPV6 address if set to absent           | os10 | 
 | ``ip_helper`` | list | Configures DHCP server address objects (see ``ip_helper.*``) | os10 |
@@ -73,10 +73,6 @@ Ansible Dell EMC Networking roles require connection information to establish co
 
 > **NOTE**: Asterisk (*) denotes the default value if none is specified.
 
-Dependencies
-------------
-
-The *os10_interface* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.2.0.
 
 Example playbook
 ----------------
