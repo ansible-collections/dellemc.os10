@@ -42,6 +42,7 @@ Role variables
 | ``evpn.dis_rt_asn`` | boolean | Enable/Disable AS number usage in route target | os10 |
 | ``evpn.vrf`` | dictionary | Enable VRF for EVPN| os10 |
 | ``vrf.name`` | string | Configures VRF name | os10 |
+| ``vrf.state`` | string(present,absent) | Configures/Removes VRF for EVPN | os10 |
 | ``vrf.vni`` | integer | Configures vni for the VRF | os10 |
 | ``vrf.rd`` | string | Configures RD for the VRF | os10 |
 | ``vrf.route_target`` | dictionary | Enable Route Target for the VRF | os10 |
@@ -191,6 +192,8 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
                   asn_value: "65530:65534"
                   route_target_type: "both"
                   state: "present"
+            - name: "blue"
+              state: "absent"
           rmac: 00:11:11:11:11:11
           dis_rt_asn: "true"
           state: "present"

@@ -59,6 +59,8 @@ os10_vxlan:
               asn_value: "65530:65534"
               route_target_type: "both"
               state: "present"
+        - name: "blue"
+          state: "absent"
       rmac: 00:11:11:11:11:11
       dis_rt_asn: "true"
       state: "present"
