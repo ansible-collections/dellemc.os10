@@ -62,6 +62,8 @@ os10_vxlan:
               asn_value: "65530:65534"
               route_target_type: "both"
               state: "present"
+        - name: "blue"
+          state: "absent"
       rmac: 00:11:11:11:11:11
       dis_rt_asn: "true"
       state: "present"
@@ -269,7 +271,9 @@ evpn
       {% endif %}
       {% if evpn.vrf is defined %}
         {% for evpn_vrf in evpn.vrf %}
-          {% if evpn_vrf.name %}
+          {% if evpn_vrf.state is defined and evpn_vrf.state == "absent" and evpn_vrf.name %}
+          no vrf {{ evpn_vrf.name }}
+          {% elif evpn_vrf.name %}
              vrf  {{ evpn_vrf.name }}
             {% if evpn_vrf.vni is defined %}
 	      {% if evpn_vrf.vni %}
@@ -321,9 +325,8 @@ evpn
             {% endif %}
           {% endif %}
         {% endfor %}
-      {% else %}
-           no vrf {{ evpn.vrf }}
-      {% endif %}
+        {% endif %}
+
       {% if evpn.autoevi is defined %}
         {% if evpn.autoevi == True %}
  auto-evi
