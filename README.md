@@ -1,5 +1,6 @@
 # Ansible Network Collection for Dell EMC SmartFabric OS10
 
+### Collection contents
 This collection includes Ansible modules, plugins and roles needed to provision and manage Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. Sample playbooks and documentation are also included to show how the collection can be used.
 
 ### Collection core modules
@@ -11,14 +12,14 @@ This collection includes Ansible modules, plugins and roles needed to provision 
 - **os10_facts.py** — Collect facts from devices running OS10
 
 ### Collection roles
-These roles facilitate the provisioning and administration of devices running SmartFabric OS10. There are over 30 roles available that provide a comprehensive coverage of most OS10 resources, including *os10_interface*, *os10_acl*, *os10_bgp* and *os10_vxlan*. The documentation for each role is at [OS10 roles](https://github.com/ansible-collections/dellemc.os10/blob/master/docs/roles.rst).
+These roles facilitate the provisioning and administration of devices running SmartFabric OS10. There are over 30 roles available that provide a comprehensive coverage of most OS10 resources, including *os10_interface*, *os10_acl*, *os10_bgp*, and *os10_vxlan*. The documentation for each role is at [OS10 roles](https://github.com/ansible-collections/dellemc.os10/blob/master/docs/roles.rst).
 
 ### Sample use case playbooks
 This collection includes the following sample playbooks that illustrate end to end use cases:
 
-- [CLOS fabric](https://github.com/ansible-collections/dellemc.os10/blob/master/playbooks/clos_fabric_ebgp/README.md) — Example playbook to build CLOS fabric with SmartFabric OS10 switches
+- [CLOS fabric](https://github.com/ansible-collections/dellemc.os10/blob/master/playbooks/clos_fabric_ebgp/README.md) — Example playbook to build a Layer 3 Leaf-Spine fabric
 
-- [VXLAN EVPN](https://github.com/ansible-collections/dellemc.os10/blob/master/playbooks/vxlan_evpn/README.md) — Example playbook to build a Leaf-Spine topology with SmartFabric OS10 switches, using VxLAN Symmetric-IRB configuration model
+- [VXLAN EVPN](https://github.com/ansible-collections/dellemc.os10/blob/master/playbooks/vxlan_evpn/README.md) — Example playbook to build a scale-out Leaf-Spine topology using VxLAN, BGP EVPN and Symmetric-IRB
 
 ## Installation
 Use this command to install the latest version of the OS10 collection from Ansible Galaxy:
@@ -32,7 +33,7 @@ To install a specific version, a version range identifier must be specified. For
 ## Version compatibility
 Ansible version 2.10 or later.
 
-> **NOTE**: For Ansible version lower than 2.10, use the legacy [dellos10 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os10-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html).
+> **NOTE**: For Ansible versions lower than 2.10, use the legacy [dellos10 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os10-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html).
 
 ## Sample playbook
 
