@@ -1,13 +1,15 @@
 Route-map role
 ==============
 
-This role facilitates the configuration of route-map attributes, and the role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. The route-map role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables .
+This role facilitates the configuration of route-map attributes. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. 
+
+The route-map role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
 
-- Role is abstracted using the *ansible_network_os* variable that can take dellemc.os10.os10 value
-- If *os10_cfg_generate* is set to true, the variable generates the role configuration commands in a file
+- Role is abstracted using the `ansible_network_os` variable that can take `dellemc.os10.os10` as the value
+- If `os10_cfg_generate` is set to true, the variable generates the role configuration commands in a file
 - Any role variable with a corresponding state variable set to absent negates the configuration of that variable 
 - Setting an empty value for any variable negates the corresponding configuration
 - Variables and values are case-sensitive
@@ -43,11 +45,11 @@ Role variables
 | ``route_map.match`` | list | Configures the route-map to match values from the route table (see ``match.*``) | os10 |
 | ``match.ip_type`` | string (required): ipv4,ipv6   | Configures the IPv4/IPv6 address to match    | os10 |
 | ``match.access_group`` | string     | Configures the access-group or list to match                  | os10 |
-| ``match.source_protocol_ebgp`` | string     | Configures the source protocol to EBGP to match       | os10 |
-| ``match.source_protocol_ibgp`` | string     | Configures the source protocol to IBGP to match       | os10 |
+| ``match.source_protocol_ebgp`` | string     | Configures the source protocol to eBGP to match       | os10 |
+| ``match.source_protocol_ibgp`` | string     | Configures the source protocol to iBGP to match       | os10 |
 | ``match.source_protocol_evpn`` | string     | Configures the source protocol to EVPN to match       | os10 |
-| ``match.source_protocol_static`` | string     | Configures the source protocol to STATIC to match       | os10 |
-| ``match.source_protocol_connected`` | string     | Configures the source protocol to CONNECTED to match       | os10 |
+| ``match.source_protocol_static`` | string     | Configures the source protocol to static to match       | os10 |
+| ``match.source_protocol_connected`` | string     | Configures the source protocol to connected to match       | os10 |
 | ``match.source_protocol_ospf`` | string     | Configures the source protocol to OSPF to match       | os10 |
 | ``match.prefix_list`` | string     | Configures the IP prefix-list to match against                  | os10 |
 | ``route_map.state`` | string, choices: present\*,absent   | Deletes the route-map if set to absent  | os10 |
@@ -60,14 +62,14 @@ Role variables
 | ``community_list.type`` | string (required): standard,expanded        | Configures the type of community-list entry              | os10 |
 | ``community_list.name`` | string (required)     | Configures the name of community-list entry             | os10 |
 | ``community_list.permit`` | boolean(required) | Configures the community to accept or reject   | os10 |
-| ``community_list.regex`` | string (required)         | Configures the regular expression for expanded community list; mutually exclusive with *community_list.community*    | os10 |
+| ``community_list.regex`` | string (required)         | Configures the regular expression for extended community list; mutually exclusive with *community_list.community*    | os10 |
 | ``community_list.community`` | string (required)         | Configures a well-known community or community number for standard community list; mutually exclusive with *community_list.regex*            | os10 |
 | ``community_list.state`` | string: absent,present\*     | Deletes the community list entry if set to absent  | os10 |
 | ``extcommunity_list`` | list | Configures extcommunity-list entry (see ``extcommunity_list.*``)   | os10 |
 | ``extcommunity_list.type`` | string (required): standard,expanded    | Configures the type of extcommunity-list entry              | os10 |
 | ``extcommunity_list.name`` | string (required)     | Configures the name of extcommunity-list entry             | os10 |
 | ``extcommunity_list.permit`` | boolean(required) | Configures the extcommunity to accept or reject   | os10  |
-| ``extcommunity_list.regex`` | string (required)         | Configures the regular expression for the expanded extcommunity list; mutually exclusive with *extcommunity_list.community*    | os10 |
+| ``extcommunity_list.regex`` | string (required)         | Configures the regular expression for the extended extcommunity list; mutually exclusive with *extcommunity_list.community*    | os10 |
 | ``extcommunity_list.community`` | string (required)         | Configures the extended community for standard community-list; mutually exclusive with *extcommunity_list.regex*            | os10 |
 | ``extcommunity_list.state`` | string: absent,present\*     | Deletes the extcommunity-list entry if set to absent   | os10 |
 
@@ -76,16 +78,16 @@ Role variables
 Connection variables
 --------------------
 
-Ansible Dell EMC Networking roles require connection information to establish communication with the nodes in your inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories, or inventory or in the playbook itself.
+Ansible Dell EMC network roles require connection information to establish communication with the nodes in your inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories, or inventory or in the playbook itself.
 
 | Key         | Required | Choices    | Description                                         |
 |-------------|----------|------------|-----------------------------------------------------|
 | ``ansible_host`` | yes      |            | Specifies the hostname or address for connecting to the remote device over the specified transport |
-| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_PORT option is used; it defaults to 22 |
-| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_USER environment variable value is used  |
+| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_PORT` option is used; it defaults to 22 |
+| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_USER` environment variable value is used  |
 | ``ansible_ssh_pass`` | no       |            | Specifies the password that authenticates the connection to the remote device |
-| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the ANSIBLE_BECOME environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
-| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the ANSIBLE_BECOME_METHOD environment variable value is used |
+| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the `ANSIBLE_BECOME` environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
+| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the `ANSIBLE_BECOME_METHOD` environment variable value is used |
 | ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable |
 | ``ansible_network_os`` | yes      | os10, null\*  | Loads the correct terminal and cliconf plugins to communicate with the remote device |
 
@@ -95,9 +97,9 @@ Ansible Dell EMC Networking roles require connection information to establish co
 Example playbook
 ----------------
 
-This example uses the *os10_route_map* role for the route-map, policy-map, and class-map. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_network_os* variable with corresponding Dell EMC Networking OS name. 
+This example uses the *os10_route_map* role for the route-map, policy-map, and class-map. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the `ansible_network_os` variable with corresponding Dell EMC OS10 name. 
 
-When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false. It writes a simple playbook that only references the *os10_route_map* role. By including the role, you automatically get access to all of the tasks to configure route-map features. 
+When `os10_cfg_generate` is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false. It writes a simple playbook that only references the *os10_route_map* role. By including the role, you automatically get access to all of the tasks to configure route-map features. 
 
 **Sample hosts file**
  
@@ -175,7 +177,7 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
               delete: aa
           state: present
 
-**Simple playbook to setup qos - leaf.yaml**
+**Simple playbook to setup QoS —leaf.yaml**
 
     - hosts: leaf1
       roles:
@@ -185,4 +187,4 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
 
     ansible-playbook -i hosts leaf.yaml
 
-(c) 2017-2020 Dell Inc. or its subsidiaries. All Rights Reserved.
+(c) 2017-2020 Dell Inc. or its subsidiaries. All rights reserved.

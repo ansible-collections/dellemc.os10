@@ -1,19 +1,18 @@
 ACL flow-based monitor role
 ===========================
 
-This role facilitates configuring ACL flow-based monitoring attributes. Flow-based mirroring is a mirroring session in which traffic matches specified policies that are mirrored to a destination port. Port-based mirroring maintains a database that contains all monitoring sessions (including port monitor sessions).
-This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
+This role facilitates configuring ACL flow-based monitoring attributes. Flow-based mirroring is a mirroring session in which traffic matches specified policies that are mirrored to a destination port. Port-based mirroring maintains a database that contains all monitoring sessions (including port monitor sessions). This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The ACL flow-based role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables.
+The ACL flow-based role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
 
-- Role is abstracted using the *ansible_network_os* variable that can take the dellemc.os10.os10 value
-- If variable *os10_cfg_generate* is set to true, the variable generates the role configuration commands in a file
+- Role is abstracted using the `ansible_network_os` variable that can take the `dellemc.os10.os10` as the value
+- If `os10_cfg_generate` is set to true, the variable generates the role configuration commands in a file
 - Any role variable with a corresponding state variable set to absent negates the configuration of that variable 
 - Setting an empty value for any variable negates the corresponding configuration
-- *os10_flow_monitor* (dictionary) with session ID key (in *session <ID>* format) range is 1 to 18
+- `os10_flow_monitor` (dictionary) with session ID key (in *session <ID>* format; 1 to 18)
 - Variables and values are case-sensitive
 
 **session ID keys**
@@ -35,16 +34,16 @@ Role variables
 Connection variables
 --------------------
 
-Ansible Dell EMC Networking roles require connection information to establish communication with the nodes in your inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories or inventory or in the playbook itself.
+Ansible Dell EMC network roles require connection information to establish communication with the nodes in your inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories or inventory or in the playbook itself.
 
 | Key         | Required | Choices    | Description                                         |
 |-------------|----------|------------|-----------------------------------------------------|
 | ``ansible_host`` | yes      |            | Specifies the hostname or address for connecting to the remote device over the specified transport |
-| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_PORT option is used; it defaults to 22 |
-| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_USER environment variable value is used  |
+| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_PORT` option is used; it defaults to 22 |
+| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_USER` environment variable value is used  |
 | ``ansible_ssh_pass`` | no       |            | Specifies the password that authenticates the connection to the remote device |
-| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the ANSIBLE_BECOME environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
-| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the ANSIBLE_BECOME_METHOD environment variable value is used |
+| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the `ANSIBLE_BECOME` environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
+| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the `ANSIBLE_BECOME_METHOD` environment variable value is used |
 | ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable |
 | ``ansible_network_os`` | yes      | os10, null\*  | Loads the correct terminal and cliconf plugins to communicate with the remote device |
 
@@ -54,9 +53,9 @@ Ansible Dell EMC Networking roles require connection information to establish co
 Example playbook
 ----------------
 
-This example uses the *os10_flow_monitor* role to configure session monitor configuration. It creates a *hosts* file with the switch details and corresponding variables. The hosts file defines the *anisble_network_os* variable with corresponding Dell EMC Networking OS name. 
+This example uses the *os10_flow_monitor* role to configure session monitor configuration. It creates a *hosts* file with the switch details and corresponding variables. The hosts file defines the `anisble_network_os` variable with corresponding Dell EMC OS10 name. 
 
-When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in the *build_dir* path. By default, the variable is set to false.
+When `os10_cfg_generate` is set to true, the variable generates the configuration commands as a .part file in the *build_dir* path. By default, the variable is set to false.
 It writes a simple playbook that only references the *os10_flow_monitor* role.
 
 **Sample hosts file**
@@ -137,9 +136,9 @@ It writes a simple playbook that only references the *os10_flow_monitor* role.
                 - name: ethernet 1/1/1
                     state: present
 
-> **NOTE**: Destination port should not be a L2/L3 port which can be configured using os10_interface role
+> **NOTE**: Destination port should not be an L2/L3 port which can be configured using the *os10_interface* role.
 
-**Simple playbook to setup system - leaf.yaml**
+**Simple playbook to setup system — leaf.yaml**
 
     - hosts: leaf1
       roles:
@@ -150,4 +149,4 @@ It writes a simple playbook that only references the *os10_flow_monitor* role.
 
     ansible-playbook -i hosts leaf.yaml
 
-(c) 2020 Dell Inc. or its subsidiaries. All Rights Reserved.
+(c) 2017-2020 Dell Inc. or its subsidiaries. All rights reserved.

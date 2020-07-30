@@ -1,35 +1,37 @@
 os10_fabric_summary
 =====================================
-This role is used to get show system information of all the Dell EMC PowerSwitch platforms in the fabric, running Dell EMC SmartFabric OS1O.
+This role is used to get show system information of all devices in the fabric. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
+
+The Fabric summary role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
 
 Connection variables
 --------------------
 
-Ansible Dell EMC Networking roles require connection information to establish communication with the nodes in your inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories or inventory, or in the playbook itself.
+Ansible Dell EMC network roles require connection information to establish communication with the nodes in your inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories or inventory, or in the playbook itself.
 
 | Key         | Required | Choices    | Description                                         |
 |-------------|----------|------------|-----------------------------------------------------|
 | ``ansible_host`` | yes      |            | Specifies the hostname or address for connecting to the remote device over the specified transport |
-| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_PORT option is used; it defaults to 22 |
+| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_PORT` option is used; it defaults to 22 |
 | ``os10_cli_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the default value is used  |
-| ``os10_cli_pass`` | no       |            | Specifies the password that authenticates the connection to the remote device.  |
-| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the ANSIBLE_BECOME environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
-| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the ANSIBLE_BECOME_METHOD environment variable value is used. |
-| ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable. |
-| ``ansible_network_os`` | yes      | os10, null\*  | This value is used to load the correct terminal and cliconf plugins to communicate with the remote device. |
+| ``os10_cli_pass`` | no       |            | Specifies the password that authenticates the connection to the remote device  |
+| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the `ANSIBLE_BECOME` environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
+| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the `ANSIBLE_BECOME_METHOD` environment variable value is used |
+| ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable |
+| ``ansible_network_os`` | yes      | os10, null\*  | Loads the correct terminal and cliconf plugins to communicate with the remote device |
 
 > **NOTE**: Asterisk (*) denotes the default value if none is specified.
 
 Dependencies
 ------------
 
-*xmltodict*  library should be installed to get show command output in dict format from xml.
-To install the package use the *pip install xmltodict* command.
+- *xmltodict*  library should be installed to get show command output in dict format from XML
+- To install the package use the *pip install xmltodict* command
 
 Example playbook
 ----------------
 
-This example uses the *os10_fabric_summary* role to completely get the show attributes. It creates a *hosts* file with the switch details and corresponding variables.
+This example uses the *os10_fabric_summary* role to completely get the show attributes. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the ansible_network_os variable with the corresponding Dell EMC OS10 name.
 
 The *os10_fabric_summary* role has a simple playbook that only references the *os10_fabric_summary* role.
 
@@ -59,7 +61,7 @@ The *os10_fabric_summary* role has a simple playbook that only references the *o
     os10_cli_pass: xxxx
     ansible_network_os: dellemc.os10.os10
 
-**Simple playbook to setup fabric summary - provision.yaml**
+**Simple playbook to setup fabric summary — provision.yaml**
 
     ---
     - name:  show system summary command
@@ -114,5 +116,4 @@ The *os10_fabric_summary* role has a simple playbook that only references the *o
         }
     ]
 
-(c) Copyright 2020 Dell Inc. or its subsidiaries. All Rights Reserved.
-
+(c) 2017-2020 Dell Inc. or its subsidiaries. All rights reserved.
