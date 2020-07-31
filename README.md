@@ -70,7 +70,7 @@ Ansible version 2.10 or later.
     [os10_sw2]
     os10_sw2 ansible_host=100.104.28.120
 
-    [os10_switches]
+    [os10_switches:children]
     os10_sw1
     os10_sw2
 
