@@ -3,13 +3,13 @@ BGP role
 
 This role facilitates the configuration of border gateway protocol (BGP) attributes. It supports the configuration of router ID, networks, neighbors, and maximum path. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The BGP role requires an SSH connection for connectivity to a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10. You can use any of the built-in OS connection variables.
+The BGP role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
 
-- Role is abstracted using the *ansible_network_os* variable that can take dellemc.os10.os10 values
-- If variable *os10_cfg_generate* is set to true, it generates the role configuration commands in a file
+- Role is abstracted using the `ansible_network_os` variable that can take `dellemc.os10.os10` as the value
+- If `os10_cfg_generate` is set to true, it generates the role configuration commands in a file
 - Any role variable with a corresponding state variable setting to absent negates the configuration of that variable
 - Setting an empty value for any variable negates the corresponding configuration
 - Variables and values are case-sensitive
@@ -29,8 +29,8 @@ Role variables
 | ``default_loc_pref`` | integer | Configures the default local preference value | os10 |
 | ``confederation`` | dictionary | Configures AS confederation parameters (see ``confederation.*``) | os10 |
 | ``confederation.identifier`` | integer | Configures routing domain confederation AS | os10 |
-| ``confederation.peers`` | string | Configures peer ASs in BGP confederation | os10 |
-| ``confederation.peers_state`` | string: absent,present\* | Deletes peer ASs in BGP confederation if set to absent   | os10 |
+| ``confederation.peers`` | string | Configures peer AS in BGP confederation | os10 |
+| ``confederation.peers_state`` | string: absent,present\* | Deletes peer AS in BGP confederation if set to absent   | os10 |
 | ``route_reflector`` | dictionary | Configures route reflection parameters (see ``route_reflector.*``) | os10 |
 | ``route_reflector.client_to_client`` | boolean | Configures client-to-client route reflection | os10 |
 | ``route_reflector.cluster_id`` | string | Configures the route-reflector cluster-id | os10 |
@@ -74,10 +74,10 @@ Role variables
 | ``neighbor.password`` | string      | Configures the BGP neighbor password  | os10  |
 | ``neighbor.peergroup_type`` | string (ibgp, ebgp)   | Configures the BGP neighbor peer group type| os10  |
 | ``neighbor.ebgp_peergroup`` | string | Configures the peer-group to all auto-discovered external neighbors | os10 |
-| ``neighbor.ebgp_peergroup_state`` | string: present,absent | Removes the peer group from all auto-discoverd external neighbors | os10 |
+| ``neighbor.ebgp_peergroup_state`` | string: present,absent | Removes the peer group from all auto-discovered external neighbors | os10 |
 | ``neighbor.ibgp_peergroup`` | string | Configures the peer-group to all auto-discovered internal neighbors | os10 |
-| ``neighbor.ibgp_peergroup_state`` | string: present,absent | Removes the peer group from all auto-discoverd internal neighbors | os10 |
-| ``neighbor.route_reflector_client`` | boolean      | Configures router reflector client on the BGP neighbor. | os10  |
+| ``neighbor.ibgp_peergroup_state`` | string: present,absent | Removes the peer group from all auto-discovered internal neighbors | os10 |
+| ``neighbor.route_reflector_client`` | boolean      | Configures router reflector client on the BGP neighbor | os10  |
 | ``neighbor.local_as`` | integer     | Configures the local AS for the BGP peer | os10  |
 | ``neighbor.weight`` | integer     | Configures the default weight for routes from the neighbor interface | os10  |
 | ``neighbor.send_community`` | list | Configures the send community attribute to the BGP neighbor (see ``send_community.*``) | os10 |
@@ -98,7 +98,7 @@ Role variables
 | ``address_family.state`` | string: absent,present\* | Deletes the address family command mode of the BGP neighbor if set to absent | os10 |
 | ``neighbor.remote_asn`` | string (required)         | Configures the remote AS number of the BGP neighbor  | os10 |
 | ``neighbor.remote_asn_state`` | string: absent,present\* | Deletes the remote AS number from the peer group if set to absent; supported only when *neighbor.type* is "peergroup" | os10 |
-| ``neighbor.timer`` | string          | Configures neighbor timers (<int> <int>); 5 10, where 5 is the keepalive interval and 10 is the holdtime | os10 |
+| ``neighbor.timer`` | string          | Configures neighbor timers; 5 10, where 5 is the keepalive interval and 10 is the holdtime | os10 |
 | ``neighbor.peergroup`` | string          | Configures neighbor to BGP peer-group (configured peer-group name) | os10 |
 | ``neighbor.peergroup_state`` | string: absent,present\* | Deletes the IPv4 BGP neighbor from the peer-group if set to absent | os10 |
 | ``neighbor.distribute_list`` | list | Configures the distribute list to filter networks from routing updates (see ``distribute_list.*``) | os10 |
@@ -121,7 +121,7 @@ Role variables
 | ``redistribute`` | list | Configures the redistribute list to get information from other routing protocols (see ``redistribute.*``) | os10 |
 | ``redistribute.route_type`` | string (required): static,connected,imported_bgp        | Configures the name of the routing protocol to redistribute | os10 |
 | ``redistribute.route_map_name`` | string        | Configures the route-map to redistribute | os10 |
-| ``redistribute.imported_bgp_vrf_name`` | string        | Configures the redistribute imported bgp vrf name | os10 |
+| ``redistribute.imported_bgp_vrf_name`` | string        | Configures the redistribute imported BGP VRF name | os10 |
 | ``redistribute.route_map`` |  string: absent,present\*    | Deletes the route-map to redistribute if set to absent        | os10 |
 | ``redistribute.address_type`` | string (required): ipv4,ipv6                  | Configures the address type of IPv4 or IPv6 routes | os10 |
 | ``redistribute.state`` | string: absent,present\* | Deletes the redistribution information if set to absent | os10 |
@@ -136,34 +136,34 @@ Role variables
 | ``vrf.name`` | string (Required)| Configures VRF name | os10 |
 | ``vrf.router_id`` | string | Configures Router ID for VRF | os10 |
 | ``vrf.address_family`` | dictionary | Enables address familyaddress | os10 |
-| ``vrf.address_family.type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | os10 |
+| ``vrf.address_family.type`` | string (required): ipv4,ipv6 | Configures address type IPv4 or IPv6 | os10 |
 | ``vrf.redistribute`` | dictionary | Enables redistribute option | os10 |
-| ``vrf.redistribute.imported_bgp_vrf_name`` | string        | Configures the redistribute imported bgp vrf name | os10 |
+| ``vrf.redistribute.imported_bgp_vrf_name`` | string        | Configures the redistribute imported BGP VRF name | os10 |
 | ``vrf.redistribute.route_type`` | string (l2vpn, ospf, bgp, connected, imported_bgp) | Configure redistribute type | os10 |
-| ``vrf.redistribute.address_type`` | string (required): ipv4,ipv6 | Configures address type ipv4 or ipv6 | os10 |
+| ``vrf.redistribute.address_type`` | string (required): ipv4,ipv6 | Configures address type IPv4 or IPv6 | os10 |
 | ``vrf.redistribute.state `` | string (required) | Configures the state as present or absent | os10 |
-| ``vrf.neighbor`` | list | Configures IPv4 BGP neighbors under vrf | os10 |
-| ``vrf.neighbor.admin`` | string: up,down  | Configures the administrative state of the neighbor in vrf | os10 |
-| ``vrf.neighbor.type`` | string : ipv4,ipv6 | Specifies the BGP neighbor type under vrf  | os10 |
-| ``vrf.neighbor.ip`` | string | Configures the IP address of the BGP neighbor in vrf  | os10 |
-| ``vrf.neighbor.interface`` | string  | Configures the BGP neighbor interface in vrf | os10  |
-| ``vrf.neighbor.remote_asn`` | integer  | Configures the remote AS for the BGP peer in vrf | os10  |
+| ``vrf.neighbor`` | list | Configures IPv4 BGP neighbors under VRF | os10 |
+| ``vrf.neighbor.admin`` | string: up,down  | Configures the administrative state of the neighbor in VRF | os10 |
+| ``vrf.neighbor.type`` | string : ipv4,ipv6 | Specifies the BGP neighbor type under VRF  | os10 |
+| ``vrf.neighbor.ip`` | string | Configures the IP address of the BGP neighbor in VRF  | os10 |
+| ``vrf.neighbor.interface`` | string  | Configures the BGP neighbor interface in VRF | os10  |
+| ``vrf.neighbor.remote_asn`` | integer  | Configures the remote AS for the BGP peer in VRF | os10  |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
 Connection variables
 --------------------
 
-Ansible Dell EMC Networking roles require connection information to establish communication with the nodes in your inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories or inventory, or in the playbook itself.
+Ansible Dell EMC network roles require connection information to establish communication with the nodes in your inventory. This information can exist in the Ansible *group_vars* or *host_vars* directories or inventory, or in the playbook itself.
 
 | Key         | Required | Choices    | Description                                         |
 |-------------|----------|------------|-----------------------------------------------------|
 | ``ansible_host`` | yes      |            | Specifies the hostname or address for connecting to the remote device over the specified transport |
-| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_PORT option is used; it defaults to 22 |
-| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the ANSIBLE_REMOTE_USER environment variable value is used  |
+| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_PORT` option is used; it defaults to 22 |
+| ``ansible_ssh_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the `ANSIBLE_REMOTE_USER` environment variable value is used  |
 | ``ansible_ssh_pass`` | no       |            | Specifies the password that authenticates the connection to the remote device |
-| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the ANSIBLE_BECOME environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
-| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the ANSIBLE_BECOME_METHOD environment variable value is used |
+| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the `ANSIBLE_BECOME` environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
+| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the become method to be specified for handling privilege escalation; if value is unspecified, the `ANSIBLE_BECOME_METHOD` environment variable value is used |
 | ``ansible_become_pass`` | no       |            | Specifies the password to use if required to enter privileged mode on the remote device; if ``ansible_become`` is set to no this key is not applicable |
 | ``ansible_network_os`` | yes      | os10, null\*  | Loads the correct terminal and cliconf plugins to communicate with the remote device |
 
@@ -173,9 +173,9 @@ Ansible Dell EMC Networking roles require connection information to establish co
 Example playbook
 ----------------
 
-This example uses the *os10_bgp* role to configure the BGP network and neighbors. It creates a *hosts* file with the switch details, a *host_vars* file with connection variables and the corresponding role variables.
+This example uses the *os10_bgp* role to configure the BGP network and neighbors. It creates a *hosts* file with the switch details, a *host_vars* file with connection variables and the corresponding role variables. The hosts file should define the `ansible_network_os` variable with the corresponding Dell EMC OS10 name.
 
-When *os10_cfg_generate* is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false. This example writes a simple playbook that only references the *os10_bgp* role. The sample host_vars given below. 
+When `os10_cfg_generate` is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false. This example writes a simple playbook that only references the *os10_bgp* role. 
 
 **Sample hosts file**
 
@@ -351,7 +351,7 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
         state: present
 
 
-**Simple playbook to configure BGP - leaf.yaml**
+**Simple playbook to configure BGP — leaf.yaml**
 
     - hosts: leaf1
       roles:
@@ -361,4 +361,4 @@ When *os10_cfg_generate* is set to true, the variable generates the configuratio
 
     ansible-playbook -i hosts leaf.yaml
 
-(c) 2017-2020 Dell Inc. or its subsidiaries. All Rights Reserved.
+(c) 2017-2020 Dell Inc. or its subsidiaries. All rights reserved.

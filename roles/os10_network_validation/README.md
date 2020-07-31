@@ -1,45 +1,46 @@
-dellemc.os10.os10_network_validation
+Network validation role
 =========================
 
-This roles is used to verify network validation. It validates network features of a wiring connection, BGP neighbors, the MTU between neighbors, and VLT pairing with Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
+This roles is used to verify network validation. It validates network features of a wiring connection, BGP neighbors, MTU between neighbors, and VLT pairing. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. The Network validation role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
 
-- **Wiring validation** — based on the LLDP neighbor establishment; the intended neighbor input model is defined by the _group_var/all_ user which is compared with the actual LLDP neighbor; report is generated if there is any mismatch with the intended neighbors.
+- **Wiring validation** — Based on the LLDP neighbor establishment, the intended neighbor input model is defined by the _group_var/all_ user which is compared with the actual LLDP neighbor; report is generated if there is any mismatch with the intended neighbors
 
-- **BGP validation** — based on the BGP neighbor state establishment; report is generated if the BGP neighbor state is not in an established state.
+- **BGP validation** — Based on the BGP neighbor state establishment, report is generated if the BGP neighbor state is not in an established state
 
-- **MTU validation** — based on the interface MTU; report is generated if there is an MTU mismatch between LLDP neighbors.
+- **MTU validation** — Based on the interface MTU, the report is generated if there is an MTU mismatch between LLDP neighbors
 
-- **VLT validation** — based on the VLT information; report is generated if the backup VLT link is down or not present.
+- **VLT validation** — Based on the VLT information, the report is generated if the backup VLT link is down or not present
 
 Role variables
 --------------
 
+- Role is abstracted using the `ansible_network_os` variable that can take `dellemc.os10.os10` as the value
 - Variables and values are case-sensitive
 
 **wiring_validation keys**
 
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
-| ``intended_neighbors`` | list  | Define topology details planned  | os10 |
-| ``source_switch`` | string  | Define the source switch inventory name planned  | os10 |
-| ``source_port`` | string  | Define the source port planned  | os10 |
-| ``dest_switch`` | string  | Define the destination switch inventory name planned  | os10 |
-| ``dest_port`` | string  | Define the destination port planned  | os10 |
+| ``intended_neighbors`` | list  | Defines topology details planned  | os10 |
+| ``source_switch`` | string  | Defines the source switch inventory name planned  | os10 |
+| ``source_port`` | string  | Defines the source port planned  | os10 |
+| ``dest_switch`` | string  | Defines the destination switch inventory name planned  | os10 |
+| ``dest_port`` | string  | Defines the destination port planned  | os10 |
 
 **bgp_validation keys**
 
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
-| ``intended_bgp_neighbors`` | list  | Define topology details planned  | os10 |
-| ``source_switch`` | string  | Define the source switch inventory name planned  | os10 |
+| ``intended_bgp_neighbors`` | list  | Defines topology details planned  | os10 |
+| ``source_switch`` | string  | Defines the source switch inventory name planned  | os10 |
 
 **vlt_validation keys**
 
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
-| ``intended_vlt_pairs`` | list  | Define topology details planned  | os10 |
-| ``primary`` | string  | Define the primary role of switch inventory name planned  | os10 |
-| ``secondary`` | string  | Define the secondary role of switch inventory name planned  | os10 |
+| ``intended_vlt_pairs`` | list  | Defines topology details planned  | os10 |
+| ``primary`` | string  | Defines the primary role of switch inventory name planned  | os10 |
+| ``secondary`` | string  | Defines the secondary role of switch inventory name planned  | os10 |
 
 Connection variables
 --------------------
@@ -49,11 +50,11 @@ Ansible Dell EMC roles require connection information to establish communication
 | Key         | Required | Choices    | Description                                         |
 |-------------|----------|------------|-----------------------------------------------------|
 | ``ansible_host`` | yes      |            | Specifies the hostname or address for connecting to the remote device over the specified transport |
-| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if the value is unspecified, the ANSIBLE_REMOTE_PORT option is used; defaults to 22 |
+| ``ansible_port`` | no       |            | Specifies the port used to build the connection to the remote device; if the value is unspecified, the `ANSIBLE_REMOTE_PORT` option is used; defaults to 22 |
 | ``os10_cli_user`` | no       |            | Specifies the username that authenticates the CLI login for the connection to the remote device; if value is unspecified, the default value is used  |
 | ``os10_cli_pass`` | no       |            | Specifies the password that authenticates the connection to the remote device  |
-| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the ANSIBLE_BECOME environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
-| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the _become_ method to be specified for handling privilege escalation; if value is unspecified, the ANSIBLE_BECOME_METHOD environment variable value is used |
+| ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the `ANSIBLE_BECOME` environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
+| ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the _become_ method to be specified for handling privilege escalation; if value is unspecified, the `ANSIBLE_BECOME_METHOD` environment variable value is used |
 | ``ansible_become_pass`` | no       |            | Specifies the password to use, if required, to enter privileged mode on the remote device; if `ansible_become` is set to no, this key is not applicable |
 | ``ansible_network_os`` | yes      | os10, null\*  | Value is used to load the correct terminal and cliconf plugins to communicate with the remote device |
 
@@ -62,14 +63,14 @@ Ansible Dell EMC roles require connection information to establish communication
 Dependencies
 ------------
 
-The _xmltodict_ library should be installed to convert show command output in dictionary format from XML. To install the package, use `pip install xmltodict`.
-
-The `os10_fabric_summary` role must be included to query system network summary information.
+- The _xmltodict_ library should be installed to convert show command output in dictionary format from XML
+- To install the package, use the pip install xmltodict command
+- The *os10_fabric_summary* role must be included to query system network summary information
 
 Example playbook
 ----------------
 
-This example uses the `dellemc.os10.os10_network_validation` role to verify network validations. It creates a *hosts* file with the switch details and corresponding variables.
+This example uses the *os10_network_validation* role to verify network validations. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the `ansible_network_os` variable with the corresponding Dell EMC OS10 name.
 
 
 **Sample hosts file**
@@ -99,8 +100,8 @@ This example uses the `dellemc.os10.os10_network_validation` role to verify netw
     ansible_network_os: dellemc.os10.os10
 
 
-**Sample ``group_var/all``**
-----------------------------
+#### Sample ``group_var/all``
+
 **Sample input for wiring validation**
 
  
@@ -130,7 +131,7 @@ This example uses the `dellemc.os10.os10_network_validation` role to verify netw
         dest_port: ethernet1/1/29
         dest_switch: site1-spine3
 
-**Sample input for bgp validation**
+**Sample input for BGP validation**
 
       intended_bgp_neighbors:
         - source_switch: site1-spine1
@@ -138,7 +139,7 @@ This example uses the `dellemc.os10.os10_network_validation` role to verify netw
         - source_switch: site1-spine2
           neighbor_ip: ["10.11.0.0","10.9.0.9","10.9.0.11","10.9.0.15"]
 
-**Sample input for vlt validation**
+**Sample input for VLT validation**
 
       intended_vlt_pairs:
         - primary: site1-spine1
@@ -147,8 +148,7 @@ This example uses the `dellemc.os10.os10_network_validation` role to verify netw
           secondary: site2-spine2
 
 
-**Simple playbook to setup network validation**
------------------------------------------------
+#### Simple playbook to setup network validation
 
 **Sample playbook of ``validation.yaml`` to run complete validation**
 
@@ -221,10 +221,8 @@ This example uses the `dellemc.os10.os10_network_validation` role to verify netw
 
 Execute the playbook and examine the results.
 
-``ansible-playbook -i inventory.yaml validation.yaml``
+    ansible-playbook -i inventory.yaml validation.yaml
 
-**Sample output**
------------------
 **sample output of wiring validation**
 
     "results": [
@@ -303,5 +301,4 @@ Execute the playbook and examine the results.
     }
 
 
-(c) 2020 Dell Inc. or its subsidiaries. All Rights Reserved.
-
+(c) 2017-2020 Dell Inc. or its subsidiaries. All rights reserved.
