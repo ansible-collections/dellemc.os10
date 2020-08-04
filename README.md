@@ -49,7 +49,7 @@ Ansible version 2.10 or later.
 **host_vars/os10_sw1.yaml**
 
     hostname: os10_sw1
-    # parameters for connection type network_cli
+    # Parameters for connection type network_cli
     ansible_ssh_user: xxxx
     ansible_ssh_pass: xxxx
     ansible_network_os: dellemc.os10.os10
