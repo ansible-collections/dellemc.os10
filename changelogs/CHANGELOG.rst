@@ -31,7 +31,7 @@ New Modules
 - os10_facts - Collect facts from devices running OS10.
 
 New Roles
-~~~~~~~~~
+---------
 
 - os10_aaa - Facilitates the configuration of Authentication Authorization and Accounting (AAA), TACACS and RADIUS server.
 - os10_acl - Facilitates the configuration of Access Control lists.
