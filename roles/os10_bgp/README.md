@@ -52,6 +52,7 @@ Role variables
 | ``dampening.value`` | dictionary | Configures dampening values (<half-life time> <start value to reuse> <start value to suppress> <max duration> format; default 15 750 2000 60) | os10 |
 | ``dampening.route_map`` | string | Configures the route-map to specify criteria for dampening | os10 |
 | ``dampening.state`` | string: absent,present\* | Deletes dampening if set to absent   | os10 |
+| ``ibgp_redist_internal`` | boolean | configures the internal BGP redistribution for an address family in a VRF | os10 |
 | ``best_path`` | list | Configures the default best-path selection (see ``best_path.*``) | os10 |
 | ``best_path.as_path`` | string (required): ignore,multipath-relax     | Configures the AS path used for the best-path computation   | os10 |
 | ``best_path.as_path_state`` | string: absent,present\*     | Deletes the AS path configuration if set to absent  | os10 |
