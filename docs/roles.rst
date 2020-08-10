@@ -133,7 +133,7 @@ The `os10_snmp <https://github.com/ansible-collections/dellemc.os10/blob/master/
 System role
 -----------
 
-The `os10_system <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_system/README.md>`_ role facilitates the configuration of global system attributes. This role specifically enables configuration of hostname and hashing algoithm for OS10.
+The `os10_system <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_system/README.md>`_ role facilitates the configuration of global system attributes. This role specifically enables configuration of hostname and hashing algorithm for OS10.
 
 
 TEMPLATE role
@@ -181,7 +181,7 @@ The `os10_vrrp <https://github.com/ansible-collections/dellemc.os10/blob/master/
 VXLAN role
 ----------
 
-The `os10_vxlan <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_vxlan/README.md>`_ role facilitates the configuration of  virtual extensible LAN (VXLAN)   attributes. It supports the configuration of virtual networks, Ethernet virtual private network (EVPN), and network virtualization edge (NVE).
+The `os10_vxlan <https://github.com/ansible-collections/dellemc.os10/blob/master/roles/os10_vxlan/README.md>`_ role facilitates the configuration of virtual extensible LAN (VXLAN) attributes. It supports the configuration of virtual networks, Ethernet virtual private network (EVPN), and network virtualization edge (NVE).
 
 
 xSTP role
