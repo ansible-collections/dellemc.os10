@@ -28,11 +28,15 @@ os10_bgp:
         value: 15 750 2000 60
         route_map: qq
         state: present
+      ibgp_redist_internal:
+        state: present
     address_family_ipv6:
       aggregate_address:
          - ip_and_mask: 2001:4898:5808:ffa0::/126
            state: present
            summary_only: true
+      ibgp_redist_internal:
+        state: present
     best_path:
        as_path: ignore
        as_path_state: present
@@ -327,6 +331,13 @@ router bgp {{ bgp_vars.asn }}
           {% endif %}
         {% endfor %}
       {% endif %}
+      {% if af_vars.ibgp_redist_internal is defined and af_vars.ibgp_redist_internal%}
+        {% if af_vars.ibgp_redist_internal.state is defined and af_vars.ibgp_redist_internal.state == "absent" %}
+  no bgp redistribute-internal
+        {% else %}
+  bgp redistribute-internal
+        {% endif %}
+      {% endif %}
       {% if af_vars.dampening is defined and af_vars.dampening %}
         {% if af_vars.dampening.state is defined and af_vars.dampening.state == "absent" %}
   no dampening
@@ -365,6 +376,13 @@ router bgp {{ bgp_vars.asn }}
             {% endif %}
           {% endif %}
         {% endfor %}
+      {% endif %}
+      {% if af_vars.ibgp_redist_internal is defined and af_vars.ibgp_redist_internal%}
+        {% if af_vars.ibgp_redist_internal.state is defined and af_vars.ibgp_redist_internal.state == "absent" %}
+  no bgp redistribute-internal
+        {% else %}
+  bgp redistribute-internal
+        {% endif %}
       {% endif %}
       {% if af_vars.dampening is defined and af_vars.dampening %}
         {% if af_vars.dampening.state is defined and af_vars.dampening.state == "absent" %}
@@ -766,6 +784,13 @@ router bgp {{ bgp_vars.asn }}
       {% endif %}
       {% if bgp_vars.vrf.router_id is defined %}
       router-id {{ bgp_vars.vrf.router_id }}
+      {% endif %}
+      {% if bgp_vars.vrf.address_family.ibgp_redist_internal is defined and bgp_vars.vrf.address_family.ibgp_redist_internal%}
+        {% if bgp_vars.vrf.address_family.ibgp_redist_internal.state is defined and bgp_vars.vrf.address_family.ibgp_redist_internal.state == "absent" %}
+  no bgp redistribute-internal
+        {% else %}
+  bgp redistribute-internal
+        {% endif %}
       {% endif %}
       {% if bgp_vars.vrf.address_family.redistribute is defined %}
         {% for route in bgp_vars.vrf.address_family.redistribute %}
