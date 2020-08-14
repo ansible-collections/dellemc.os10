@@ -116,4 +116,4 @@ releases:
       release_summary: Added changelog.
     fragments:
     - 1.0.1.yaml
-    release_date: '2020-08-12'
+    release_date: '2020-08-14'
