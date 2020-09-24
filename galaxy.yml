@@ -10,7 +10,7 @@ name: os10
 namespace: dellemc
 readme: README.md
 tags: [dell, dellemc, os10, emc, networking]
-version: 1.0.1
+version: 1.0.2
 repository: https://github.com/ansible-collections/dellemc.os10
 documentation: https://github.com/ansible-collections/dellemc.os10/tree/master/docs
 homepage: https://github.com/ansible-collections/dellemc.os10

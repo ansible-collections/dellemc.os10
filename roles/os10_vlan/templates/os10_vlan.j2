@@ -55,6 +55,32 @@ interface vlan{{ vlan_id[1] }}
  no description
       {% endif %}
     {% endif %}
+
+   {% if vlan_vars.ip_and_mask is defined %}
+     {% if vlan_vars.ip_and_mask %}
+ ip address {{ vlan_vars.ip_and_mask }}
+     {% else %}
+ no ip address
+     {% endif %}
+   {% endif %}
+
+   {% if vlan_vars.virtual_gateway_ip is defined %}
+     {% if vlan_vars.virtual_gateway_ip %}
+ ip virtual-router address {{ vlan_vars.virtual_gateway_ip }}
+     {% else %}
+ no ip virtual-router address
+     {% endif %}
+   {% endif %}
+
+   {% if vlan_vars.virtual_gateway_ipv6 is defined %}
+     {% if vlan_vars.virtual_gateway_ipv6 %}
+ ipv6 virtual-router address {{ vlan_vars.virtual_gateway_ipv6 }}
+     {% else %}
+ no ipv6 virtual-router address
+     {% endif %}
+   {% endif %}
+
+    {# Keep member configs in the end as it switches to member interface context #}
     {% if vlan_vars.untagged_members is defined %}
       {% for ports in vlan_vars.untagged_members %}
         {% if ports.port is defined and ports.port %}
@@ -83,30 +109,6 @@ interface {{ ports.port }}
           {% endif %}
         {% endif %}
      {% endfor %}
-   {% endif %}
-
-   {% if vlan_vars.ip_and_mask is defined %}
-     {% if vlan_vars.ip_and_mask %}
- ip address {{ vlan_vars.ip_and_mask }}
-     {% else %}
- no ip address
-     {% endif %}
-   {% endif %}
-
-   {% if vlan_vars.virtual_gateway_ip is defined %}
-     {% if vlan_vars.virtual_gateway_ip %}
- ip virtual-router address {{ vlan_vars.virtual_gateway_ip }}
-     {% else %}
- no ip virtual-router address
-     {% endif %}
-   {% endif %}
-
-   {% if vlan_vars.virtual_gateway_ipv6 is defined %}
-     {% if vlan_vars.virtual_gateway_ipv6 %}
- ipv6 virtual-router address {{ vlan_vars.virtual_gateway_ipv6 }}
-     {% else %}
- no ipv6 virtual-router address
-     {% endif %}
    {% endif %}
 
   {% endif %}
