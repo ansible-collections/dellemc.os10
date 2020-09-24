@@ -1,11 +1,62 @@
 ancestor: null
 releases:
   1.0.0:
+    changes:
+      major_changes:
+      - New role os10_aaa - Facilitates the configuration of Authentication Authorization
+        and Accounting (AAA), TACACS and RADIUS server.
+      - New role os10_acl - Facilitates the configuration of Access Control lists.
+      - New role os10_bfd - Facilitates the configuration of BFD global attributes.
+      - New role os10_bgp - Facilitates the configuration of border gateway protocol
+        (BGP) attributes.
+      - New role os10_copy_config - This role pushes the backup running configuration
+        into a OS10 device.
+      - New role os10_dns - Facilitates the configuration of domain name service (DNS).
+      - New role os10_ecmp - Facilitates the configuration of equal cost multi-path
+        (ECMP) for IPv4.
+      - New role os10_fabric_summary Facilitates to get show system information of
+        all the OS10 switches in the fabric.
+      - New role os10_flow_monitor Facilitates the configuration of ACL flow-based
+        monitoring attributes.
+      - New role os10_image_upgrade Facilitates installation of OS10 software images.
+      - New role os10_interface Facilitates the configuration of interface attributes.
+      - New role os10_lag Facilitates the configuration of link aggregation group
+        (LAG) attributes.
+      - New role os10_lldp Facilitates the configuration of link layer discovery protocol
+        (LLDP) attributes at global and interface level.
+      - New role os10_logging Facilitates the configuration of global logging attributes
+        and logging servers.
+      - New role os10_network_validation Facilitates validation of wiring connection,
+        BGP neighbors, MTU between neighbors and VLT pair.
+      - New role os10_ntp Facilitates the configuration of network time protocol (NTP)
+        attributes.
+      - New role os10_prefix_list Facilitates the configuration of IP prefix-list.
+      - New role os10_qos Facilitates the configuration of quality of service attributes
+        including policy-map and class-map.
+      - New role os10_raguard Facilitates the configuration of IPv6 RA Guard attributes.
+      - New role os10_route_map Facilitates the configuration of route-map attributes.
+      - New role os10_snmp Facilitates the configuration of  global SNMP attributes.
+      - New role os10_system Facilitates the configuration of hostname and hashing
+        algorithm.
+      - New role os10_template The role takes the raw string input from the CLI of
+        OS10 device, and returns a structured text in the form of a Python dictionary.
+      - New role os10_uplink Facilitates the configuration of uplink attributes like
+        uplink-state group.
+      - New role os10_users Facilitates the configuration of global system user attributes.
+      - New role os10_vlan Facilitates the configuration of virtual LAN (VLAN) attributes.
+      - New role os10_vlt Facilitates the configuration of virtual link trunking (VLT).
+      - New role os10_vrf Facilitates the configuration of virtual routing and forwarding
+        (VRF).
+      - New role os10_vrrp Facilitates the configuration of virtual router redundancy
+        protocol (VRRP) attributes.
+      - New role os10_vxlan Facilitates the configuration of virtual extensible LAN
+        (VXLAN) attributes.
+      - New role os10_xstp Facilitates the configuration of xSTP attributes.
     modules:
     - description: Run commands on devices running Dell EMC SmartFabric OS1O.
       name: os10_command
       namespace: ''
-    - description:  Manage configuration on devices running OS10.
+    - description: Manage configuration on devices running OS10.
       name: os10_config
       namespace: ''
     - description: Collect facts from devices running OS10.
@@ -14,102 +65,8 @@ releases:
     plugins:
       cliconf:
       - description: Use OS10 cliconf to run commands on Dell EMC PowerSwitch devices.
-        name: os10 
+        name: os10
         namespace: null
-    roles:
-    - description: Facilitates the configuration of Authentication Authorization and Accounting (AAA), TACACS and RADIUS server.
-      name: os10_aaa
-      namespace: ''
-    - description: Facilitates the configuration of Access Control lists.
-      name: os10_acl
-      namespace: ''
-    - description: Facilitates the configuration of BFD global attributes.
-      name: os10_bfd
-      namespace: ''
-    - description: Facilitates the configuration of border gateway protocol (BGP) attributes.
-      name: os10_bgp
-      namespace: ''
-    - description: This role pushes the backup running configuration into a OS10 device.
-      name: os10_copy_config
-      namespace: ''
-    - description: Facilitates the configuration of domain name service (DNS).
-      name: os10_dns
-      namespace: ''
-    - description: Facilitates the configuration of equal cost multi-path (ECMP) for IPv4.
-      name: os10_ecmp
-      namespace: ''
-    - description: Facilitates to get show system information of all the OS10 switches in the fabric.
-      name: os10_fabric_summary
-      namespace: ''
-    - description: Facilitates the configuration of ACL flow-based monitoring attributes.
-      name: os10_flow_monitor
-      namespace: ''
-    - description: Facilitates installation of OS10 software images.
-      name: os10_image_upgrade
-      namespace: ''
-    - description: Facilitates the configuration of interface attributes.
-      name: os10_interface
-      namespace: ''
-    - description: Facilitates the configuration of link aggregation group (LAG) attributes. 
-      name: os10_lag
-      namespace: ''
-    - description: Facilitates the configuration of link layer discovery protocol (LLDP) attributes at global and interface level.
-      name: os10_lldp
-      namespace: ''
-    - description: Facilitates the configuration of global logging attributes and logging servers.
-      name: os10_logging
-      namespace: ''
-    - description: Facilitates validation of wiring connection, BGP neighbors, MTU between neighbors and VLT pair. 
-      name: os10_network_validation
-      namespace: ''
-    - description: Facilitates the configuration of network time protocol (NTP) attributes.
-      name: os10_ntp
-      namespace: ''
-    - description: Facilitates the configuration of IP prefix-list.
-      name: os10_prefix_list
-      namespace: ''
-    - description: Facilitates the configuration of quality of service attributes including policy-map and class-map.
-      name: os10_qos
-      namespace: ''
-    - description: Facilitates the configuration of IPv6 RA Guard attributes.
-      name: os10_raguard
-      namespace: ''
-    - description: Facilitates the configuration of route-map attributes.
-      name: os10_route_map
-      namespace: ''
-    - description: Facilitates the configuration of  global SNMP attributes.
-      name: os10_snmp
-      namespace: ''
-    - description: Facilitates the configuration of hostname and hashing algorithm.
-      name: os10_system
-      namespace: ''
-    - description: The role takes the raw string input from the CLI of OS10 device, and returns a structured text in the form of a Python dictionary. 
-      name: os10_template
-      namespace: ''
-    - description: Facilitates the configuration of uplink attributes like uplink-state group.
-      name: os10_uplink
-      namespace: ''
-    - description: Facilitates the configuration of global system user attributes.
-      name: os10_users
-      namespace: ''
-    - description: Facilitates the configuration of virtual LAN (VLAN) attributes.
-      name: os10_vlan
-      namespace: ''
-    - description: Facilitates the configuration of virtual link trunking (VLT).
-      name: os10_vlt
-      namespace: ''
-    - description: Facilitates the configuration of virtual routing and forwarding (VRF).
-      name: os10_vrf
-      namespace: ''
-    - description: Facilitates the configuration of virtual router redundancy protocol (VRRP) attributes.
-      name: os10_vrrp
-      namespace: ''
-    - description: Facilitates the configuration of virtual extensible LAN (VXLAN) attributes.
-      name: os10_vxlan
-      namespace: ''
-    - description: Facilitates the configuration of xSTP attributes.
-      name: os10_xstp
-      namespace: ''
     release_date: '2020-07-31'
   1.0.1:
     changes:
