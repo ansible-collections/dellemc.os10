@@ -74,3 +74,12 @@ releases:
     fragments:
     - 1.0.1.yaml
     release_date: '2020-08-14'
+  1.0.2:
+    changes:
+      bugfixes:
+      - Fix issue in using ip_and_mask along with members in os10_vlan role (https://github.com/ansible-collections/dellemc.os10/issues/42)
+      - Fix issue in using list of strings for `commands` argument for `os10_command`
+        module (https://github.com/ansible-collections/dellemc.os10/issues/43)
+    fragments:
+    - 1.0.2.yaml
+    release_date: '2020-09-24'

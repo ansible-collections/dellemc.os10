@@ -5,6 +5,15 @@ Ansible Network Collection for Dell EMC SmartFabric OS10 Release Notes
 .. contents:: Topics
 
 
+v1.0.2
+======
+
+Bugfixes
+--------
+
+- Fix issue in using ip_and_mask along with members in os10_vlan role (https://github.com/ansible-collections/dellemc.os10/issues/42)
+- Fix issue in using list of strings for `commands` argument for `os10_command` module (https://github.com/ansible-collections/dellemc.os10/issues/43)
+
 v1.0.1
 ======
 
