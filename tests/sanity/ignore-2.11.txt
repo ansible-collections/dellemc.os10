@@ -7,3 +7,4 @@ plugins/modules/wiring_validate.py validate-modules:parameter-list-no-elements
 plugins/modules/show_system_network_summary.py validate-modules:parameter-list-no-elements
 plugins/modules/os10_config.py validate-modules:parameter-list-no-elements
 plugins/modules/os10_facts.py validate-modules:parameter-list-no-elements
+plugins/modules/os10_command.py validate-modules:parameter-list-no-elements
