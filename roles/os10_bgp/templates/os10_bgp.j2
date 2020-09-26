@@ -689,6 +689,11 @@ router bgp {{ bgp_vars.asn }}
                       {% endif %}
                     {% endif %}
 
+                  {% if af.default_originate is defined and af.default_originate == "present" %}
+   default-originate
+                     {% elif af.default_originate is defined and af.default_originate == "absent" %}
+   no default-originate
+                      {% endif %}
 
                   {% endif %}
                 {% endif %}
