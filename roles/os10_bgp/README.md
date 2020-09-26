@@ -92,7 +92,7 @@ Role variables
 | ``address_family.soft_reconf`` | boolean   | Configures per neighbor soft reconfiguration | os10 |
 | ``address_family.add_path`` | string  | Configures send or receive multiple paths (value can be 'both <no of paths>', 'send <no of paths>', 'receive')| os10 |
 | ``address_family.route_map`` | list   | Configures the route-map on the BGP neighbor (see ``route_map.*``) | os10 |
-| ``address_family.default_originate`` | string: absent,present | Adds default-originate to neighbor address-family if set to present, else if set to absent, removes it. | os10 |
+| ``address_family.default_originate`` | boolean | Configures default-originate on the bgp neighbor address-family | os10 |
 | ``route_map.name`` | string  | Configures the name of the route-map for the BGP neighbor   | os10 |
 | ``route_map.filter`` | string  | Configures the filter for routing updates   | os10 |
 | ``route_map.state`` | string, choices: absent,present* | Deletes the route-map of the BGP neighbor if set to absent | os10 |
