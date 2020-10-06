@@ -38,9 +38,9 @@ os10_system:
 hostname {{ os10_system.hostname }}
 {% endif %}
 {% if os10_system.hardware_forwarding_ipv6_extended_prefix is defined %}
-  {% if os10_system.hardware_forwarding_ipv6_extended_prefix is defined %}
+  {% if os10_system.hardware_forwarding_ipv6_extended_prefix %}
 hardware l3 ipv6-extended-prefix {{ os10_system.hardware_forwarding_ipv6_extended_prefix }}
-  {% else %}
+  {% elif os10_system.hardware_forwarding_ipv6_extended_prefix is none %}
 no hardware l3 ipv6-extended-prefix
   {% endif %}
 {% endif %}
