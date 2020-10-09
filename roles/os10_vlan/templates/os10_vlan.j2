@@ -50,7 +50,11 @@ no interface vlan{{ vlan_id[1] }}
 interface vlan{{ vlan_id[1] }}
     {% if vlan_vars.description is defined %}
       {% if vlan_vars.description %}
+        {% if vlan_vars.description|wordcount > 1 %}
  description "{{ vlan_vars.description }}"
+        {% else %}
+ description {{ vlan_vars.description }}
+        {% endif %}
       {% else %}
  no description
       {% endif %}
@@ -84,7 +88,7 @@ interface vlan{{ vlan_id[1] }}
     {% if vlan_vars.untagged_members is defined %}
       {% for ports in vlan_vars.untagged_members %}
         {% if ports.port is defined and ports.port %}
-interface {{ ports.port }}
+interface {{ ports.port.split() | join() }}
           {% if ports.state is defined and ports.state == "absent" %}
  no switchport access vlan
           {% else %}
@@ -97,7 +101,7 @@ interface {{ ports.port }}
     {% if vlan_vars.tagged_members is defined %}
       {% for ports in vlan_vars.tagged_members %}
         {% if ports.port is defined and ports.port %}
-interface {{ ports.port }}
+interface {{ ports.port.split() | join() }}
           {% if ports.state is defined and ports.state == "absent" %}
  no switchport trunk allowed vlan {{ vlan_id[1] }}
           {% else %}
