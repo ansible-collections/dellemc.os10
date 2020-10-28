@@ -13,6 +13,7 @@ Bugfixes
 
 - Fix issue in using ip_and_mask along with members in os10_vlan role (https://github.com/ansible-collections/dellemc.os10/issues/42)
 - Fix issue in using list of strings for `commands` argument for `os10_command` module (https://github.com/ansible-collections/dellemc.os10/issues/43)
+- Fixed os10_vlan role idempotency issue with description and members (https://github.com/ansible-collections/dellemc.os10/issues/46)
 
 v1.0.1
 ======

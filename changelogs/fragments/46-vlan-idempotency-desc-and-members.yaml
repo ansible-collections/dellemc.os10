@@ -1,3 +1,0 @@
----
-bugfixes:
-  - Fixed os10_vlan role idempotency issue with description and members (https://github.com/ansible-collections/dellemc.os10/issues/46)
