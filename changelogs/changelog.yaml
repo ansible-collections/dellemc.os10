@@ -84,4 +84,4 @@ releases:
     fragments:
     - 1.0.2.yaml
     - 46-vlan-idempotency-desc-and-members.yaml
-    release_date: '2020-09-24'
+    release_date: '2020-10-28'
