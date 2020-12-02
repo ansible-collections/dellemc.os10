@@ -1,3 +1,0 @@
----
-bugfixes:
-  - Fixed issue in using interface range in os10_vlan members. (https://github.com/ansible-collections/dellemc.os10/issues/53)

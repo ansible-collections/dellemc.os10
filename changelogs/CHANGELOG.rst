@@ -5,6 +5,37 @@ Ansible Network Collection for Dell EMC SmartFabric OS10 Release Notes
 .. contents:: Topics
 
 
+v1.1.0
+======
+
+Major Changes
+-------------
+
+- os10_bgp - Enhanced router bgp keyword support for non-default vrf which are supported for default vrf and additional keyword to support both default and non-default vrf
+- os10_snmp role - Added support for snmp V3 features in community, group, host, engineID
+
+Minor Changes
+-------------
+
+- Enhanced os10_bgp role to support internal BGP redistribution under address-family for V4 and V6
+- Enhanced os10_bgp role to support maximum-prefix configuration under BGP peer and peer-group.
+- os10_ntp role - Added support for vrf and sha1 and sha2-256 authentication-key types
+- os10_snmp role - Added support for source-interface and vrf
+- os10_template - add template for show spanning tree compatibility mode
+- os10_template - add template for show vlt error disabled ports
+- os10_uplink role - Added support for downstream disable-links and auto-recover
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- os10_bgp - Changed "subnet"  key as list format instead of dictionary format under "listen" key to support multiple neighbor prefix for listen command
+- os10_bgp - Changed "vrf" key as list format instead of dictionary format to supprot multiple VRF in router BGP and changed the "vrf" key name to "vrfs"
+
+Bugfixes
+--------
+
+- Fixed issue in using interface range in os10_vlan members. (https://github.com/ansible-collections/dellemc.os10/issues/53)
+
 v1.0.2
 ======
 
