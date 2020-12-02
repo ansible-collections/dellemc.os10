@@ -1,0 +1,5 @@
+test_roles:
+  - dellemc.os10.os10_acl
+
+idempotent_roles:
+  - dellemc.os10.os10_acl

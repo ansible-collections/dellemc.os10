@@ -3,7 +3,7 @@ Copy-config role
 
 This role is used to push the backup running configuration into a Dell EMC PowerSwitch platform running Dell EMC SmartFabric OS10, and merges the configuration in the template file with the running configuration of the device.
 
-The copy-config role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The copy-config role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

@@ -1,0 +1,18 @@
+#jinja2: trim_blocks: True,lstrip_blocks: True
+{#############################################
+Purpose:
+Configure NTP VRF for os10 Devices
+os10_ntp:
+  vrf:
+    name: red
+    state: present
+###############################################}
+{% if os10_ntp is defined and os10_ntp %}
+  {% if os10_ntp.vrf is defined and os10_ntp.vrf.name is defined %}
+    {% if os10_ntp.vrf.state is defined and os10_ntp.vrf.state == "absent" %}
+no ntp enable vrf {{ os10_ntp.vrf.name }}
+    {% else %}
+ntp enable vrf {{ os10_ntp.vrf.name }}
+    {% endif%}
+  {% endif %}
+{% endif %}

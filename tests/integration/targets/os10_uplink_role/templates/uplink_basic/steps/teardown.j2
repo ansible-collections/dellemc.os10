@@ -1,0 +1,38 @@
+test_roles:
+  - dellemc.os10.os10_uplink
+  - dellemc.os10.os10_lag
+os10_lag:
+  Po 1:
+    state: absent
+  Po 2: 
+    state: absent
+os10_uplink:
+  uplink_state_group:
+    - id: 1
+      enable: True
+      uplink_type:
+        - type: "upstream"
+          intf: "port-channel1"
+          state: "absent"
+        - type: "downstream"
+          intf: "ethernet{{ os10_interface_1.split()[1] }},{{ os10_interface_2.split()[1] }}"
+          state: "absent"
+      downstream:
+          disable_links: all
+          auto_recover: false
+      defer_time: 50
+      state: "absent"
+    - id: 2
+      enable: True
+      uplink_type:
+        - type: "upstream"
+          intf: "port-channel2"
+          state: "absent"
+        - type: "downstream"
+          intf: "{{ os10_interface_3 }}"
+          state: "absent"
+      downstream:
+        disable_links: 10
+        auto_recover: true
+      defer_time: 50
+      state: "absent"

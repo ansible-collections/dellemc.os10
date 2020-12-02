@@ -1,0 +1,32 @@
+test_roles:
+  - dellemc.os10.os10_ntp 
+  - dellemc.os10.os10_vrf
+os10_ntp:
+  source: 
+  master: 
+  authenticate: 
+  authentication_key:
+    - key_num: 123
+      key_string_type: 0
+      key_string: test
+      state: absent
+  trusted_key:
+    - key_num: 1323
+      state: absent
+  server:
+    - ip: 2.2.2.2
+      key: 345
+      prefer: true
+      state: absent
+  intf:
+    "{{ os10_interface_1 }}":
+      disable: false
+      broadcast: false
+  vrf:
+    name: red
+    state: absent
+
+os10_vrf:
+  vrfdetails:
+    - vrf_name: red
+      state: absent

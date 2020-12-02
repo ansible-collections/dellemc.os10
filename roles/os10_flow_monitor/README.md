@@ -3,7 +3,7 @@ ACL flow-based monitor role
 
 This role facilitates configuring ACL flow-based monitoring attributes. Flow-based mirroring is a mirroring session in which traffic matches specified policies that are mirrored to a destination port. Port-based mirroring maintains a database that contains all monitoring sessions (including port monitor sessions). This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The ACL flow-based role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The ACL flow-based role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

@@ -3,7 +3,7 @@ VLAN role
 
 This role facilitates configuring virtual LAN (VLAN) attributes. It supports the creation and deletion of a VLAN and its member ports. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. 
 
-The VLAN role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The VLAN role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

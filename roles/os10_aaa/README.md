@@ -3,7 +3,7 @@ AAA role
 
 This role facilitates the configuration of authentication, authorization, and acccounting (AAA). It supports the configuration of RADIUS server, TACACS server, and AAA. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. 
 
-The AAA role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The AAA role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

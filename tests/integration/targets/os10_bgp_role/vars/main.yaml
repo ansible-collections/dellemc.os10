@@ -1,0 +1,7 @@
+test_roles:
+  - dellemc.os10.os10_vrf
+  - dellemc.os10.os10_vlan
+  - dellemc.os10.os10_bgp
+
+idempotent_roles:
+  - dellemc.os10.os10_bgp

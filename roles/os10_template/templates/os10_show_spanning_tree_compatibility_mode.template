@@ -1,0 +1,6 @@
+Value Interface_name ([a-zA-Z\-]+\s*[\d\/\:]+)
+Value Instance (VLAN\s+(\d+))
+Value Compatibility_mode (\S+\s*)
+
+Start
+  ^${Interface_name}\s+${Instance}\s+${Compatibility_mode} -> Record

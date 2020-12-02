@@ -1,0 +1,24 @@
+idempotent: false
+os10_acl:
+  - name: ssh
+    type: ipv4
+    description: acl ssh
+    remark:
+      - description: acl remark
+        number: 3
+    entries:
+      - number: 14
+        permit: true
+        protocol: tcp
+        source: any
+        src_condition: neq 6
+        destination: any
+        dest_condition: eq 4
+        other_options: count
+    stage_ingress:
+      - name: "{{ os10_interface_1 }}"
+      - name: "{{ os10_interface_2 }}"
+    stage_egress:
+      - name: "{{ os10_interface_3 }}"
+    lineterminal:
+      state:

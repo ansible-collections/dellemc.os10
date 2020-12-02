@@ -1,0 +1,16 @@
+os10_prefix_list:
+  - name: testpl
+    type: ipv4
+    description: pl
+    entries:
+      - number: 19
+        permit: true
+        net_num: 20.0.0.0
+        mask: 16
+        condition_list:
+          - condition: ge
+            prelen: 17
+          - condition: le
+            prelen: 18
+        state: absent
+    state: absent

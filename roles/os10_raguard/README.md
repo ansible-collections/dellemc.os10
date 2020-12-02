@@ -3,7 +3,7 @@ IPv6 RA uard role
 
 This role facilitates the configuration of IPv6 RA Guard attributes. It specifically enables configuration of IPv6 RA Guard feature enable/disable, IPv6 RA Guard policy definition and policy parameter configuration, and attachment of IPv6 RA Guard policy to an interface. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.  
 
-The IPv6 RA Guard role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The IPv6 RA Guard role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

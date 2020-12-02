@@ -3,7 +3,7 @@ System role
 
 This role facilitates the configuration of global system attributes. It specifically enables configuration of hostname and hashing algorithm. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The System role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The System role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
@@ -39,8 +39,8 @@ Role variables
 | ``load_balance.tcp_udp_selection`` | list    | Configures TCP UDP ports for load balancing configurations (see ``tcp_udp_selection.*``) | os10 |
 | ``tcp_udp_selection.field`` | string | Configures TCP UDP port fields to use in hashing algorithm | os10 |
 | ``tcp_udp_selection.state`` | string: absent,present\* | Deletes the TCP UDP ports if set to absent | os10 |
-| ``min_ra`` | string | Configure global RA minimum interval value, applicable to all interfaces across VRFs | os10 |
-| ``max_ra`` | string | Configure global RA maximum interval value, applicable to all interfaces across VRFs | os10 |
+| ``min_ra`` | string | Configures global RA minimum interval value, applicable to all interfaces across VRFs | os10 |
+| ``max_ra`` | string | Configures global RA maximum interval value, applicable to all interfaces across VRFs | os10 |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified. 
 

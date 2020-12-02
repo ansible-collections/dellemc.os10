@@ -5,11 +5,11 @@ This collection includes Ansible modules, plugins and roles needed to provision 
 
 ### Collection core modules
 
-- **os10_command.py** — Run commands on devices running OS10
-
-- **os10_config.py** — Manage configuration on devices running OS10
-  
-- **os10_facts.py** — Collect facts from devices running OS10
+Name | Description
+--- | ---
+[os10_command](docs/dellemc.os10.os10_command_module.rst)| Run commands on devices running OS10
+[os10_config](docs/dellemc.os10.os10_config_module.rst)| Manage configuration on devices running OS10
+[os10_facts](docs/dellemc.os10.os10_facts_module.rst)| Collect facts from devices running OS10
 
 ### Collection roles
 These roles facilitate the provisioning and administration of devices running SmartFabric OS10. There are over 30 roles available that provide a comprehensive coverage of most OS10 resources, including *os10_interface*, *os10_acl*, *os10_bgp*, and *os10_vxlan*. The documentation for each role is at [OS10 roles](https://github.com/ansible-collections/dellemc.os10/blob/master/docs/roles.rst).

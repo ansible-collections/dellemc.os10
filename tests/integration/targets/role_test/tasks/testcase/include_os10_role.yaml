@@ -1,0 +1,20 @@
+- include_role:
+    name: "{{ os10_role_name }}"
+
+- debug: msg="Role completed {{ os10_role_name }}"
+  notify: "os10_role completed"
+
+- block:
+    - name: "Testing idempotency for {{ os10_role_name }}"
+      include_role:
+        name: "{{ os10_role_name }}"
+    - name: "idempotency result for {{ os10_role_name }}"
+      fail:
+        msg: "idempotency test failed for {{ os10_role_name }}"
+      when: output.changed
+
+  when: >
+    ( test_idempotency is defined and test_idempotency and 
+    idempotent_roles is defined and os10_role_name in idempotent_roles and
+    idempotent is defined and idempotent
+    )

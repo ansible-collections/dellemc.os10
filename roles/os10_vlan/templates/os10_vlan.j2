@@ -88,7 +88,11 @@ interface vlan{{ vlan_id[1] }}
     {% if vlan_vars.untagged_members is defined %}
       {% for ports in vlan_vars.untagged_members %}
         {% if ports.port is defined and ports.port %}
+          {% if 'range' in ports.port %}
+interface {{ ports.port }}
+          {% else %}
 interface {{ ports.port.split() | join() }}
+          {% endif %}
           {% if ports.state is defined and ports.state == "absent" %}
  no switchport access vlan
           {% else %}
@@ -101,7 +105,11 @@ interface {{ ports.port.split() | join() }}
     {% if vlan_vars.tagged_members is defined %}
       {% for ports in vlan_vars.tagged_members %}
         {% if ports.port is defined and ports.port %}
+          {% if 'range' in ports.port %}
+interface {{ ports.port }}
+          {% else %}
 interface {{ ports.port.split() | join() }}
+          {% endif %}
           {% if ports.state is defined and ports.state == "absent" %}
  no switchport trunk allowed vlan {{ vlan_id[1] }}
           {% else %}

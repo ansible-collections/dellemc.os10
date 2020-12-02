@@ -3,7 +3,7 @@ Route-map role
 
 This role facilitates the configuration of route-map attributes. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. 
 
-The route-map role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The route-map role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
@@ -57,7 +57,7 @@ Role variables
 | ``as_path.access_list`` | string (required)         | Configures the access-list name               | os10 |
 | ``as_path.permit`` | boolean (required) | Configures an AS path to accept or reject   | os10  |
 | ``as_path.regex``| string (required)         | Configures a regular expression              | os10 |
-| ``as_path.state`` | string: absent,present\*     | deletes the BGP as path filter if set to absent         | os10 |
+| ``as_path.state`` | string: absent,present\*     | Deletes the BGP as path filter if set to absent         | os10 |
 | ``community_list`` | list | Configures a community list entry (see ``community_list.*``) | os10 |
 | ``community_list.type`` | string (required): standard,expanded        | Configures the type of community-list entry              | os10 |
 | ``community_list.name`` | string (required)     | Configures the name of community-list entry             | os10 |

@@ -1,0 +1,17 @@
+os10_interface:
+  {{ os10_interface_3 }}:
+    desc: "Switch port"
+    mtu: 3000
+    portmode: trunk
+    admin: up
+    switchport: true
+  {{ os10_interface_1 }}:
+    ip_and_mask:
+    ipv6_and_mask:
+    ipv6_autoconfig: false
+    state_ipv6: absent
+  {{ os10_interface_2 }}:
+    ip_and_mask:
+    ipv6_and_mask:    
+    ipv6_autoconfig: false
+    state_ipv6: absent

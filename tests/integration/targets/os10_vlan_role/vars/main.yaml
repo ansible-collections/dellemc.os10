@@ -1,0 +1,6 @@
+test_roles:
+  - dellemc.os10.os10_lag
+  - dellemc.os10.os10_vlan
+
+idempotent_roles:
+  - dellemc.os10.os10_vlan

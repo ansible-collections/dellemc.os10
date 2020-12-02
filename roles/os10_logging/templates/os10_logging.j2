@@ -15,7 +15,7 @@ os10_logging:
   source_interface: "ethernet1/1/30"
 ###############################################}
 {% if os10_logging is defined and os10_logging %}
-  {% for key,value in os10_logging.iteritems() %}
+  {% for key,value in os10_logging.items() %}
     {% if key == "logging" %}
       {% for item in value %}
         {% if item.ip is defined and item.ip %}

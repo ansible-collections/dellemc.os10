@@ -1,0 +1,48 @@
+idempotent: false
+os10_route_map:
+  as_path:
+    - access_list: aa
+      permit: 
+      regex: www
+      state: present
+  community_list:
+    - type: standard
+      name: qqq
+      permit: 
+      community: internet
+      state: present
+  extcommunity_list:
+    - type: standard
+      name: qqq
+      permit: 
+      community: "rt 22:33"
+      state: present
+  route_map:
+    - name:  test
+      permit: 
+      seq_num: 
+      continue: 
+      match:
+       - ip_type: ipv4
+         access_group: testaccess
+         prefix_list: testprefix
+      set:
+         local_pref: 
+         metric_type: 
+         metric: 
+         origin: 
+         weight: 
+         next_hop:
+           - type: ip
+             address: 10.1.1.1
+             track_id: 3
+             state: present
+         community: 
+         comm_list:
+           add: 
+           delete: 
+         extcommunity: 
+         extcomm_list:
+           add: 
+           delete: 
+      state: present

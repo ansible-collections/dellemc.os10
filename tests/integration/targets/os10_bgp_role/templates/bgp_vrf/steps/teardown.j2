@@ -1,0 +1,13 @@
+os10_vrf:
+  vrfdetails:
+    - vrf_name: GREEN
+      state: absent
+    - vrf_name: BLUE
+      state: absent
+os10_vlan:
+  vlan 10:
+    description: "red"
+    state: absent
+  vlan 20:
+    description: "yellow"
+    state: absent

@@ -5,6 +5,10 @@
 os10_bgp:
     asn: 12
     router_id: 90.1.1.4
+    as_notation: asdot
+    enforce_first_as: false
+    non_deterministic_med: true
+    outbound_optimization: true
     maxpath_ibgp: 2
     maxpath_ebgp: 2
     graceful_restart: true
@@ -27,11 +31,19 @@ os10_bgp:
         value: 15 750 2000 60
         route_map: qq
         state: present
+      ibgp_redist_internal:
+        state: present
+      default_metric: 10
+      distance_bgp:
+        value: 3 4 6
+        state: present
     address_family_ipv6:
       aggregate_address:
          - ip_and_mask: 2001:4898:5808:ffa0::/126
            state: present
            summary_only: true
+      ibgp_redist_internal:
+        state: present
     best_path:
        as_path: ignore
        as_path_state: present
@@ -46,10 +58,32 @@ os10_bgp:
       - address: "2001:4898:5808:ffa0::/126"
         state: present
     neighbor:
+      - name: peer1
+        type: peergroup
+        state: present
       - name: ebgp_pg
         type: peergroup
         bfd: yes
         state: present
+        address_family:
+          - type: ipv4
+            activate: false
+            state: present
+            max_prefix:
+               count: 20
+               threshold: 90
+               warning: true
+               state: present
+        listen:
+          - subnet: 4.4.4.4/32
+            limit: 4
+            subnet_state: present
+          - subnet: 6.6.6.6/32
+            limit: 3
+            subnet_state: present
+          - subnet: 23::/64
+            limit:
+            subnet_state: present
       - name: ibgp_pg
         type: peergroup
         weight: 10
@@ -76,11 +110,22 @@ os10_bgp:
         fall_over: present
         password: bgppassword
         route_reflector_client: true
+        adv_start: 100
+        adv_start_state: present
+        conn_retry_timer: 20
+        remove_pri_as: present
         src_loopback: 0
         address_family:
           - type: ipv4
             activate: true
             state: present
+            max_prefix:
+               count: 30
+               threshold: 50
+               state: present
+            default_originate:
+               route_map: aa
+               state: present
         send_community:
           - type: standard
             state: present
@@ -144,17 +189,196 @@ os10_bgp:
       multiplier: 3
       role: active
       state: present
-    vrf:
-      name: "GREEN"
-      address_family:
-         type: ipv4
-         redistribute:
-           - route_type: l2vpn
-             address_type: ipv4
+    vrfs:
+      - name: "test1"
+        router_id: 70.1.1.4
+        maxpath_ibgp: 2
+        maxpath_ebgp: 2
+        graceful_restart: true
+        log_neighbor_changes: false
+        enforce_first_as: false
+        non_deterministic_med: true
+        outbound_optimization: true
+        fast_ext_fallover: false
+        always_compare_med: true
+        default_loc_pref: 1000
+        route_reflector:
+          client_to_client: false
+          cluster_id: 2000
+        address_family_ipv4:
+          aggregate_address:
+             - ip_and_mask: 1.1.1.1/16
+               state: present
+          dampening:
+            value: 15 750 2000 60
+            route_map: qq
+            state: present
+          distance_bgp:
+            value: 3 4 6
+            state: present
+          ibgp_redist_internal:
+            state: present
+          default_metric: 10
+        address_family_ipv6:
+          aggregate_address:
+             - ip_and_mask: 2001:4898:5808:ffa0::/126
+               state: present
+               summary_only: true
+          ibgp_redist_internal:
+            state: present
+        best_path:
+           as_path: ignore
+           as_path_state: present
+           ignore_router_id: true
+           med:
+            - attribute: confed
+              state: present
+            - attribute: missing-as-worst
+              state: present
+        ipv4_network:
+           - address: 101.1.1.0/30
              state: present
-      neighbor:
-        - type: ipv4
-          ip: "172.16.1.1"
-          remote_asn: 65400
-          admin: up
+        ipv6_network:
+           - address: "2001:4898:5808:ffa0::/126"
+             state: present
+        neighbor:
+          - name: peer1
+            type: peergroup
+            description: "template peer1"
+            adv_interval: 50
+            adv_start: 100
+            adv_start_state: present
+            ebgp_multihop: 20
+            fall_over: present
+            conn_retry_timer: 20
+            remove_pri_as: present
+            bfd: yes
+            address_family:
+              - type: ipv4
+                state: present
+            state: present
+          - name: ebgp_pg
+            type: peergroup
+            bfd: yes
+            state: present
+          - name: ibgp_pg
+            type: peergroup
+            weight: 10
+            state: present
+          - type: ipv4
+            interface: vlan10
+            send_community:
+              - type: extended
+                state: present
+            admin: up
+            state: present
+          - type: ipv4
+            description: "U_site2 spine1"
+            remote_asn: 11
+            ip: 192.168.10.1
+            name: peer1
+            peergroup: peer1
+            peergroup_state: present
+            peergroup_type: ibgp
+            adv_interval: 40
+            fall_over: present
+            route_reflector_client: true
+            src_loopback: 0
+            address_family:
+              - type: ipv4
+                activate: false
+                distribute_list:
+                    in: dd
+                    in_state: present
+                    out: dd
+                    out_state: present
+                state: present
+            send_community:
+              - type: standard
+                state: present
+            state: present
+          - type: ipv4
+            remote_asn: 13
+            local_as: 10
+            weight: 10
+            ip: 192.168.12.3
+            address_family:
+              - type: ipv4
+                activate: false
+                allow_as_in: 5
+                next_hop_self: true
+                soft_reconf: true
+                add_path: both 3
+                default_originate:
+                    route_map: aa
+                    state: present
+                route_map:
+                  - name: qq
+                    filter: in
+                    state: present
+                state: present
+            state: present
+          - type: ipv6
+            remote_asn: 14
+            ip: 2001:4898:5808:ffa2::1
+            state: present
+          - type: ipv6
+            description: "U_site2-spine1-Auto Discovered peers"
+            auto_peer: unnumbered-auto
+            ebgp_peergroup: ebgp_pg
+            ebgp_peergroup_state: present
+            ibgp_peergroup: ibgp_pg
+            ibgp_peergroup_state: present
+            address_family:
+              - type: ipv4
+                activate: false
+                sender_loop_detect: false
+                state: present
+                allow_as_in: 5
+                next_hop_self: true
+                soft_reconf: true
+                default_originate:
+                    route_map: dd
+                    state: present
+            send_community:
+              - type: standard
+                state: present
+            admin: up
+            state: present
+        redistribute:
+          - route_type: static
+            route_map_name: aa
+            address_type: ipv4
+            state: present
+          - route_type: connected
+            route_map_name: bb
+            address_type: ipv4
+            state: present
+          - route_type: l2vpn
+            route_map_name: cc
+            address_type: ipv4
+            state: present
+          - route_type: imported_bgp
+            imported_bgp_vrf_name: test2
+            route_map_name: dd
+            address_type: ipv4
+            state: present
+          - route_type: ospf
+            ospf_id: 12
+            address_type: ipv4
+            state: present
+        bfd_all_neighbors:
+          interval: 200
+          min_rx: 200
+          multiplier: 3
+          role: active
+          state: present
+        as_notation: asdot
+        state: present
+      - name: "test2"
+        router_id: 80.1.1.4
+        maxpath_ibgp: 2
+        maxpath_ebgp: 2
+        as_notation: asdot
+        state: present
     state: present

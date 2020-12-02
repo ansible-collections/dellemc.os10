@@ -1,9 +1,9 @@
 VxLAN role
 ========
 
-This role facilitates the configuration of  virtual extensible LAN (VxLAN) attributes. It supports the configuration of virtual networks, Ethernet virtual private network (EVPN), and network virtualization edge (NVE). This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
+This role facilitates the configuration of virtual extensible LAN (VxLAN) attributes. It supports the configuration of virtual networks, Ethernet virtual private network (EVPN), and network virtualization edge (NVE). This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The VxLAN role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The VxLAN role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
@@ -18,7 +18,7 @@ Role variables
 
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
-| ``anycast_gateway_mac`` | string | Configures an anycast gateway IP address for a VXLAN virtual network | os10 |
+| ``anycast_gateway_mac`` | string | Configures an anycast gateway IP address for a VxLAN virtual network | os10 |
 | ``loopback`` | dictionary | Configures the loopback interface (see ``loopback.*``) | os10 |
 | ``loopback.loopback_id`` | integer | Configures the loopback interface number (0 to 16383) | os10 |
 | ``loopback.description`` | string | Configures the interface description | os10 |
@@ -27,57 +27,58 @@ Role variables
 | ``nve`` | dictionary | Configures network virtualization edge (see ``nve.*``) | os10 |
 | ``nve.source_interface`` | integer | Configures source loopback interface | os10 |
 | ``nve.controller`` | dictionary | Configures controller; supports only one controller connection at a time (see ``controller.*``)  | os10 |
-| ``controller.name`` | string: NSX, ovsdb | Configures the nve controller | os10 |
-| ``controller.max_backoff`` | integer | Configures max_backoff value (Setting an empty value negates the corresponding configuration) | os10 |
+| ``controller.name`` | string: NSX, ovsdb | Configures the NVE controller | os10 |
+| ``controller.max_backoff`` | integer | Configures max_backoff value (setting an empty value negates the corresponding configuration) | os10 |
 | ``controller.control_cfg`` | list | Configures the controller IP and port (see ``control_cfg.*``) | os10 |
 | ``control_cfg.ip_addr`` | string | Configures the controller IP | os10 |
 | ``control_cfg.port`` | integer | Configures the controller port | os10 |
 | ``control_cfg.state`` | string: absent,present\* | Removes the controller IP and port configuration if set to absent   | os10 |
 | ``controller.state`` | string: absent,present\* | Removes the controller if set to absent | os10 |
-| ``nve.state`` | string: absent,present\* | Removes the network virtualization edge if set to absent | os10 |
-| ``evpn`` | dictionary | Enable the EVPN in control plane (see ``evpn.*``)  | os10 |
+| ``nve.state`` | string: absent,present\* | Removes the NVE if set to absent | os10 |
+| ``evpn`` | dictionary | Enables EVPN in control plane (see ``evpn.*``)  | os10 |
 | ``evpn.autoevi`` | boolean: True, False | Configures auto-EVI; no further manual configuration is allowed in auto-EVI mode | os10 |
 | ``evpn.rmac`` | string | Configures router MAC address | os10 |
 | ``evpn.evi`` | list | Configures EVPN instance (see ``evi.*``)| os10 |
 | ``evpn.dis_rt_asn`` | boolean | Enables/disables AS number usage in route target | os10 |
-| ``evpn.vrf`` | dictionary | Enable VRF for EVPN| os10 |
+| ``evpn.vrf`` | dictionary | Enables VRF for EVPN| os10 |
 | ``vrf.name`` | string | Configures VRF name | os10 |
+| ``vrf.state`` | string(present,absent) | Configures/removes VRF for EVPN | os10 |
 | ``vrf.vni`` | integer | Configures VNI for the VRF | os10 |
 | ``vrf.rd`` | string | Configures RD for the VRF | os10 |
-| ``vrf.route_target`` | dictionary | Enable route target for the VRF | os10 |
-| ``route_target.type`` | string (manual, auto) | Configure the route target type | os10 |
+| ``vrf.route_target`` | dictionary | Enables route target for the VRF | os10 |
+| ``route_target.type`` | string (manual, auto) | Configures the route target type | os10 |
 | ``route_target.asn_value`` | string | Configure AS number | os10 |
 | ``route_target.state`` | string (present,absent) | Configures/unconfigures the route target | os10 |
-| ``route_target.route_target_type`` | string | Configure the route target type | os10 |
+| ``route_target.route_target_type`` | string | Configures the route target type | os10 |
 | ``vrf.adv_ipv4`` | dictionary | Enables IPv4 advertisement VRF | os10 |
 | ``adv_ipv4.type`` | string | Configures IPv4 advertisement type | os10 |
-| ``adv_ipv4.rmap_name`` | string | Configures route map for advertisement | os10 |
-| ``adv_ipv4.unconfig`` | boolean | Configures/unconfigures route map for advertisement | os10 |
+| ``adv_ipv4.rmap_name`` | string | Configures route-map for advertisement | os10 |
+| ``adv_ipv4.unconfig`` | boolean | Configures/unconfigures route-map for advertisement | os10 |
 | ``evi.id`` | integer | Configures the EVPN instance ID (1 to 65535) | os10 |
-| ``evi.rd`` | string |  Configure the route  distinguisher | os10 |
+| ``evi.rd`` | string |  Configures the route distinguisher | os10 |
 | ``evi.vni`` | dictionary | Configures VNI value (see ``vni.*``) | os10 |
-| ``vni.id`` | integer | Configures VNI value; configure the same VNI value that you configure for the VxLAN virtual network | os10 |
+| ``vni.id`` | integer | Configures VNI value; configure the same VNI value configured for the VxLAN virtual network | os10 |
 | ``vni.state`` | string: absent,present\* | Removes the VNI if set to absent | os10 |
 | ``evi.route_target`` | list | Configures route target (see ``route_target.*``) | os10 |
 | ``route_target.type`` | string: manual,auto  | Configures the route target (auto mode auto-configures an import and export value for EVPN routes) | os10 |
-| ``route_target.asn_value`` | string | Configures the route target asn value | os10 |
+| ``route_target.asn_value`` | string | Configures the route target ASN value | os10 |
 | ``route_target.route_target_type`` | string: import,export,both  | Configures the route target type | os10 |
 | ``route_target.state`` | string: absent,present\* | Removes the route target if set to absent  | os10 |
-| ``evi.state`` | string: absent,present\*     | Removes EVPN instance id if set to absent  | os10 |
+| ``evi.state`` | string: absent,present\*     | Removes EVPN instance ID if set to absent  | os10 |
 | ``evpn.state`` | string: absent,present\* | Removes the EVPN configuration if set to absent | os10 |
 | ``virtual_network`` | dictionary | Configures the virtual network attributes (see ``virtual_network.*``) | os10 |
-| ``virtual_network.untagged_vlan`` | integer  | Configures the  reserved untagged VLAN ID, from 1 to 4093  | os10 |
+| ``virtual_network.untagged_vlan`` | integer  | Configures the  reserved untagged VLAN ID (1 to 4093)  | os10 |
 | ``virtual_network.virtual_net`` | list  | Configures the virtual network attributes for VxLAN tunneling (see ``virtual_net.*``) | os10 |
 | ``virtual_net.id`` | integer | Configures a virtual network ( virtual-network ID, from 1 to 65535) | os10 |
-| ``virtual_net.description`` | string | Configures the Description for Virtual Network | os10 |
-| ``virtual_net.vlt_vlan_id`` | integer | Configures  VLTi VLAN ID | os10 |
+| ``virtual_net.description`` | string | Configures the description for virtual network | os10 |
+| ``virtual_net.vlt_vlan_id`` | integer | Configures the VLTi VLAN ID | os10 |
 | ``virtual_net.member_interface`` | list | Configures the trunk member interface attributes to the virtual network (see ``member_interface.*``) | os10 |
 | ``member_interface.ifname`` | string | Configures interface name to provision the virtual network member interface |  os10 |
 | ``member_interface.type`` | string: tagged,untagged | Configures the type to provision the virtual network member interface |  os10 |
 | ``member_interface.vlanid`` | integer | Configures the VLAN ID to provision the virtual network member interface |  os10 |
 | ``member_interface.state`` | string: absent,present\* | Removes the virtual network member interface if set to absent  |  os10 |
 | ``virtual_net.vxlan_vni`` | dictionary | Configures the  VxLAN attributes to  virtual network (see ``vxlan_vni.*``) | os10 |
-| ``vxlan_vni.id`` | integer | Configures the VXLAN ID to a virtual network   | os10 |
+| ``vxlan_vni.id`` | integer | Configures the VxLAN ID to a virtual network   | os10 |
 | ``vxlan_vni.remote_endpoint`` | list | Configures the IP address of a remote tunnel endpoint in a VxLAN network (see ``remote_endpoint.*``) | os10 |
 | ``remote_endpoint.ip`` | string | Configures the IP address of a remote tunnel endpoint (1.1.1.1)  | os10 |
 | ``remote_endpoint.state`` | string: absent,present\* | Removes the remote tunnel endpoint in a VxLAN network if set to absent | os10 |

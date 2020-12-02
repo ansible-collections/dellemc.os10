@@ -1,0 +1,27 @@
+---
+- debug: msg="START cli/output.yaml"
+
+- name: get output for single command
+  os10_command:
+    commands: ['show version']
+  register: result
+
+- assert:
+    that:
+      - "result.changed == false"
+      - "result.stdout is defined"
+
+- name: get output for multiple commands
+  os10_command:
+    commands:
+      - show version
+      - show interface Eth 1/1/1
+  register: result
+
+- assert:
+    that:
+      - "result.changed == false"
+      - "result.stdout is defined"
+      - "result.stdout | length == 2"
+
+- debug: msg="END cli/output.yaml"

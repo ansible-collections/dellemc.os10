@@ -56,7 +56,7 @@ Ansible Dell EMC roles require connection information to establish communication
 | ``ansible_become`` | no       | yes, no\*   | Instructs the module to enter privileged mode on the remote device before sending any commands; if value is unspecified, the `ANSIBLE_BECOME` environment variable value is used, and the device attempts to execute all commands in non-privileged mode |
 | ``ansible_become_method`` | no       | enable, sudo\*   | Instructs the module to allow the _become_ method to be specified for handling privilege escalation; if value is unspecified, the `ANSIBLE_BECOME_METHOD` environment variable value is used |
 | ``ansible_become_pass`` | no       |            | Specifies the password to use, if required, to enter privileged mode on the remote device; if `ansible_become` is set to no, this key is not applicable |
-| ``ansible_network_os`` | yes      | os10, null\*  | Value is used to load the correct terminal and cliconf plugins to communicate with the remote device |
+| ``ansible_network_os`` | yes      | os10, null\*  | Loads the correct terminal and cliconf plugins to communicate with the remote device |
 
 > **NOTE**: Asterisk (*) denotes the default value if none is specified.
 

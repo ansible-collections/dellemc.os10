@@ -1,0 +1,14 @@
+---
+- block:
+    - name: Collect interface list
+      import_role: 
+        name: os10_template
+        tasks_from: show_ip_interface_brief.yaml
+      register: result
+    - name: Set interface list
+      set_fact:
+        os10_interface_1: "{{ ip_interface_facts[0].INTERFACE_NAME | lower }}"
+        os10_interface_2: "{{ ip_interface_facts[1].INTERFACE_NAME | lower }}"
+        os10_interface_3: "{{ ip_interface_facts[2].INTERFACE_NAME | lower }}"
+
+  when: prepare_os10_role_tests_task | default(True) | bool

@@ -3,7 +3,7 @@ BFD role
 
 This role facilitates the configuration of bidirectional forwarding detection (BFD) global attributes. It specifically enables configuration of BFD interval, min_rx, multiplier, and role. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The BFD role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The BFD role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
@@ -21,8 +21,8 @@ Role variables
 | ``bfd`` | dictionary | Configures global BFD parameters (see ``bfd.*``) | os10 |
 | ``bfd.interval`` | integer | Configures the time interval in ms (100 to 1000) | os10 |
 | ``bfd.min_rx`` | integer | Configures maximum waiting time for receiving control packets from BFD peers in ms (100 to 1000)| os10 |
-| ``bfd.multiplier`` | integer | Configure the maximum number of consecutive packets that are not received from BFD peers before session state changes to Down (3 to 50) | os10 |
-| ``bfd.role`` | string: passive,active\* | Configure the BFD role | os10 |
+| ``bfd.multiplier`` | integer | Configures the maximum number of consecutive packets that are not received from BFD peers before session state changes to Down (3 to 50) | os10 |
+| ``bfd.role`` | string: passive,active\* | Configures the BFD role | os10 |
 | ``bfd.state`` | string: absent,present\* | Removes the global BFD if set to absent | os10 |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified. 

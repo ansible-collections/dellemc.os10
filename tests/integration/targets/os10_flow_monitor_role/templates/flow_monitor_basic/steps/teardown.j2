@@ -1,0 +1,23 @@
+test_roles:
+  - dellemc.os10.os10_flow_monitor
+  - dellemc.os10.os10_interface
+os10_interface:
+  {{ os10_interface_2 }}:
+    switchport: true
+    portmode: access
+os10_flow_monitor:
+  session 1:
+    session_type: local
+    description: "Discription goes here"
+    port_match:
+      - interface_name: {{ os10_interface_1 }}
+        location: source
+        state: absent
+      - interface_name: {{ os10_interface_2 }}
+        location: destination
+        state: absent
+    flow_based: true
+    shutdown: up
+    state: absent
+  session 2:
+    state: absent

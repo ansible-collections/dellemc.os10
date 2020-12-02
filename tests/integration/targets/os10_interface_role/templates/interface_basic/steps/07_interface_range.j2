@@ -1,0 +1,4 @@
+os10_interface:
+  range ethernet {{ os10_interface_1.split()[1] }},{{ os10_interface_2.split()[1] }},{{ os10_interface_3.split()[1] }}:
+    mtu: 2500
+    admin: up

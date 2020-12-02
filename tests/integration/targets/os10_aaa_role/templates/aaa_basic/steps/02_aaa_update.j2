@@ -1,0 +1,24 @@
+os10_aaa:
+  radius_server:
+    retransmit: 6
+    timeout: 9
+    host:
+      - ip: 10.10.10.10
+        key: 0
+        value: "abc"
+        auth_port: 3
+        state: present
+  tacacs_server:
+    host: 
+      - ip: 10.10.10.10
+        key: 0
+        value: "aaaa"
+        auth_port: 3
+    state: present
+  aaa_authentication:
+    login:
+      - console: true
+        type: group radius group tacacs+ local
+        state: present
+    re_authenticate: false
+

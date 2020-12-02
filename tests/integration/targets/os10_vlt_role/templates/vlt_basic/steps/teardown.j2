@@ -1,0 +1,23 @@
+test_roles:
+  - dellemc.os10.os10_vlt
+  - dellemc.os10.os10_lag
+  - dellemc.os10.os10_interface
+os10_interface:
+  {{ os10_interface_1 }}:
+    portmode: access
+    switchport: true
+os10_lag:
+  Po 12:
+    state: absent
+os10_vlt:
+  domain: 1
+  backup_destination: "192.168.211.175"
+  destination_type: "ipv4"
+  discovery_intf: {{ os10_interface_1.split()[1] }}
+  discovery_intf_state: present
+  peer_routing: True
+  vlt_mac: aa:aa:aa:aa:aa:aa
+  vlt_peers:
+    Po 12:
+     peer_lag: 13
+  state: absent

@@ -1,0 +1,62 @@
+- name: set test case
+  set_fact: 
+    role_testcase: "{{ role_testcase_path | basename | splitext | first }}"
+
+- name: set test case output dir
+  set_fact: 
+    testcase_outdir: "{{ output_dir }}/{{ role_name }}/{{ role_testcase_path }}"
+
+
+- name: Prepare testcase output dir
+  file:
+    path: "{{ testcase_outdir }}"
+    state: directory
+
+- name: Source testcase variables
+  include_vars: "{{ item }}"
+  vars:
+    params:
+      files:
+        - "{{ role_testcase }}.yaml"
+      paths:
+        - "vars"
+  loop: "{{ query('first_found', params, errors='ignore') }}"
+
+- name: Include Testcase tasks
+  include: "{{ role_testcase_path }}"
+
+- name: Identifying steps
+  block:
+    - name: Identifying steps
+      find:
+        paths: "{{ role_path }}/templates/{{ role_testcase }}/steps"
+        patterns: "*.j2"
+      register: step_files
+    - set_fact: teststeps_files="{{ step_files.files | map(attribute='path') | map('basename') | list }}"
+    - set_fact: teststeps="{{ teststeps_files | map('splitext') | map('first') | reject('equalto', 'setup') | reject('equalto', 'teardown') | list | sort }}"
+  when: teststeps is not defined
+
+- name: Check if setup step exists
+  stat: path="{{ role_path }}/templates/{{ role_testcase }}/steps/setup.j2"
+  ignore_errors: true
+  register: setup_template
+
+- name: Setup Testcase
+  include: testcase/run_test_step.yaml role_teststep=setup idempotent=false
+  when: setup_template.stat.exists == true
+
+- name: Run Test Steps
+  block:
+    - name: Run Test Steps
+      include: testcase/run_test_step.yaml idempotent=false
+      with_items: "{{ teststeps }}"
+      loop_control:
+        loop_var: role_teststep
+  always:
+    - name: Check teardown
+      stat: path="{{ role_path }}/templates/{{ role_testcase }}/steps/teardown.j2"
+      ignore_errors: true
+      register: teardown_template
+    - name: Run teardown
+      include: testcase/run_test_step.yaml role_teststep=teardown idempotent=false
+      when: teardown_template.stat.exists == true

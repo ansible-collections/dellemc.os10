@@ -1,0 +1,14 @@
+minor_changes:
+    - Enhanced os10_bgp role to support maximum-prefix configuration under BGP peer and peer-group.
+    - Enhanced os10_bgp role to support internal BGP redistribution under address-family for V4 and V6
+    - os10_template - add template for show vlt error disabled ports
+    - os10_template - add template for show spanning tree compatibility mode
+    - os10_ntp role - Added support for vrf and sha1 and sha2-256 authentication-key types
+    - os10_snmp role - Added support for source-interface and vrf
+    - os10_uplink role - Added support for downstream disable-links and auto-recover
+breaking_changes:
+    - os10_bgp - Changed "vrf" key as list format instead of dictionary format to supprot multiple VRF in router BGP and changed the "vrf" key name to "vrfs"
+    - os10_bgp - Changed "subnet"  key as list format instead of dictionary format under "listen" key to support multiple neighbor prefix for listen command
+major_changes:
+    - os10_bgp - Enhanced router bgp keyword support for non-default vrf which are supported for default vrf and additional keyword to support both default and non-default vrf 
+    - os10_snmp role - Added support for snmp V3 features in community, group, host, engineID

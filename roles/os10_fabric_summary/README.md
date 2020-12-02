@@ -2,7 +2,7 @@ os10_fabric_summary
 =====================================
 This role is used to get show system information of all devices in the fabric. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The Fabric summary role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The Fabric summary role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Connection variables
 --------------------

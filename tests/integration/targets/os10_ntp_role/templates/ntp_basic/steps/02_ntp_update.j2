@@ -1,0 +1,20 @@
+os10_ntp:
+  master: 4
+  authenticate: false
+  authentication_key:
+    - key_num: 456
+      key_string_type: 0
+      key_string: ntptest
+      state: present
+  trusted_key:
+    - key_num: 4626
+      state: present
+  server:
+    - ip: 2.2.2.2
+      key: 567
+      prefer: false
+      state: present
+  intf:
+   "{{ os10_interface_1 }}":
+      disable: false
+      broadcast: false

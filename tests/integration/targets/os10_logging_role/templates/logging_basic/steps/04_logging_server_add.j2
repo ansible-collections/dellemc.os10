@@ -1,0 +1,12 @@
+idempotent: false
+os10_logging:
+  logging:
+    - ip: 1.1.1.1
+      state: present
+  console:
+    enable: True
+    severity: log-err
+  log_file:
+    enable: True
+    severity: log-err
+  source_interface: "{{ os10_interface_1 }}"
