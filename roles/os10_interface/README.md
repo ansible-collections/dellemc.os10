@@ -3,7 +3,7 @@ Interface role
 
 This role facilitates the configuration of interface attributes. It supports the configuration of admin state, description, MTU, IP address, IP helper, suppress_ra, and port mode. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The Interface role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The Interface role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
@@ -49,9 +49,11 @@ Role variables
 | ``flowcontrol.mode`` | string:   receive,transmit  | Configures the flowcontrol mode   | os10 |
 | ``flowcontrol.enable`` | string:   on,off  | Configures the flowcontrol mode on  | os10 |
 | ``flowcontrol.state`` | string: absent,present\* | Deletes the flowcontrol if set to absent   | os10 |
-| ``ipv6_bgp_unnum`` | dictionary | Configures the ipv6 bgp unnum attributes (see ``ipv6_bgp_unnum.*``) below | os10 |
-| ``ipv6_bgp_unnum.state`` | string: absent,present\* | Disable auto discovery of BGP unnumbered peer if set to absent | os10 |
-| ``ipv6_bgp_unnum.peergroup_type`` | string: ebgp,ibgp | Specify the type of template to inherit from | os10 |
+| ``ipv6_bgp_unnum`` | dictionary | Configures the IPv6 BGP unnum attributes (see ``ipv6_bgp_unnum.*``) below | os10 |
+| ``ipv6_bgp_unnum.state`` | string: absent,present\* | Disables auto discovery of BGP unnumbered peer if set to absent | os10 |
+| ``ipv6_bgp_unnum.peergroup_type`` | string: ebgp,ibgp | Specifies the type of template to inherit from | os10 |
+
+| ``stp_rpvst_default_behaviour`` | boolean: false,true     | Configures RPVST default behaviour of BPDU's when set to True which is default | os10 |
 
 > **NOTE**: Asterisk (*) denotes the default value if none is specified.
 
@@ -99,7 +101,8 @@ When `os10_cfg_generate` is set to true, the variable generates the configuratio
     os10_interface:
         ethernet 1/1/32:
                 desc: "Connected to Core 2"
-                mtu: 2500    
+                mtu: 2500   
+                stp_rpvst_default_behaviour: False 
                 portmode:
                 admin: up
                 switchport: False
@@ -126,6 +129,7 @@ When `os10_cfg_generate` is set to true, the variable generates the configuratio
                 switchport: True
                 suppress_ra: present
                 admin: up
+                stp_rpvst_default_behaviour: False
         ethernet 1/1/3:
                 desc: site2-spine2
                 ip_and_mask: 10.9.0.4/31
@@ -151,6 +155,7 @@ When `os10_cfg_generate` is set to true, the variable generates the configuratio
                 admin: up
                 switchport: False
                 suppress_ra:
+                stp_rpvst_default_behaviour: True
                 ipv6_bgp_unnum:
                     state: present
                     peergroup_type: ebgp

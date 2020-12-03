@@ -1,0 +1,26 @@
+---
+- name: Running step {{ role_teststep }}
+  debug: msg="{{ role_teststep }}"
+
+- name: Set step vars file
+  set_fact: 
+    teststep_var_template: "{{ role_testcase }}/steps/{{ role_teststep }}.j2"
+    teststep_vars_file: "{{ testcase_outdir }}/{{ role_teststep }}.yaml"
+
+- name: Preparing step variables
+  template:
+    src: "{{ teststep_var_template }}"
+    dest: "{{ teststep_vars_file }}"
+
+- name: Load step variables
+  include_vars:
+    file: "{{ teststep_vars_file }}"
+
+- name: Including roles for the step
+  include: testcase/include_os10_role.yaml os10_role_name="{{ step_role }}"
+  #  include_role:
+  #  name: "{{ step_role }}"
+  with_items: "{{ test_roles }}"
+  loop_control:
+    loop_var: step_role
+  when: test_roles is defined

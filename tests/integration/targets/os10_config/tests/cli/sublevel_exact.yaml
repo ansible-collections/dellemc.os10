@@ -1,0 +1,62 @@
+---
+- debug: msg="START cli/sublevel_exact.yaml"
+
+- name: setup
+  os10_config:
+    lines:
+      - neighbor 1.1.1.1
+      - neighbor 1.1.1.2
+      - neighbor 1.1.1.3
+      - neighbor 1.1.1.4
+      - neighbor 1.1.1.5
+    parents: ['router bgp 10']
+    before: ['no router bgp']
+    after: ['exit']
+    match: none
+
+- name: configure sub level command using exact match
+  os10_config:
+    lines:
+      - neighbor 1.1.1.1
+      - neighbor 1.1.1.2
+      - neighbor 1.1.1.3
+      - neighbor 1.1.1.4
+    parents: ['router bgp 10']
+    after: ['exit']
+    match: exact
+  register: result
+
+- assert:
+    that:
+      - "result.changed == true"
+      - "'router bgp 10' in result.updates"
+      - "'neighbor 1.1.1.1' in result.updates"
+      - "'neighbor 1.1.1.2' in result.updates"
+      - "'neighbor 1.1.1.3' in result.updates"
+      - "'neighbor 1.1.1.4' in result.updates"
+      - "'neighbor 1.1.1.5' not in result.updates"
+
+- name: check sub level command using exact match
+  os10_config:
+    lines:
+      - neighbor 1.1.1.1
+      - neighbor 1.1.1.2
+      - neighbor 1.1.1.3
+      - neighbor 1.1.1.4
+      - neighbor 1.1.1.5
+    parents: ['router bgp 10']
+    after: ['exit']
+    match: exact
+  register: result
+
+- assert:
+    that:
+      - "result.changed == false"
+
+- name: teardown
+  os10_config:
+    lines:
+      - no router bgp
+    match: none
+
+- debug: msg="END cli/sublevel_exact.yaml"

@@ -27,7 +27,8 @@ os10_interface:
             fanout: 10g-4x
     range ethernet 1/1/1-1/1/4:
             switchport: True
-            admin: down 
+            admin: down
+            stp_rpvst_default_behaviour: False 
     virtual-network 100:
             vrf: "test"
             ip_and_mask: "15.1.1.1/24"
@@ -40,6 +41,9 @@ os10_interface:
         ipv6_bgp_unnum:
             state: present
             peergroup_type: ebgp
+    port-channel 20:
+        admin: up
+        stp_rpvst_default_behaviour: True
     vlan 10:
             ip_and_mask: "10.1.1.1/24"
             virtual_gateway_ip: "10.1.1.254"
@@ -157,6 +161,15 @@ interface {{ interface_key }}
  ipv6 nd send-ra
     {% endif %}
   {% endif %}
+
+   {% if intf_vars.stp_rpvst_default_behaviour is defined %}
+    {% if intf_vars.stp_rpvst_default_behaviour %}
+ spanning-tree rapid-pvst default-behavior
+    {% else %}
+ no spanning-tree rapid-pvst default-behavior
+    {% endif %}
+  {% endif %}
+
   {% if intf_vars.ipv6_autoconfig is defined %}
     {% if intf_vars.ipv6_autoconfig %}
  ipv6 address autoconfig

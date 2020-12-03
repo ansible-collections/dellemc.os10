@@ -1,0 +1,147 @@
+idempotent: false
+os10_bgp:
+    asn: 12
+    vrfs:
+      - name: "GREEN"
+        router_id:
+        maxpath_ibgp:
+        maxpath_ebgp:
+        graceful_restart: false
+        log_neighbor_changes: false
+        fast_ext_fallover: false
+        always_compare_med: false
+        default_loc_pref: 1000
+        route_reflector:
+          client_to_client: false
+          cluster_id: 
+        address_family_ipv4:
+          aggregate_address:
+             - ip_and_mask: 1.1.1.1/16
+               state: absent
+          dampening:
+            value: 15 750 2000 60
+            route_map: qq
+            state: absent
+          ibgp_redist_internal:
+            state: absent
+        address_family_ipv6:
+          aggregate_address:
+             - ip_and_mask: 2001:4898:5808:ffa0::/126
+               state: absent
+               summary_only: false
+          ibgp_redist_internal:
+            state: absent
+        best_path:
+           as_path: ignore
+           as_path_state: absent
+           ignore_router_id: false
+           med:
+            - attribute: confed
+              state: absent
+            - attribute: missing-as-worst
+              state: absent
+        neighbor:
+          - type: ipv4
+            interface: vlan10
+            description: "U_site2 vlan"
+            send_community:
+              - type: extended
+                state: absent
+            admin: up
+            state: absent
+          - type: ipv4
+            description: "U_site2 spine1"
+            remote_asn: 11
+            ip: 192.168.20.1
+            name: peer1
+            peergroup: peer1
+            peergroup_state: absent
+            peergroup_type: ibgp
+            adv_interval: 40
+            fall_over: absent
+            route_reflector_client: false
+            address_family:
+              - type: ipv4
+                activate: false
+                state: absent
+            send_community:
+              - type: standard
+                state: absent
+            state: absent
+          - type: ipv4
+            description: "U_site2 spine1"
+            remote_asn: 13
+            local_as: 10
+            weight: 10
+            ip: 192.168.15.3
+            address_family:
+              - type: ipv4
+                activate: false
+                allow_as_in: 5
+                next_hop_self: false
+                soft_reconf: false
+                add_path: both 3
+                route_map:
+                  - name: qq
+                    filter: in
+                    state: absent
+                state: absent
+            state: absent
+          - type: ipv6
+            remote_asn: 14
+            ip: 2001:4898:5808:ffa2::1
+            state: absent
+          - type: ipv6
+            description: "U_site2-spine1-Auto Discovered peers"
+            auto_peer: unnumbered-auto
+            ibgp_peergroup: ibgp_pg
+            ibgp_peergroup_state: absent
+            address_family:
+              - type: ipv4
+                activate: false
+                sender_loop_detect: false
+                state: absent
+                allow_as_in: 5
+                next_hop_self: false
+                soft_reconf: false
+            send_community:
+              - type: standard
+                state: absent
+            admin: up
+            state: absent
+          - name: peer1
+            type: peergroup
+            bfd: yes
+            state: absent
+          - name: ebgp_pg
+            type: peergroup
+            bfd: yes
+            state: absent
+          - name: ibgp_pg
+            type: peergroup
+            weight: 10
+            state: absent
+        redistribute:
+          - route_type: static
+            route_map_name: aa
+            address_type: ipv4
+            state: absent
+          - route_type: connected
+            route_map_name: bb
+            address_type: ipv4
+            state: absent
+          - route_type: l2vpn
+            route_map_name: cc
+            address_type: ipv4
+            state: absent
+        bfd_all_neighbors:
+          interval: 200
+          min_rx: 200
+          multiplier: 3
+          role: active
+          state: absent
+        state: present
+      - name: "BLUE"
+        router_id:
+        state: absent
+    state: present

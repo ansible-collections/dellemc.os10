@@ -3,7 +3,7 @@ Template role
 
 This role provides access to structured data from show commands.  This role facilitates the TEXTFSM parsing engine. TextFSM is a template based state machine . It takes the raw string input from the CLI of network devices, run them through a TEXTFSM template and return structured text in the form of a Python dictionary. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The Template role is highly customizable, and it works with separate template definitions which contain variables and rules with regular expressions. This library is very helpful to parse any text-based CLI output from network devices. The Template role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The Template role is highly customizable, and it works with separate template definitions which contain variables and rules with regular expressions. This library is very helpful to parse any text-based CLI output from network devices. The Template role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

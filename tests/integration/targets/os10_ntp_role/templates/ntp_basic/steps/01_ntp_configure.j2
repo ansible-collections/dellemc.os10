@@ -1,0 +1,24 @@
+os10_ntp:
+  source: "{{ os10_interface_1 }}"
+  master: 5
+  authenticate: true
+  authentication_key:
+    - key_num: 123
+      key_string_type: 0
+      key_string: test
+      state: present
+  trusted_key:
+    - key_num: 1323
+      state: present
+  server:
+    - ip: 2.2.2.2
+      key: 345
+      prefer: true
+      state: present
+  intf:
+   "{{ os10_interface_1 }}":
+      disable: true
+      broadcast: true
+  vrf:
+    name: red
+    state: present

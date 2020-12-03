@@ -1,0 +1,14 @@
+test_roles:
+  - dellemc.os10.os10_xstp
+os10_xstp:
+  type: rstp
+  enable: true
+  path_cost: false
+  mac_flush_timer: 5
+  rstp:
+    max_age: 7
+    hello_time: 8
+    forward_time: 9
+    force_version: stp
+    bridge_priority: 8192
+    mac_flush_threshold: 6

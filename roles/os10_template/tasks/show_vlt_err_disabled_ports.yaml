@@ -1,0 +1,20 @@
+---
+ - name: CAPTURE SHOW VLT ERR DISABLED PORTS
+   dellos10_command:
+     commands: ['show vlt all error-disabled-ports']
+   register: output
+
+ - name: DISPLAY THE OUTPUT
+   debug: var=output.stdout
+
+ - name: INSTALL TEXTFSM
+   import_tasks: textfsm.yaml
+
+ - name: PARSE THE OUTPUT for {{ ansible_network_os }} show_vlt_err_dis_ports
+   textfsm_parser:
+     src: "{{ lookup('file', './templates/os10_show_vlt_err_disabled_ports.template') }}"
+     content: "{{ output.stdout[0] }}"
+     name: vlt_err_dis_facts
+   register: result
+   vars:
+     - ansible_network_os: dellemc.os10.os10

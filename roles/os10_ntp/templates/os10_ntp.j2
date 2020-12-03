@@ -6,10 +6,13 @@ os10_ntp:
       source: ethernet 1/1/2
       master: 5
       authenticate: true
+      vrf:
+        name: red
       authentication_key:
         - key_num: 123
           key_string_type: 7
           key_string: test
+          type: md5
           state: present
       trusted_key:
         - key_num: 1323
@@ -77,7 +80,12 @@ no ntp authentication-key {{ item.key_num }}
           {% else %}
             {% if item.key_string_type is defined and item.key_string_type >= 0 %}
               {% if item.key_string is defined and item.key_string %}
-ntp authentication-key {{ item.key_num }} md5 {{ item.key_string_type }} {{ item.key_string }}
+              {% if item.type is defined and item.type %}
+                {% set auth_type = item.type %}
+              {% else %}
+                {% set auth_type = 'md5' %}
+              {% endif%}
+ntp authentication-key {{ item.key_num }} {{ auth_type }} {{ item.key_string_type }} {{ item.key_string }}
               {% endif %}
             {% endif %}
           {% endif %}

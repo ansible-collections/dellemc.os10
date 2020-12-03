@@ -5,12 +5,23 @@ Configure snmp commands for os10 Devices
 os10_snmp:
     snmp_contact:  test
     snmp_location: Chennai
+    snmp_vrf: test
+    snmp_source_interface: loopback 10
     snmp_community:
       - name: public
         access_mode: ro
+        access_list: 
+          name: test_acl
+          state: present
         state: present
     snmp_traps: 
       - name: all
+        state: present
+    snmp_engine_id: 123456789
+    snmp_remote_engine_id:
+      - host: 1.1.1.1
+        engine_id: '0xab'
+        udpport: 162
         state: present
     snmp_view:
       - name: view_1
@@ -27,24 +38,91 @@ os10_snmp:
         version: 1
         communitystring: c3
         state: present
+      - ip: 3.1.1.1
+        version: 3
+        security_level: priv
+        security_name: test
+        notification_type: informs
+        udpport: 200
+        trap_categories:
+          dom: true
+          entity: true
+          envmon: true
+          snmp: true
+        state: present
+    snmp_group:
+      - name: group_1
+        version: "2c"
+        state: present
+        access_list:
+          name: test_acl
+          state: present
+        read_view:
+          name: view_1
+          state: present
+        write_view:
+          name: view_2
+          state: present
+        notify_view:
+          name: view_3
+          state: present
+      - name: group_2
+        version: 3
+        security_level: priv
+        state: present
+        read_view:
+          name: view_1
+          state: absent
+        notify_view:
+          name: view_3
+          state: present
+    snmp_user:
+      - name: user_1
+        group_name: group_1
+        version: 3
+        authentication:
+          localized: true
+          algorithm: md5
+          password: 9fc53d9d908118b2804fe80e3ba8763d
+          encryption:
+            algorithm: aes
+            password: d0452401a8c3ce42804fe80e3ba8763d
+        state: present
+      - name: user_2
+        group_name: group_1
+        version: 3
+        remote:
+          ip: 1.1.1.1
+          udpport: 200
+        authentication:
+          localized: true
+          algorithm: md5
+          password: '0x9fc53d9d908118b2804fe80e3ba8763d'
+          encryption:
+            algorithm: aes
+            password: '0xd0452401a8c3ce42804fe80e3ba8763d'
+        state: present
+      - name: user_3
+        group_name: group_1
+        version: 2c
+        state: present
+      - name: user_4
+        group_name: group_1
+        version: 3
+        state: present
+      - name: user_5
+        group_name: group_2
+        version: 2c
+        remote:
+          ip: 1.1.1.1
+          udpport: 200
+        access_list: test_acl
+        state: present
+
 ###############################################}
 {% if os10_snmp is defined and os10_snmp %}
-{% for key,value in os10_snmp.items() %}
-  {% if key == "snmp_contact" %}
-    {% if value %}
-snmp-server contact {{ value }}
-    {% else %}
-no snmp-server contact
-    {% endif %}
-
-  {% elif key == "snmp_location" %}
-    {% if value  %}
-snmp-server location {{ value }}
-    {% else %}
-no snmp-server location
-    {% endif %}
-
-  {% elif key == "snmp_community" %}
+  {% if os10_snmp.snmp_community is defined %}
+    {% set value = os10_snmp.snmp_community %}
     {% if value %}
       {% for item in value %}
         {% if item.name is defined and item.name %}
@@ -52,20 +130,91 @@ no snmp-server location
             {% if item.state is defined and item.state == "absent" %}
 no snmp-server community {{ item.name }} {{ item.access_mode }}
             {% else %}
+              {% if item.access_list is defined and item.access_list and item.access_list.name is defined and item.access_list.name %}
+                {% if item.access_list.state is defined and item.access_list.state == "absent" %}
+no snmp-server community {{ item.name }} {{ item.access_mode }} acl {{ item.access_list.name }}
+                {% else %}
+snmp-server community {{ item.name }} {{ item.access_mode }} acl {{ item.access_list.name }}
+                {% endif %}
+              {% else %}
 snmp-server community {{ item.name }} {{ item.access_mode }}
+              {% endif %}
             {% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}
     {% endif %}
+  {% endif %}
 
-  {% elif key == "snmp_traps" %}
+  {% if os10_snmp.snmp_contact is defined %}
+    {% set value = os10_snmp.snmp_contact %}
+    {% if value %}
+snmp-server contact {{ value }}
+    {% else %}
+no snmp-server contact
+    {% endif %}
+  {% endif %}
+
+  {% if os10_snmp.snmp_engine_id is defined %}
+    {% set value = os10_snmp.snmp_engine_id %}
+    {% if value %}
+snmp-server engineID local {{ value }}
+    {% else %}
+no snmp-server engineID local
+    {% endif %}
+  {% endif %}
+
+  {# Remove users before removing remote engine #}
+  {% if os10_snmp.snmp_user is defined and os10_snmp.snmp_user %}
+    {% set value = os10_snmp.snmp_user %}
+    {% for item in value %}
+      {% if item.name is defined and item.name and item.group_name is defined and item.group_name %}
+        {% if item.state is defined and item.state == "absent" %}
+        {% set user_remote_option = "" %}
+        {% if item.remote is defined and item.remote %}
+          {% if item.remote.ip is defined and item.remote.ip %}
+            {% if item.remote.udpport is defined and item.remote.udpport %}
+              {% set user_remote_option = " remote " + item.remote.ip + " udp-port " + item.remote.udpport|string %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+no snmp-server user {{ item.name }} {{ item.group_name }}{{ user_remote_option }} {{ item.version }}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if os10_snmp.snmp_remote_engine_id is defined %}
+    {% set value = os10_snmp.snmp_remote_engine_id %}
+    {% for item in value %}
+      {% if item.host is defined and item.host %}
+        {% if item.state is defined and item.state == "absent" %}
+          {% if item.udpport is defined and item.udpport %}
+no snmp-server engineID remote {{ item.host }} udp-port {{ item.udpport }}
+          {% else %}
+no snmp-server engineID remote {{ item.host }}
+          {% endif %}
+        {% else %}
+          {% if item.engine_id is defined and item.engine_id %}
+            {% if item.udpport is defined and item.udpport %}
+snmp-server engineID remote {{ item.host }} udp-port {{ item.udpport }} {{ item.engine_id }}
+            {% else %}
+snmp-server engineID remote {{ item.host }} udp-port 162 {{ item.engine_id }}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if os10_snmp.snmp_traps is defined %}
+    {% set value = os10_snmp.snmp_traps %}
     {% if value %}
       {% for val in value %}
         {% if val.name is defined and val.name %}
           {% if val.state is defined and val.state == "absent" %}
             {% if val.name == "all" %}
-              {% set trap_list = ['snmp authentication','snmp linkdown','snmp linkup','envmon fan','envmon power-supply','envmon temperature'] %}
+              {% set trap_list = ['snmp authentication','snmp linkDown','snmp linkUp','envmon fan','envmon power-supply','envmon temperature'] %}
               {% for name in trap_list %}
 no snmp-server enable traps {{ name }}
               {% endfor %}
@@ -74,7 +223,7 @@ no snmp-server enable traps {{ val.name }}
             {% endif %}
           {% else %}
             {% if val.name == "all" %}
-              {% set trap_list = ['snmp authentication','snmp linkdown','snmp linkup','envmon fan','envmon power-supply','envmon temperature'] %}
+              {% set trap_list = ['snmp authentication','snmp linkDown','snmp linkUp','envmon fan','envmon power-supply','envmon temperature'] %}
               {% for name in trap_list %}
 snmp-server enable traps {{ name }}
               {% endfor %}
@@ -85,8 +234,180 @@ snmp-server enable traps {{ val.name }}
         {% endif %}
       {% endfor %}
     {% endif %}
+  {% endif %}
 
-  {% elif key == "snmp_view" %}
+  {% if os10_snmp.snmp_group is defined and os10_snmp.snmp_group %}
+    {% set value = os10_snmp.snmp_group %}
+    {% for item in value %}
+      {% if item.name is defined and item.name and item.version is defined and item.version %}
+        {% set group_value = item.name + " " + item.version|string %}
+        {% if item.security_level is defined and item.security_level %}
+          {% if item.version|string != "1" and item.version|string != "2c" %}
+            {% set group_value = group_value + " " + item.security_level %}
+          {% endif %}
+        {% endif %}
+        {% if item.state is defined and item.state == "absent" %}
+no snmp-server group {{ group_value }}
+        {% else %}
+          {% set group_options = [] %}
+          {% if item.version|string == "1" or item.version|string == "2c" %}
+            {% if item.access_list is defined and item.access_list and item.access_list.name is defined and item.access_list.name %}
+              {% if item.access_list.state is defined and item.access_list.state == "absent" %}
+no snmp-server group {{ group_value }} access {{ item.access_list.name }}
+              {% else %}
+                {{ group_options.append("access "+item.access_list.name) }}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+          {% if item.notify_view is defined and item.notify_view and item.notify_view.name is defined and item.notify_view.name %}
+            {% if item.notify_view.state is defined and item.notify_view.state == "absent" %}
+no snmp-server group {{ group_value }} notify {{ item.notify_view.name }}
+            {% else %}
+              {{ group_options.append("notify "+item.notify_view.name)}}
+            {% endif %}
+          {% endif %}
+          {% if item.read_view is defined and item.read_view and item.read_view.name is defined and item.read_view.name  %}
+            {% if item.read_view.state is defined and item.read_view.state == "absent" %}
+no snmp-server group {{ group_value }} read {{ item.read_view.name }}
+            {% else %}
+              {{ group_options.append("read "+item.read_view.name) }}
+            {% endif %}
+          {% endif %}
+          {% if item.write_view is defined and item.write_view and item.write_view.name is defined and item.write_view.name %}
+            {% if item.write_view.state is defined and item.write_view.state == "absent" %}
+no snmp-server group {{ group_value }} write {{ item.write_view.name }}
+            {% else %}
+              {{ group_options.append("write "+item.write_view.name)}}
+            {% endif %}
+          {% endif %}
+snmp-server group {{ group_value }} {{ group_options|join(" ") }}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if os10_snmp.snmp_host is defined and os10_snmp.snmp_host %}
+    {% set value = os10_snmp.snmp_host %}
+    {% for item in value %}
+      {% if item.ip is defined and item.ip %}
+        {% set host_port_option = "" %}
+        {% if item.udpport is defined and item.udpport %}
+          {% set host_port_option = " udp-port " + item.udpport|string %}
+        {% endif %}
+        {% if item.state is defined and item.state == "absent" %}
+no snmp-server host {{ item.ip }}{{ host_port_option }}
+        {% else %}
+          {% set host_notif_type = "traps" %}
+          {% if item.notification_type is defined and item.notification_type %}
+            {% set host_notif_type = item.notification_type %}
+          {% endif %}
+          {% if item.version is defined and item.version %}
+            {% set host_version = "" %}
+            {% if item.version|string == "1" or item.version|string == "2c" %}
+              {% if item.communitystring is defined and item.communitystring %}
+                {% set host_version = item.version|string + " " + item.communitystring %}
+              {% endif %}
+            {% elif item.security_level is defined and item.security_level %}
+              {% if item.security_name is defined and item.security_name %}
+                {% set host_version = item.version|string + " " + item.security_level + " " + item.security_name %}
+              {% endif %}
+            {% endif %}
+            {% set host_trap_categories = [] %}
+            {% if item.trap_categories is defined and item.trap_categories %}
+              {% for cat_key, cat_value in item.trap_categories.items() %}
+                {% if cat_value %}
+                  {% if cat_key == "dom" %}
+                    {{ host_trap_categories.append("dom")}}
+                  {% elif cat_key == "entity" %}
+                    {{ host_trap_categories.append("entity") }}
+                  {% elif cat_key == "envmon" %}
+                    {{ host_trap_categories.append("envmon") }}
+                  {% elif cat_key == "lldp" %}
+                    {{ host_trap_categories.append("lldp") }}
+                  {% elif cat_key == "snmp" %}
+                    {{ host_trap_categories.append("snmp") }}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+            {% if host_version %}
+snmp-server host {{ item.ip }} {{ host_notif_type }} version {{ host_version }}{{ host_port_option }} {{ host_trap_categories|join(" ") }}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if os10_snmp.snmp_location is defined %}
+    {% set value = os10_snmp.snmp_location %}
+    {% if value  %}
+snmp-server location {{ value }}
+    {% else %}
+no snmp-server location
+    {% endif %}
+  {% endif %}
+
+  {% if os10_snmp.snmp_source_interface is defined %}
+    {% set value = os10_snmp.snmp_source_interface %}
+    {% if value %}
+snmp-server source-interface {{ value.split() | join() }}
+    {% else %}
+no snmp-server source-interface
+    {% endif %}
+  {% endif %}
+
+  {% if os10_snmp.snmp_user is defined and os10_snmp.snmp_user %}
+    {% set value = os10_snmp.snmp_user %}
+    {% for item in value %}
+      {% if item.name is defined and item.name and item.group_name is defined and item.group_name %}
+        {% if item.version is defined and item.version %}
+          {% if item.state is defined and item.state == "absent" %}
+          {# snmp user removal is handled above remote engind id #}
+          {% else %}
+            {% set user_remote_option = "" %}
+            {% if item.remote is defined and item.remote %}
+              {% if item.remote.ip is defined and item.remote.ip %}
+                {% if item.remote.udpport is defined and item.remote.udpport %}
+                  {% set user_remote_option = " remote " + item.remote.ip + " udp-port " + item.remote.udpport|string %}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+            {% if item.version|string == "1" or item.version|string == "2c" %}
+              {% set user_acl_option = "" %}
+              {% if item.access_list is defined and item.access_list %}
+                {% set user_acl_option = "access " + item.access_list %}
+              {% endif %}
+snmp-server user {{ item.name }} {{ item.group_name }}{{ user_remote_option }} {{ item.version }} {{ user_acl_option }} 
+            {% else %}
+              {% set user_auth_option = "" %}
+              {% if item.authentication is defined and item.authentication %}
+                {% if item.authentication.localized is defined and item.authentication.localized %}
+                  {% set user_auth_option = " localized" %}
+                {% endif %}
+                {% if item.authentication.algorithm is defined and item.authentication.algorithm %}
+                  {% if item.authentication.password is defined and item.authentication.password %}
+                    {% set user_auth_option = user_auth_option + " auth " + item.authentication.algorithm + " " + item.authentication.password %}
+                    {% if item.authentication.encryption is defined and item.authentication.encryption %}
+                      {% if item.authentication.encryption.algorithm is defined and item.authentication.encryption.algorithm %}
+                        {% if item.authentication.encryption.password is defined and item.authentication.encryption.password  %}
+                          {% set user_auth_option = user_auth_option +  " priv " + item.authentication.encryption.algorithm + " " + item.authentication.encryption.password %}
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+snmp-server user {{ item.name }} {{ item.group_name }}{{ user_remote_option }} {{ item.version }}{{ user_auth_option }}              
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if os10_snmp.snmp_view is defined %}
+    {% set value = os10_snmp.snmp_view %}
     {% if value %}
       {% for item in value %}
         {% if item.name is defined and item.name %}
@@ -106,29 +427,15 @@ snmp-server view {{ item.name }} {{ item.oid_subtree }} excluded
         {% endif %}
       {% endfor %}
     {% endif %}
-
-  {% elif key == "snmp_host" and value %}
-    {% for item in value %}
-      {% if item.ip is defined and item.ip %}
-        {% if item.version is defined and item.version == 1 or item.version == "2c" %}
-          {% if item.communitystring is defined and item.communitystring %}
-            {% if item.udpport is defined and item.udpport %}
-              {% set my_val = "traps version "+item.version|string+" "+item.communitystring+" udp-port "+item.udpport|string %}
-            {% else %}
-              {% set my_val = "traps version "+item.version|string+" "+item.communitystring %}
-            {% endif %}
-          {% endif %}
-        {% endif %}
-        {% if my_val is defined and my_val %}
-          {% if item.state is defined and item.state == "absent" %}
-no snmp-server host {{ item.ip }} {{ my_val }}
-          {% else %}
-snmp-server host {{ item.ip }} {{ my_val }}
-          {% endif %}
-        {% endif %}
-        {% set my_val = "" %}
-      {% endif %}
-    {% endfor%}
   {% endif %}
-{% endfor %}
+
+  {% if os10_snmp.snmp_vrf is defined %}
+    {% set value = os10_snmp.snmp_vrf %}
+    {% if value %}
+snmp-server vrf {{ value }}
+    {% else %}
+no snmp-server vrf default
+    {% endif %}
+  {% endif %}
+
 {% endif %}

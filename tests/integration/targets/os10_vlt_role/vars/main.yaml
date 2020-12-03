@@ -1,0 +1,7 @@
+test_roles:
+  - dellemc.os10.os10_interface
+  - dellemc.os10.os10_lag
+  - dellemc.os10.os10_vlt
+
+idempotent_roles:
+  - dellemc.os10.os10_vlt

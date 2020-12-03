@@ -1,0 +1,14 @@
+idempotent: false
+os10_vlt:
+  domain: 1
+  backup_destination: "192.168.211.175"
+  destination_type: "ipv4"
+  backup_destination_vrf:
+  discovery_intf: {{ os10_interface_1.split()[1] }}
+  discovery_intf_state: absent
+  peer_routing: false
+  vlt_mac: aa:aa:aa:aa:aa:ab
+  vlt_peers:
+    Po 12:
+     peer_lag: 14
+  state: present

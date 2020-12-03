@@ -1,0 +1,3 @@
+---
+- { include: prepare_test_facts.yaml, tags: ['role']}
+- { include: tests.yaml, tags: ['role']}

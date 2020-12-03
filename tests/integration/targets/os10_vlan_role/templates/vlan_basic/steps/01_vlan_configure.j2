@@ -1,0 +1,17 @@
+idempotent: true
+os10_vlan:
+  vlan 100:
+    description: "Blue"
+    tagged_members:
+      - port: {{ os10_interface_1 }}
+        state: present
+    untagged_members:
+      - port: {{ os10_interface_2 }}
+        state: present
+    state: present
+  vlan 888:
+    description: "NSX_Cluster"
+    untagged_members:
+      - port: port-channel 1
+        state: "present"
+    state: "present"

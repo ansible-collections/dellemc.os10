@@ -3,7 +3,7 @@ ECMP role
 
 This role facilitates the configuration of equal cost multi-path (ECMP), and it supports the configuration of ECMP for IPv4. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The ECMP role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The ECMP role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

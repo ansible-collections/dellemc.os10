@@ -1,0 +1,2 @@
+test_roles:
+  - dellemc.os10.os10_aaa

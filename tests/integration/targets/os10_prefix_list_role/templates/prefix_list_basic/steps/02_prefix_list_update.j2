@@ -1,0 +1,17 @@
+idempotent: true
+os10_prefix_list:
+  - name: testpl
+    type: ipv4
+    description: prefixlistdesc
+    entries:
+      - number: 18
+        permit: false
+        net_num: 20.0.0.0
+        mask: 24
+        condition_list:
+          - condition: le
+            prelen: 14
+          - condition: ge
+            prelen: 13
+        state: present
+    state: present

@@ -1,0 +1,25 @@
+os10_xstp:
+  type: rstp
+  enable: true
+  path_cost: true
+  mac_flush_timer: 
+  intf:
+    {{ os10_interface_1 }}:
+      edge_port: true
+      bpdu_filter: true
+      bpdu_guard: true
+      guard: loop
+      enable: true
+      link_type: point-to-point
+      msti:
+        - instance_number: 1
+          priority: 32
+          cost: 1
+      rstp:
+        priority: 32
+        cost: 7
+      vlan:
+        - range_or_id: 6
+          priority: 16
+          cost: 8
+

@@ -1,0 +1,16 @@
+os10_flow_monitor:
+  session 1:
+    session_type: local
+    description: 
+    port_match:
+      - interface_name: {{ os10_interface_1 }}
+        location: 
+        state: present
+      - interface_name: {{ os10_interface_2 }}
+        location: destination
+        state: present
+    flow_based: 
+    shutdown:
+    state: present
+  session 2:
+    state: present

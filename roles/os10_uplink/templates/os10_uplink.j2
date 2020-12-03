@@ -14,7 +14,25 @@ os10_uplink:
           - type: "downstream"
             intf: "ethernet1/1/2-1/1/5"
             state: "present"
+        downstream:
+            disable_links: all
+            auto_recover: false
+        defer_time: 50
         state: "present"
+      - id: 1
+        enable: True
+        uplink_type:
+          - type: "upstream"
+            intf: "port-channel1"
+            state: "present"
+          - type: "downstream"
+            intf: "ethernet1/1/2-1/1/5"
+            state: "present"
+        downstream:
+            disable_links: 10
+            auto_recover: false
+        state: "present"
+
 ###############################################}
 {% if os10_uplink is defined and os10_uplink %}
   {% if os10_uplink.uplink_state_group is defined and os10_uplink.uplink_state_group %}
@@ -29,6 +47,22 @@ uplink-state-group {{ uplink_val.id }}
  enable
           {% else %}
  no enable
+          {% endif %}
+        {% endif %}
+        {% if uplink_val.downstream is defined and uplink_val.downstream %}
+          {% if uplink_val.downstream.auto_recover is defined %}
+            {% if uplink_val.downstream.auto_recover %}
+ downstream auto-recover 
+            {% else %}
+ no downstream auto-recover
+            {% endif %}
+          {% endif %}
+          {% if uplink_val.downstream.disable_links is defined %}
+            {% if uplink_val.downstream.disable_links %}
+ downstream disable-links {{ uplink_val.downstream.disable_links }}
+            {% else %}
+ no downstream disable-links
+            {% endif %}
           {% endif %}
         {% endif %}
         {% if uplink_val.uplink_type is defined and uplink_val.uplink_type %}
@@ -53,6 +87,13 @@ uplink-state-group {{ uplink_val.id }}
               {% endif %}
             {% endif %}
           {% endfor %}
+        {% endif %}
+        {% if uplink_val.defer_time is defined %}
+          {% if uplink_val.defer_time %}
+ defer-time {{ uplink_val.defer_time }}
+          {% else %}
+ no defer-time
+          {% endif %}
         {% endif %}
       {% endif %}
     {% endif %}

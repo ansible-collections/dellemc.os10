@@ -14,3 +14,28 @@
    when: (ansible_network_os is defined and ansible_network_os == "dellemc.os10.os10")
 #   notify: save config os10
    register: output
+
+ - name: "Generating NTP VRF configuration for os10"
+   lineinfile:
+      path: "{{ build_dir }}/ntp10_{{ hostname }}.conf.part"
+      line: "{{ lookup('template', 'os10_ntp_vrf.j2') }}"
+      insertafter: EOF
+   when: >
+      (ansible_network_os is defined and 
+      ansible_network_os == "dellemc.os10.os10" and 
+      ((os10_cfg_generate | default('False')) | bool) and
+      os10_ntp.vrf is defined and 
+      os10_ntp.vrf)
+
+ - name: "Provisioning NTP VRF configuration for os10"
+   os10_config:
+      lines:
+         - command: "{{ lookup('template', 'os10_ntp_vrf.j2') }}"
+           prompt: "Do you want to continue"
+           answer: "yes"
+   when: >
+      (ansible_network_os is defined and 
+      ansible_network_os == "dellemc.os10.os10" and 
+      os10_ntp.vrf is defined and 
+      os10_ntp.vrf)
+#   notify: save config os10

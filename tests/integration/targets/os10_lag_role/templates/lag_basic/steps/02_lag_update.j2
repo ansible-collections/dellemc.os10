@@ -1,0 +1,12 @@
+os10_lag:
+  Po 12:
+     type: dynamic
+     min_links: 32
+     max_bundle_size: 32
+     lacp_system_priority: 5
+     channel_members:
+       - port: {{ os10_interface_1 }}
+         mode: passive
+         port_priority: 4
+         lacp_rate_fast: false
+     state: present

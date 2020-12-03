@@ -1,0 +1,3 @@
+test_roles:
+  - dellemc.os10.os10_interface
+  - dellemc.os10.os10_flow_monitor

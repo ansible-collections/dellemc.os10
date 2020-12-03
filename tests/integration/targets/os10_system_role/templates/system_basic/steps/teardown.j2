@@ -1,0 +1,25 @@
+os10_system:
+  hostname: 
+  hardware_forwarding: 
+  hash_algo:
+    algo:
+      - name: ecmp
+        mode: random
+        state: absent
+      - name: lag
+        mode: xor
+        state: absent
+  load_balance:
+    ingress_port: 
+    ip_selection:
+      - field: destination-ip
+        state: absent
+    ipv6_selection:
+      - field: destination-ip
+        state: absent
+    mac_selection:
+      - field: destination-mac
+        state: absent
+    tcp_udp_selection:
+      - field: l4-destination-port
+        state: absent

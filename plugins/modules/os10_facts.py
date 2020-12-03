@@ -212,7 +212,7 @@ class Hardware(FactsBase):
 
     COMMANDS = [
         'show version | display-xml',
-        'show processes node-id 1 | grep Mem:'
+        'show processes node-id 1 | grep "Mem :"'
     ]
 
     def populate(self):
@@ -228,7 +228,7 @@ class Hardware(FactsBase):
         match = self.parse_memory(data)
         if match:
             self.facts['memtotal_mb'] = int(match[0]) // 1024
-            self.facts['memfree_mb'] = int(match[2]) // 1024
+            self.facts['memfree_mb'] = int(match[1]) // 1024
 
     def parse_cpu_arch(self, data):
         cpu_arch = data.find('./data/system-sw-state/sw-version/cpu-arch')

@@ -1,0 +1,16 @@
+os10_xstp:
+  type: rapid-pvst
+  enable: true
+  path_cost: true
+  mac_flush_timer: 5
+  pvst:
+    vlan:
+      - range_or_id: 10
+        max_age: 10
+        enable: true
+        hello_time: 8
+        forward_time: 8
+        bridge_priority: 8192
+        mac_flush_threshold: 6
+        root: secondary
+

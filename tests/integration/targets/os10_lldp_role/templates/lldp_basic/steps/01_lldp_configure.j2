@@ -1,0 +1,44 @@
+os10_lldp:
+  enable: true
+  multiplier: 3
+  reinit: 2
+  timer: 5
+  advertise:
+    med:
+      fast_start_repeat_count: 4
+      application:
+        - name: guest-voice
+          network_policy_id: 0
+          vlan_id: 2
+          vlan_type: tag
+          l2_priority: 3
+          code_point_value: 4
+          state: present
+        - name: voice
+          network_policy_id: 1
+          vlan_id: 3
+          vlan_type: untag
+          l2_priority: 3
+          code_point_value: 4
+          state: present
+  local_interface:
+    "{{ os10_interface_1 }}":
+      mode: rx
+      mode_state: present
+      advertise:
+        med:
+          enable: true
+          tlv: inventory
+          tlv_state: present
+          application:
+            - network_policy_id: 4
+              state: present
+        tlv:
+          - name: basic-tlv
+            value: management-address port-description
+            state: present
+          - name: dcbxp-appln
+            value: iscsi
+            state: present
+          - name: dcbxp
+            state: present

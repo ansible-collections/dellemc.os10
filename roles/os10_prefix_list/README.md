@@ -3,7 +3,7 @@ Prefix-list role
 
 This role facilitates the configuration of a prefix-list. It supports the configuration of an IP prefix-list, and assigns the prefix-list to line terminals. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The prefix-list role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The prefix-list role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

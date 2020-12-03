@@ -3,7 +3,7 @@ Uplink role
 
 This role facilitates the configuration of uplink failure detection feature attributes. It specifically enables configuration of  association between upstream and downstream interfaces known as uplink-state group. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The Uplink role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The Uplink role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
@@ -21,10 +21,14 @@ Role variables
 | ``uplink_state_group`` | list | Configures the uplink state group (see ``uplink_state_group.*``) | os10 |
 | ``uplink_state_group.id`` | integer | Configures the uplink state group instance | os10 |
 | ``uplink_state_group.enable`` | boolean: True,False | Enables the uplink state group instance | os10 |
+| ``uplink_state_group.defer_time`` | integer | Configures defer timer for the uplink state group | os10 |
 | ``uplink_state_group.uplink_type`` | list | Configures the upstream and downstream attribute (see ``uplink_type.*``) | os10 |
 | ``uplink_type.type`` | string: upstream,downstream | Configures the uplink type | os10 |
 | ``uplink_type.intf`` | string | Configures the uplink interface | os10 |
 | ``uplink_type.state`` | string: absent,present\* | Removes the uplink stream if set to absent | os10 |
+| ``uplink_state_group.downstream`` | dictionary | Configures downstream information for the uplink state group (see ``downstream.*``) | os10 |
+| ``downstream.disable_links`` | integer | Configures number of downstream links to be disabled. String 'all' can be used to disable all downstream links | os10 |
+| ``downstream.auto_recover`` | boolean: True,False | Enables or disables auto recover for downstream interfaces | os10 |
 | ``uplink_state_group.state`` | string: absent,present\* | Removes the uplink state group instance if set to absent | os10 |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified. 
@@ -82,6 +86,10 @@ When `os10_cfg_generate` is set to true, the variable generates the configuratio
               intf: "ethernet1/1/2-1/1/5"
               state: "present"
           state: "present"
+          downstream:
+            disable_links: all
+            auto_recover: false
+          defer_time: 50
         - id: 2
           enable: True
           state: "present"

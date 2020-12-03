@@ -1,0 +1,26 @@
+---
+- debug: msg="START cli/invalid.yaml"
+
+- name: run invalid command
+  os10_command:
+    commands: ['show foo']
+  register: result
+  ignore_errors: yes
+
+- assert:
+    that:
+      - "'Error: Unrecognized command' in  result.msg"
+
+- name: run commands that include invalid command
+  os10_command:
+    commands:
+      - show version
+      - show foo
+  register: result
+  ignore_errors: yes
+
+- assert:
+    that:
+      - "'Error: Unrecognized command' in  result.msg"
+
+- debug: msg="END cli/invalid.yaml"

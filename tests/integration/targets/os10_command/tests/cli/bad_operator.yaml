@@ -1,0 +1,19 @@
+---
+- debug: msg="START cli/bad_operator.yaml"
+
+- name: test bad operator
+  os10_command:
+    commands:
+      - show version
+      - show interface ethernet 1/1/1
+    wait_for:
+      - "result[0] contains 'Description : blah'"
+  register: result
+  ignore_errors: yes
+
+- assert:
+    that:
+      - "result.failed == true"
+      - "result.msg is defined"
+
+- debug: msg="END cli/bad_operator.yaml"

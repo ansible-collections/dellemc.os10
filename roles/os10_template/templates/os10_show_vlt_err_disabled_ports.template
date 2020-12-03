@@ -1,0 +1,5 @@
+Value VLT_PORT_CHANNEL_ID (\d+)
+Value PORT_CHANNEL (\S+\s*)
+
+Start
+  ^${VLT_PORT_CHANNEL_ID}\s+${PORT_CHANNEL} -> Record

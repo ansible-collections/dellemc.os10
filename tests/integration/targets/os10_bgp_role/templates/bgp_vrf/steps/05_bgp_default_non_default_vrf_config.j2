@@ -1,0 +1,314 @@
+idempotent: true
+os10_bgp:
+    asn: 12
+    router_id: 90.1.1.4
+    maxpath_ibgp: 2
+    maxpath_ebgp: 2
+    graceful_restart: true
+    always_compare_med: true
+    default_loc_pref: 1000
+    as_notation: asdot
+    non_deterministic_med: true
+    outbound_optimization: true
+    confederation:
+      identifier: 25
+      peers: 23 24
+      peers_state: present
+    route_reflector:
+      cluster_id: 4294967295
+    address_family_ipv4:
+      aggregate_address:
+         - ip_and_mask: 1.1.1.1/16
+           state: present
+           summary_only: true
+      dampening:
+        value: 15 750 2000 60
+        route_map: qq
+        state: present
+      ibgp_redist_internal:
+        state: present
+      default_metric: 10
+      distance_bgp:
+        value: 3 4 6
+        state: present
+    address_family_ipv6:
+      aggregate_address:
+         - ip_and_mask: 2001:4898:5808:ffa0::/126
+           state: present
+           summary_only: true
+      ibgp_redist_internal:
+        state: present
+    best_path:
+       as_path: ignore
+       as_path_state: present
+       ignore_router_id: true
+       med:
+        - attribute: confed
+          state: present
+    ipv4_network:
+       - address: 101.1.1.0/30
+         state: present
+    ipv6_network:
+      - address: "2001:4898:5808:ffa0::/126"
+        state: present
+    neighbor:
+      - name: peer1
+        type: peergroup
+        bfd: yes
+        state: present
+      - name: ebgp_pg
+        type: peergroup
+        bfd: yes
+        state: present
+        address_family:
+           - type: ipv4
+             state: present
+             max_prefix:
+                count: 20
+                threshold: 90
+                warning: true
+                state: present
+        listen:
+           - subnet: 4.4.4.4/32
+             limit: 4
+             subnet_state: present
+           - subnet: 20::/64
+             limit: 4
+             subnet_state: present
+      - name: ibgp_pg
+        type: peergroup
+        weight: 10
+        state: present
+      - type: ipv4
+        interface: vlan20
+        send_community:
+          - type: extended
+            state: present
+        address_family:
+          - type: l2vpn
+            state: present
+        admin: up
+        state: present
+      - type: ipv4
+        remote_asn: 11
+        ip: 192.168.10.1
+        peergroup: peer1
+        peergroup_state: present
+        peergroup_type: ibgp
+        adv_interval: 40
+        fall_over: present
+        route_reflector_client: true
+        adv_start: 100
+        adv_start_state: present
+        conn_retry_timer: 20
+        remove_pri_as: present
+        address_family: 
+          - type: ipv4
+            state: present
+            max_prefix:
+               count: 10
+               threshold: 40
+               warning: true
+               state: present
+            default_originate:
+               route_map: aa
+               state: present
+            distribute_list:
+               in: XX
+               in_state: present
+               out: YY 
+               out_state: present
+        send_community:
+          - type: standard
+            state: present
+        state: present
+      - type: ipv4
+        remote_asn: 13
+        local_as: 10
+        weight: 10
+        ip: 192.168.12.3
+        address_family:
+          - type: ipv4
+            allow_as_in: 5
+            next_hop_self: true
+            soft_reconf: true
+            add_path: both 3
+            route_map:
+              - name: qq
+                filter: in
+                state: present
+            state: present
+        state: present
+      - type: ipv6
+        remote_asn: 14
+        ip: 2001:4898:5808:ffa2::1
+        state: present
+      - type: ipv6
+        description: "U_site2-spine1-Auto Discovered peers"
+        auto_peer: unnumbered-auto
+        ibgp_peergroup: ibgp_pg
+        ibgp_peergroup_state: present
+        address_family:
+          - type: ipv4
+            state: present
+            allow_as_in: 5
+            next_hop_self: true
+            soft_reconf: true
+          - type: l2vpn
+            state: present
+        send_community:
+          - type: standard
+            state: present
+        admin: up
+        state: present
+    redistribute:
+      - route_type: static
+        route_map_name: aa
+        address_type: ipv4
+        state: present
+    bfd_all_neighbors:
+      interval: 200
+      min_rx: 200
+      multiplier: 3
+      role: active
+      state: present
+    vrfs:
+      - name: "GREEN"
+        router_id: 50.1.1.1
+        maxpath_ibgp: 2
+        maxpath_ebgp: 2
+        graceful_restart: true
+        always_compare_med: true
+        default_loc_pref: 1000
+        route_reflector:
+          cluster_id: 1 
+        address_family_ipv4:
+          aggregate_address:
+             - ip_and_mask: 1.1.1.1/16
+               state: present
+          dampening:
+            value: 15 750 2000 60
+            route_map: qq
+            state: present
+          ibgp_redist_internal:
+            state: present
+        address_family_ipv6:
+          aggregate_address:
+             - ip_and_mask: 2001:4898:5808:ffa0::/126
+               state: present
+               summary_only: true
+          ibgp_redist_internal:
+            state: present
+        best_path:
+           as_path: ignore
+           as_path_state: present
+           ignore_router_id: true
+           med:
+            - attribute: confed
+              state: present
+            - attribute: missing-as-worst
+              state: present
+        ipv4_network:
+           - address: 101.1.1.0/30
+             state: present
+        ipv6_network:
+           - address: "2001:4898:5808:ffa0::/126"
+             state: present
+        neighbor:
+          - name: peer1
+            type: peergroup
+            bfd: yes
+            state: present
+          - name: ebgp_pg
+            type: peergroup
+            bfd: yes
+            state: present
+          - name: ibgp_pg
+            type: peergroup
+            weight: 10
+            state: present
+          - type: ipv4
+            interface: vlan10
+            description: U_site2 vlan
+            send_community:
+              - type: extended
+                state: present
+            admin: up
+            state: present
+          - type: ipv4
+            description: "U_site2 spine1"
+            remote_asn: 11
+            ip: 192.168.20.1
+            name: peer1
+            peergroup: peer1
+            peergroup_state: present
+            peergroup_type: ibgp
+            adv_interval: 40
+            fall_over: present
+            route_reflector_client: true
+            address_family:
+              - type: ipv4
+                state: present
+            send_community:
+              - type: standard
+                state: present
+            state: present
+          - type: ipv4
+            description: "U_site2 spine1"
+            remote_asn: 13
+            local_as: 10
+            weight: 10
+            ip: 192.168.15.3
+            address_family:
+              - type: ipv4
+                allow_as_in: 5
+                next_hop_self: true
+                soft_reconf: true
+                add_path: both 3
+                route_map:
+                  - name: qq
+                    filter: in
+                    state: present
+                state: present
+            state: present
+          - type: ipv6
+            remote_asn: 14
+            ip: 2001:4898:5808:ffa2::1
+            state: present
+          - type: ipv6
+            description: "U_site2-spine1-Auto Discovered peers"
+            auto_peer: unnumbered-auto
+            ibgp_peergroup: ibgp_pg
+            ibgp_peergroup_state: present
+            address_family:
+              - type: ipv4
+                state: present
+                allow_as_in: 5
+                next_hop_self: true
+                soft_reconf: true
+            send_community:
+              - type: standard
+                state: present
+            admin: up
+            state: present
+        redistribute:
+          - route_type: static
+            route_map_name: aa
+            address_type: ipv4
+            state: present
+          - route_type: connected
+            route_map_name: bb
+            address_type: ipv4
+            state: present
+          - route_type: l2vpn
+            route_map_name: cc
+            address_type: ipv4
+            state: present
+        bfd_all_neighbors:
+          interval: 200
+          min_rx: 200
+          multiplier: 3
+          role: active
+          state: present
+        state: present
+    state: present

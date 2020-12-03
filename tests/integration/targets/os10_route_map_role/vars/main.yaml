@@ -1,0 +1,5 @@
+test_roles:
+  - dellemc.os10.os10_route_map
+
+idempotent_roles:
+  - dellemc.os10.os10_route_map

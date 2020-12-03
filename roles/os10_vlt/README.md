@@ -3,7 +3,7 @@ VLT role
 
 This role facilitates the configuration of the basics of virtual link trunking (VLT) to provide a loop-free topology. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The VLT role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables .
+The VLT role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables .
 
 Role variables
 --------------

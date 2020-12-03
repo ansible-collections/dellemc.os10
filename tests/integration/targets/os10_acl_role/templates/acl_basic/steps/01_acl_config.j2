@@ -1,0 +1,23 @@
+idempotent: true
+
+os10_acl:
+  - name: ssh
+    type: ipv4
+    description: acl
+    remark:
+      - description: 1
+        number: 2
+        state: present
+    entries:
+      - number: 14
+        permit: true
+        protocol: tcp
+        source: any
+        src_condition: neq 6
+        destination: any
+        dest_condition: eq 4
+        other_options: count
+        state: present
+    lineterminal:
+      state: present
+    state: present

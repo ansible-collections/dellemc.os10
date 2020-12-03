@@ -1,0 +1,60 @@
+os10_xstp:
+  type: 
+  enable: true
+  path_cost: false
+  mac_flush_timer: 
+  rstp:
+    max_age: 
+    hello_time: 
+    forward_time: 
+    force_version: 
+    bridge_priority: 
+    mac_flush_threshold: 
+  pvst:
+    vlan:
+      - range_or_id: 10
+        max_age: 
+        enable: true
+        hello_time: 
+        forward_time: 
+        bridge_priority: 
+        mac_flush_threshold: 
+        root: 
+  mstp:
+    max_age: 
+    max_hops: 
+    hello_time: 
+    forward_time: 
+    force_version: 
+    mstp_instances:
+      - number_or_range: 1
+        enable: true
+        root: 
+        mac_flush_threshold: 
+        bridge_priority:
+    mst_config:
+       name: 
+       revision: 
+       cfg_list:
+         - number: 1
+           vlans: 4,5
+           vlans_state: absent
+  intf:
+    {{ os10_interface_1 }}:
+      edge_port: 
+      bpdu_filter: 
+      bpdu_guard: 
+      guard: 
+      enable: true
+      link_type: 
+      msti:
+        - instance_number: 1
+          priority:
+          cost:
+      rstp:
+        priority: 
+        cost:
+      vlan:
+        - range_or_id: 6
+          priority: 
+          cost:

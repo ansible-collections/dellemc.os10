@@ -3,7 +3,7 @@ VRRP role
 
 This role facilitates configuring virtual router redundancy protocol (VRRP) attributes. It supports the creation of VRRP groups for interfaces and setting the VRRP group attributes. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10.
 
-The VRRP role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The VRRP role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------

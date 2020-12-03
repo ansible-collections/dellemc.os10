@@ -15,4 +15,10 @@
    import_tasks: show_ip_bgp_summary.yaml
 
  - name: os10 dellemc.os10.os10_template test 
-   import_tasks: show_vlan.yaml 
+   import_tasks: show_vlan.yaml
+
+ - name: os10 dellemc.os10.os10_template test
+   import_tasks: show_vlt_err_disabled_ports.yaml
+
+ - name: os10 dellemc.os10.os10_template test
+   import_tasks: show_spanning_tree_compatibility_mode.yaml

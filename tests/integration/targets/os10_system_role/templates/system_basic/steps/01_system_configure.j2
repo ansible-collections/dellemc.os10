@@ -1,0 +1,26 @@
+os10_system:
+  hostname: OS10
+  hardware_forwarding: scaled-l3-hosts
+  hash_algo:
+    algo:
+      - name: lag
+        mode: crc
+        state: present
+      - name: ecmp
+        mode: xor
+        state: present
+  load_balance:
+    ingress_port: true
+    ip_selection:
+      - field: source-ip
+        state: present
+    ipv6_selection:
+      - field: source-ip
+        state: present
+    mac_selection:
+      - field: source-mac
+        state: present
+    tcp_udp_selection:
+      - field: l4-source-port
+        state: present
+

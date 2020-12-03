@@ -1,0 +1,17 @@
+idempotent: false
+
+os10_acl:
+  - name: ssh
+    type: ipv4
+    description: acl
+    stage_ingress:
+      - name: "{{ os10_interface_1 }}"
+        state: present
+      - name: "{{ os10_interface_2 }}"
+        state: present
+    stage_egress:
+      - name: "{{ os10_interface_3 }}"
+        state: present
+    lineterminal:
+      state: present
+    state: present

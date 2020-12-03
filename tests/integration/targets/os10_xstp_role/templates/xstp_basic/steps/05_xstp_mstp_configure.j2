@@ -1,0 +1,24 @@
+os10_xstp:
+  type: mst
+  enable: true
+  path_cost: true
+  mac_flush_timer: 5
+  mstp:
+    max_age: 8
+    max_hops: 7
+    hello_time: 8
+    forward_time: 8
+    force_version: stp
+    mstp_instances:
+      - number_or_range: 1
+        enable: true
+        root: secondary
+        mac_flush_threshold: 8
+        bridge_priority: 8192
+    mst_config:
+       name: cfg1
+       revision: 3
+       cfg_list:
+         - number: 1
+           vlans: 4,5
+           vlans_state: present

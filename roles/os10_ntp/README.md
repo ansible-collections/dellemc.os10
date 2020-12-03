@@ -3,7 +3,7 @@ NTP role
 
 This role facilitates the configuration of network time protocol (NTP) attributes. It specifically enables configuration of NTP server, NTP source, authentication, and broadcast service. This role is abstracted for Dell EMC PowerSwitch platforms running Dell EMC SmartFabric OS10. 
 
-The NTP role requires an SSH connection for connectivity to a Dell EMC OS10 device. You can use any of the built-in OS connection variables.
+The NTP role requires an SSH connection for connectivity to a Dell EMC SmartFabric OS10 device. You can use any of the built-in OS connection variables.
 
 Role variables
 --------------
@@ -28,8 +28,9 @@ Role variables
 | ``authenticate`` | boolean      | Configures authenticate time sources | os10 |
 | ``authentication_key`` | list | Configures authentication key for trusted time sources (see ``authentication_key.*``) | os10 |
 | ``authentication_key.key_num`` | integer | Configures authentication key number | os10 |
-| ``authentication_key.key_string_type`` | integer: 0,7 | Configures hidden authentication key string if the value is 7, and configures unencrypted authentication key string if the value is 0 | os10 |
+| ``authentication_key.key_string_type`` | integer: 0,9 | Configures hidden authentication key string if the value is 9, and configures unencrypted authentication key string if the value is 0 | os10 |
 | ``authentication_key.key_string`` | string | Configures the authentication key string | os10 |
+| ``authentication_key.type`` | string: md5,sha1,sha2-256 | Configures the authentication type | os10 |
 | ``authentication_key.state`` | string: absent,present\*     | Deletes the authenticaton key if set to absent  | os10 |
 | ``trusted_key`` | list | Configures key numbers for trusted time sources (see ``trusted_key.*``) | os10 |
 | ``trusted_key.key_num`` | integer | Configures the key number | os10 |
@@ -38,6 +39,9 @@ Role variables
 | ``intf.<interface name>`` | dictionary | Configures NTP on the interface (see ``<interface name>.*``)  | os10 |
 | ``<interface name>.disable`` | boolean | Configures NTP disable on the interface  | os10 |
 | ``<interface name>.broadcast`` | boolean | Configures NTP broadcast client service on the interface  | os10 |
+| ``vrf`` | dictionary | Enables NTP on VRF (see ``vrf.*``) | os10 |
+| ``vrf.name`` | string | Name of the VRF to enable NTP | os10 |
+| ``vrf.state`` | string: absent,present\* | Disables NTP on the VRF if set to absent | os10 |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified. 
 
@@ -87,8 +91,9 @@ By including the role, you automatically get access to all of the tasks to confi
       authenticate: true
       authentication_key:
         - key_num: 123
-          key_string_type: 7
+          key_string_type: 9
           key_string: test
+          type: md5
           state: present
       trusted_key:
         - key_num: 1323
@@ -102,6 +107,9 @@ By including the role, you automatically get access to all of the tasks to confi
         ethernet 1/1/2:
           disable: true
           broadcast: true
+      vrf:
+        name: red
+        state: present
  
 **Simple playbook to setup NTP — leaf.yaml**
 

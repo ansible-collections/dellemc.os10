@@ -1,0 +1,45 @@
+test_roles:
+  - dellemc.os10.os10_vlan
+  - dellemc.os10.os10_interface
+
+os10_vlan:
+  vlan 10:
+    state: absent
+
+os10_interface:
+  {{ os10_interface_1 }}:
+    desc: 
+    mtu: 
+    portmode: access
+    admin: down
+    switchport: true
+    ip_and_mask:
+    ipv6_and_mask:
+    ip_type_dynamic: false
+    ipv6_type_dynamic: false
+    ipv6_autoconfig: false
+    flowcontrol:
+      mode: receive
+      enable: off
+      state: absent
+  {{ os10_interface_2 }}:
+    desc: 
+    mtu: 
+    portmode: access
+    admin: down
+    switchport: true
+    ip_and_mask:
+    ipv6_and_mask:
+    ip_type_dynamic: false
+    ipv6_type_dynamic: false
+    ipv6_autoconfig: false
+    flowcontrol:
+      mode: receive
+      enable: off
+      state: absent
+  {{ os10_interface_3 }}:
+    desc: 
+    mtu: 
+    portmode: access
+    admin: down
+    switchport: true

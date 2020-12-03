@@ -1,0 +1,17 @@
+test_roles:
+  - dellemc.os10.os10_vlan
+  - dellemc.os10.os10_interface
+
+os10_vlan:
+  vlan 10:
+    state: present
+  
+os10_interface:
+  vlan 10:
+    ip_and_mask:
+    ipv6_and_mask: 2001:4898:5808:ffaf::1/64
+    state_ipv6: present
+    ip_helper:
+       - ip: 10.0.0.33
+         state: present
+    admin: up

@@ -1,0 +1,147 @@
+os10_snmp:
+  snmp_source_interface: mgmt 1/1/1
+  snmp_location: Chennai
+  snmp_community:
+    - name: public
+      access_mode: ro
+      access_list: 
+        name: test_acl
+      state: absent
+    - name: test
+      access_mode: ro
+      access_list: 
+        name: test_acl
+        state: present
+      state: absent
+  snmp_traps:
+    - name: all
+      state: absent
+  snmp_engine_id: 
+  snmp_remote_engine_id:
+    - host: 1.1.1.1
+      engine_id: '0xab'
+    - host: 1.1.1.1
+      engine_id: '0xcd'
+      udpport: 200
+    - host: 2.1.1.1
+      engine_id: '0xef'
+      udpport: 200
+      state: absent
+  snmp_vrf: red
+  snmp_group:
+    - name: group_1
+      version: 1
+      access_list: 
+        name: test_acl
+      read_view: 
+        name: view_1
+      write_view: 
+        name: view_2
+    - name: group_2
+      version: 2c
+      state: present
+      access_list: 
+        name: test_acl
+      read_view: 
+        name: view_1
+      write_view: 
+        name: view_2
+      notify_view: 
+        name: view_3
+        state: absent
+    - name: group_3
+      version: 3
+      security_level: auth
+      read_view: 
+        name: view_1
+      write_view: 
+        name: view_2
+        state: present
+    - name: group_4
+      version: 3
+      security_level: priv      
+      notify_view: 
+        name: view_1
+        state: absent
+      read_view: 
+        name: view_1
+        state: absent
+      write_view: 
+        name: view_2
+        state: absent
+      state: absent
+  snmp_host:
+   - ip: 1.1.1.1
+     communitystring: c1
+     version: "2c"
+     udpport: 4
+     state: present
+   - ip: 2.2.2.2
+     version: 1
+     communitystring: c3
+     state: present
+   - ip: 2.1.1.1
+     version: 1
+     communitystring: c3
+     trap_categories:
+       dom: true
+       entity: true
+       snmp: true
+       lldp: true
+     state: present
+   - ip: 3.1.1.1
+     version: 3
+     security_level: priv
+     security_name: test
+     notification_type: informs
+     udpport: 200
+     trap_categories:
+       dom: true
+       entity: true
+       envmon: false
+       lldp: false
+     state: absent
+  snmp_view:
+    - name: view_1
+      oid_subtree: 2
+      include: true
+      state: absent 
+  snmp_user:
+    - name: user_1
+      group_name: group_1
+      version: 3
+      authentication:
+        localized: false
+        algorithm: md5
+        password: 9fc53d9d908118b2804fe80e3ba8763d
+        encryption:
+          algorithm: aes
+          password: d0452401a8c3ce42804fe80e3ba8763d
+      state: present
+    - name: user_2
+      group_name: group_1
+      version: 3
+      authentication:
+        localized: true
+        algorithm: md5
+        password: '0x9fc53d9d908118b2804fe80e3ba8763d'
+        encryption:
+          algorithm: aes
+          password: '0xd0452401a8c3ce42804fe80e3ba8763d'
+      state: present
+    - name: user_3
+      group_name: group_1
+      version: 2c
+      state: absent
+    - name: user_4
+      group_name: group_1
+      version: 3
+      state: absent
+    - name: user_5
+      group_name: group_2
+      version: 2c
+      remote:
+        ip: 1.1.1.1
+        udpport: 200
+      access_list: test_acl
+      state: present

@@ -1,0 +1,21 @@
+---
+ - name: CAPTURE SHOW SPANNING TREE COMPATIBILITY MODE
+   os10_command:
+     commands:
+       - command: show spanning-tree compatibility-mode
+   register: output
+
+ - name: DISPLAY THE OUTPUT
+   debug: var=output.stdout
+
+ - name: INSTALL TEXTFSM
+   import_tasks: textfsm.yaml
+
+ - name: PARSE THE OUTPUT for {{ ansible_network_os }} show_spanning_tree_compatibility_mode
+   textfsm_parser:
+     src: "{{ lookup('file', './templates/os10_show_spanning_tree_compatibility_mode.template') }}"
+     content: "{{ output.stdout[0] }}"
+     name: spanning_tree_comp_mode_facts
+   register: result
+   vars:
+     - ansible_network_os: dellemc.os10.os10
