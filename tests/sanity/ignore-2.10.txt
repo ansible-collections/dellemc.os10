@@ -8,6 +8,9 @@ plugins/modules/show_system_network_summary.py validate-modules:parameter-list-n
 plugins/modules/os10_config.py validate-modules:parameter-list-no-elements
 plugins/modules/os10_facts.py validate-modules:parameter-list-no-elements
 plugins/modules/os10_command.py validate-modules:parameter-list-no-elements
+plugins/modules/os10_config.py validate-modules:doc-default-does-not-match-spec
+plugins/modules/os10_facts.py validate-modules:doc-default-does-not-match-spec
+plugins/modules/os10_command.py validate-modules:doc-default-does-not-match-spec
 plugins/module_utils/network/base_network_show.py import-2.6
 plugins/modules/base_xml_to_dict.py import-2.6
 plugins/modules/bgp_validate.py import-2.6
