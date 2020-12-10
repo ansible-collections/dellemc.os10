@@ -31,10 +31,12 @@ To install a specific version, a version range identifier must be specified. For
     ansible-galaxy collection install 'dellemc.os10:>=1.0.0,<2.0.0'
 
 ## Version compatibility
-* Ansible version 2.10 or later.
+* Ansible version 2.9 or later.
 * Python 3.5 or higher, or Python 2.7
 
 ### Using in Ansible version 2.9
+> **NOTE**: This step is not required for Ansible version 2.10 or later.
+
 To use this collection in Ansible version 2.9 it is required to set the below environment variable while running the playbook.
 
     ANSIBLE_NETWORK_GROUP_MODULES=os10
@@ -44,9 +46,9 @@ It can be set permanently in *ansible.cfg* with variable *network_group_modules*
 **ansible.cfg**
 
     [defaults]
-    network_group_modules=os10
+    network_group_modules=os10  
 
-> **NOTE**: For Ansible versions lower than 2.10, use the legacy [dellos10 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os10-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html).
+> **NOTE**: For Ansible versions lower than 2.9, use the legacy [dellos10 modules](https://ansible-dellos-docs.readthedocs.io/en/latest/modules.html#os10-modules) and [dellos roles](https://ansible-dellos-docs.readthedocs.io/en/latest/roles.html).
 
 ## Sample playbook
 
