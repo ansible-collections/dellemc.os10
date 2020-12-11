@@ -5,6 +5,14 @@ Ansible Network Collection for Dell EMC SmartFabric OS10 Release Notes
 .. contents:: Topics
 
 
+v1.1.1
+======
+
+Minor Changes
+-------------
+
+- Adding support for Ansible version 2.9 (https://github.com/ansible-collections/dellemc.os10/pull/58)
+
 v1.1.0
 ======
 
