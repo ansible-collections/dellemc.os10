@@ -115,3 +115,10 @@ releases:
     - 53-vlan-member-port-range.yaml
     - R9.yaml
     release_date: '2020-12-02'
+  1.1.1:
+    changes:
+      minor_changes:
+      - Adding support for Ansible version 2.9 (https://github.com/ansible-collections/dellemc.os10/pull/58)
+    fragments:
+    - 58-support-for-ansible-version-2.9.yaml
+    release_date: '2020-12-11'
