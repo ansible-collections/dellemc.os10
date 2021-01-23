@@ -7,6 +7,7 @@ os10_interface:
             desc: "OS10 intf"
             portmode: trunk
             mtu: 2000
+            speed: 1000
             switchport: False
             admin: up
             ip_type_dynamic: True
@@ -28,7 +29,7 @@ os10_interface:
     range ethernet 1/1/1-1/1/4:
             switchport: True
             admin: down
-            stp_rpvst_default_behaviour: False 
+            stp_rpvst_default_behaviour: False
     virtual-network 100:
             vrf: "test"
             ip_and_mask: "15.1.1.1/24"
@@ -71,7 +72,7 @@ no interface breakout {{ port[1] }}
   {% if (intf_vars.fanout is defined and not intf_vars.fanout) or (intf_vars.fanout is not defined) %}
     {% if key.startswith('range')%}
        {% set interface_key = port[0] + " " + port[1] + port[2] %}
-    {% else %} 
+    {% else %}
        {% set interface_key = port[0] + port[1] %}
     {% endif %}
 interface {{ interface_key }}
@@ -79,7 +80,7 @@ interface {{ interface_key }}
     {% if intf_vars.desc %}
        {% if intf_vars.desc|wordcount > 1 %}
  description "{{ intf_vars.desc }}"
-       {% else %} 
+       {% else %}
  description {{ intf_vars.desc }}
        {% endif %}
     {% else %}
@@ -114,9 +115,15 @@ interface {{ interface_key }}
  no mtu
     {% endif %}
   {% endif %}
- 
+
+  {% if intf_vars.speed is defined %}
+    {% if intf_vars.speed %}
+ speed {{ intf_vars.speed }}
+    {% endif %}
+  {% endif %}
+
   {% if intf_vars.ip_type_dynamic is defined %}
-    {% if intf_vars.ip_type_dynamic %} 
+    {% if intf_vars.ip_type_dynamic %}
  ip address dhcp
     {% else %}
  no ip address
@@ -137,7 +144,7 @@ interface {{ interface_key }}
       {% endif %}
     {% endif %}
   {% endif %}
- 
+
   {% if intf_vars.virtual_gateway_ip is defined %}
     {% if intf_vars.virtual_gateway_ip %}
  ip virtual-router address {{ intf_vars.virtual_gateway_ip }}
