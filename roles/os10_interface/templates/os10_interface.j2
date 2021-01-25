@@ -119,6 +119,8 @@ interface {{ interface_key }}
   {% if intf_vars.speed is defined %}
     {% if intf_vars.speed %}
  speed {{ intf_vars.speed }}
+     {% else %}
+ no speed
     {% endif %}
   {% endif %}
 
