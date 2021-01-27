@@ -325,6 +325,7 @@ class Interfaces(FactsBase):
             intf['secondary_ipv4'] = self.parse_secondary_ipv4(interface)
             intf['ipv6'] = self.parse_ipv6_address(interface)
             intf['mtu'] = self.parse_item(interface, 'mtu')
+            intf['speed'] = self.parse_item(interface, 'speed')
             intf['type'] = self.parse_item(interface, 'type')
 
             self.intf_facts[name] = intf

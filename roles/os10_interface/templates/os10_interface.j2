@@ -7,6 +7,7 @@ os10_interface:
             desc: "OS10 intf"
             portmode: trunk
             mtu: 2000
+            speed: 1000
             switchport: False
             admin: up
             ip_type_dynamic: True
@@ -114,7 +115,15 @@ interface {{ interface_key }}
  no mtu
     {% endif %}
   {% endif %}
- 
+
+  {% if intf_vars.speed is defined %}
+    {% if intf_vars.speed %}
+ speed {{ intf_vars.speed }}
+     {% else %}
+ no speed
+    {% endif %}
+  {% endif %}
+
   {% if intf_vars.ip_type_dynamic is defined %}
     {% if intf_vars.ip_type_dynamic %} 
  ip address dhcp
