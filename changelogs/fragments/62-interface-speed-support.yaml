@@ -1,0 +1,3 @@
+---
+minor_changes:
+- Adding support to configure interface speed in os10_interface role (https://github.com/ansible-collections/dellemc.os10/pull/62)
