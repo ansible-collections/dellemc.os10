@@ -29,6 +29,7 @@ Role variables
 | ``switchport`` | boolean: true,false\*  | Configures an interface in L2 mode | os10 |
 | ``admin``      | string: up,down\*              | Configures the administrative state for the interface; configuring the value as administratively "up" enables the interface; configuring the value as administratively "down" disables the interface | os10 |
 | ``mtu``        | integer                       | Configures the MTU size for L2 and L3 interfaces (1280 to 65535) | os10 |
+| ``speed``      | string: auto, 1000, 10000, 25000, ...  | Configures the speed of the interface | os10 |
 | ``fanout``     | string:dual, single; string:10g-4x, 40g-1x, 25g-4x, 100g-1x, 50g-2x (os10)   | Configures fanout to the appropriate value | os10 |
 | ``suppress_ra`` | string; present,absent     | Configures IPv6 router advertisements if set to present | os10 |
 | ``ip_type_dynamic`` | boolean: true,false           | Configures IP address DHCP if set to true (*ip_and_mask* is ignored if set to true) | os10 |
