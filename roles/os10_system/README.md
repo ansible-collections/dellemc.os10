@@ -66,7 +66,7 @@ Ansible Dell EMC network roles require connection information to establish commu
 Example playbook
 ----------------
 
-This example uses the *os10_system role* to completely set the NTP server, hostname, enable password, management route, hash alogrithm, clock, line terminal, banner and reload type. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the `ansible_network_os` variable with corresponding Dell EMC OS10 name. 
+This example uses the *os10_system role* to completely set the hostname, hash alogrithm and load balancing. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the `ansible_network_os` variable with corresponding Dell EMC OS10 name. 
 
 When `os10_cfg_generate` is set to true, the variable generates the configuration commands as a .part file in *build_dir* path. By default, the variable is set to false. The system role writes a simple playbook that only references the *os10_system* role. By including the role, you automatically get access to all of the tasks to configure system features. 
 
