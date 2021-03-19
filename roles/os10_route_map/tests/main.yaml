@@ -6,6 +6,14 @@ os10_route_map:
       permit: true
       regex: www
       state: present
+    - access_list: bb
+      permit: true
+      regex: ^$
+      state: present
+    - access_list: bb
+      permit: true
+      regex: "^4200000000$"
+      state: present
   community_list:
     - type: standard
       name: qqq
@@ -33,6 +41,7 @@ os10_route_map:
          source_protocol_static: present
          source_protocol_ospf: present
          source_protocol_connected: present
+       - as_path: bb
       set:
          local_pref: 1200
          metric_type: internal
