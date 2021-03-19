@@ -41,7 +41,6 @@ os10_route_map:
          source_protocol_static: present
          source_protocol_ospf: present
          source_protocol_connected: present
-       - as_path: bb
       set:
          local_pref: 1200
          metric_type: internal
@@ -61,4 +60,10 @@ os10_route_map:
          extcomm_list:
            add: aa
            delete: aa
+      state: present
+    - name: as-path-test
+      permit: true
+      seq_num: 10
+      match:
+        - as_path: bb
       state: present
