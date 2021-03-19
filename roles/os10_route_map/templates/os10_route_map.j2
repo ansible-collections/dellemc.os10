@@ -184,6 +184,13 @@ route-map {{ vars.name }} permit 10
           {% endif %}
           {% if vars.match is defined and vars.match %}
             {% for match in vars.match %}
+              {% if match.as_path is defined %}
+                {% if match.as_path %}
+ match as-path {{ match.as_path }}
+                {% else %}
+ no match as-path {{ match.as_path }}
+                {% endif %}
+              {% endif %}
               {% if match.ip_type is defined and match.ip_type %}
                 {% if match.ip_type =="ipv4" %}
                   {% set ip = "ip" %}

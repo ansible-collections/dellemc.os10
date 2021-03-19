@@ -45,6 +45,7 @@ Role variables
 | ``route_map.match`` | list | Configures the route-map to match values from the route table (see ``match.*``) | os10 |
 | ``match.ip_type`` | string (required): ipv4,ipv6   | Configures the IPv4/IPv6 address to match    | os10 |
 | ``match.access_group`` | string     | Configures the access-group or list to match                  | os10 |
+| ``match.as_path | string | Configures the as-path to match against | dellos10 |
 | ``match.source_protocol_ebgp`` | string     | Configures the source protocol to eBGP to match       | os10 |
 | ``match.source_protocol_ibgp`` | string     | Configures the source protocol to iBGP to match       | os10 |
 | ``match.source_protocol_evpn`` | string     | Configures the source protocol to EVPN to match       | os10 |
