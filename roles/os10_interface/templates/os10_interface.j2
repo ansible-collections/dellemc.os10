@@ -192,13 +192,15 @@ interface {{ interface_key }}
  no ipv6 address
     {% endif %}
   {% else %}
-    {% if intf_vars.ipv6_and_mask is defined %}
-      {% if intf_vars.ipv6_and_mask %}
-        {% if intf_vars.state_ipv6 is defined and intf_vars.state_ipv6 == "absent" %}
- no ipv6 address {{ intf_vars.ipv6_and_mask }}
-        {% else %}
- ipv6 address {{ intf_vars.ipv6_and_mask }}
-        {% endif %}
+    {% if intf_vars.state_ipv6 is defined and intf_vars.state_ipv6 == "absent" %}
+      {% if intf_vars.ipv6_and_mask is defined and intf_vars.ipv6_and_mask %}
+        no ipv6 address {{ intf_vars.ipv6_and_mask }}
+      {% else %}
+        no ipv6 address
+      {% endif %}
+    {% else %}
+      {% if intf_vars.ipv6_and_mask is defined and intf_vars.ipv6_and_mask %}
+        ipv6 address {{ intf_vars.ipv6_and_mask }}
       {% endif %}
     {% endif %}
   {% endif %}
