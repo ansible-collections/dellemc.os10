@@ -50,6 +50,7 @@ Role variables
 | ``flowcontrol.mode`` | string:   receive,transmit  | Configures the flowcontrol mode   | os10 |
 | ``flowcontrol.enable`` | string:   on,off  | Configures the flowcontrol mode on  | os10 |
 | ``flowcontrol.state`` | string: absent,present\* | Deletes the flowcontrol if set to absent   | os10 |
+| ``fec`` | boolean: true,false | Enables or disables Forward Error Correction | os10 |
 | ``ipv6_bgp_unnum`` | dictionary | Configures the IPv6 BGP unnum attributes (see ``ipv6_bgp_unnum.*``) below | os10 |
 | ``ipv6_bgp_unnum.state`` | string: absent,present\* | Disables auto discovery of BGP unnumbered peer if set to absent | os10 |
 | ``ipv6_bgp_unnum.peergroup_type`` | string: ebgp,ibgp | Specifies the type of template to inherit from | os10 |

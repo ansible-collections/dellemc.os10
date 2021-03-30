@@ -108,6 +108,15 @@ interface {{ interface_key }}
     {% endif %}
   {% endif %}
 
+  {% if intf_vars.fec is defined %}
+    {% if intf_vars.fec %}
+ fec on
+    {% else %}
+ fec off
+    {% endif %}
+ no fec
+  {% endif %}
+
   {% if intf_vars.mtu is defined %}
     {% if intf_vars.mtu %}
  mtu {{ intf_vars.mtu }}
