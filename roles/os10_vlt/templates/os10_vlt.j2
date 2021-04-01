@@ -49,23 +49,6 @@ vlt-domain {{ os10_vlt.domain }}
  discovery-interface ethernet{{ os10_vlt.discovery_intf }}
       {% endif %}
     {% endif %}
-    {% if os10_vlt.backup_destination is defined %}
-      {% if os10_vlt.backup_destination %}
-        {% if os10_vlt.destination_type is defined %}
-          {% if os10_vlt.destination_type == 'ipv6' %}
- backup destination ipv6 {{ os10_vlt.backup_destination }}
-          {% elif os10_vlt.destination_type ==  'ipv4' %}
-            {% if os10_vlt.backup_destination_vrf is defined and os10_vlt.backup_destination_vrf %}
- backup destination {{ os10_vlt.backup_destination }} vrf {{ os10_vlt.backup_destination_vrf }}
-            {% else %}
- backup destination {{ os10_vlt.backup_destination }}
-            {% endif %}
-          {% endif %}
-        {% endif %}
-      {% else %}
- no backup destination
-      {% endif %}
-    {% endif %}
     {% if os10_vlt.priority is defined %}
       {% if os10_vlt.priority %}
  primary-priority {{ os10_vlt.priority }}
