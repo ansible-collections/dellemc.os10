@@ -6,6 +6,14 @@ os10_route_map:
       permit: true
       regex: www
       state: present
+    - access_list: as_path_list
+      permit: true
+      regex: ^$
+      state: present
+    - access_list: as_path_list
+      permit: true
+      regex: "^4200000000$"
+      state: present
   community_list:
     - type: standard
       name: qqq
@@ -52,4 +60,10 @@ os10_route_map:
          extcomm_list:
            add: aa
            delete: aa
+      state: present
+    - name: as-path-test
+      permit: true
+      seq_num: 10
+      match:
+        - as_path: as_path_list
       state: present
