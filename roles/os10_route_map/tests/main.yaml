@@ -6,11 +6,11 @@ os10_route_map:
       permit: true
       regex: www
       state: present
-    - access_list: bb
+    - access_list: as_path_list
       permit: true
       regex: ^$
       state: present
-    - access_list: bb
+    - access_list: as_path_list
       permit: true
       regex: "^4200000000$"
       state: present
@@ -65,5 +65,5 @@ os10_route_map:
       permit: true
       seq_num: 10
       match:
-        - as_path: bb
+        - as_path: as_path_list
       state: present
