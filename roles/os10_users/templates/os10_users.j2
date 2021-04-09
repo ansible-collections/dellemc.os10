@@ -5,6 +5,7 @@ Configure users commands for os10 Devices
 os10_users:
   - username: test
     password: test
+    sshkey: "ssh-rsa AAAAsdhjkd..."
     role: sysadmin
     state: present
 ###############################################}
@@ -13,6 +14,9 @@ os10_users:
     {% if item.username is defined and item.username %}
       {% if item.state is defined and item.state == "absent" %}
 no username {{ item.username }}
+        {% if item.sshkey is defined and item.sshkey %}
+no username {{ item.username }} sshkey
+        {% endif %}
       {% else %}
         {% if item.password is defined and item.password %}
           {% if item.role is defined and item.role %}
@@ -20,6 +24,9 @@ username {{ item.username }} password {{ item.password }} role {{ item.role }}
           {% else %}
 username {{ item.username }} password {{ item.password }}
           {% endif %}
+        {% endif %}
+        {% if item.sshkey is defined and item.sshkey %}
+username {{ item.username }} sshkey "{{ item.sshkey }}" 
         {% endif %}
       {% endif %}
     {% endif %}

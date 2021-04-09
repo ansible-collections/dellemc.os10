@@ -20,6 +20,7 @@ Role variables
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
 | ``username`` | string (required)         | Configures the username which must adhere to specific format guidelines (valid usernames begin with A-Z, a-z, or 0-9 and can also contain `@#$%^&*-_= +;<>,.~` characters) | os10 |
 | ``password`` | string                    | Configures the password set for the username; password length must be at least eight characters | os10 |
+| ``sshkey`` | string                    | Configures the sshkey set for the username | os10 |
 | ``role`` | string                    | Configures the role assigned to the user | os10 |
 | ``state`` | string: absent,present\*     | Deletes a user account if set to absent  | os10 |
 
@@ -69,10 +70,12 @@ When `os10_cfg_generate` is set to true, the variable generates the role configu
     os10_users:
       - username: test
         password: a1a2a3a4!@#$
+        sshkey: "ssh-rsa AAAAsdhjkd"
         role: sysadmin
         state: present
       - username: u1
         password: a1a2a3a4!@#$
+        sshkey: "ssh-rsa AAAAsdhjkd"
         role: netadmin
         state: present
 

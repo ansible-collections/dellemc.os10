@@ -5,9 +5,11 @@
 os10_users:
   - username: test
     password: a1a2a3a4!@#$
+    sshkey: "ssh-rsa AAAAsdhjkd"
     role: sysadmin
     state: present
   - username: u1
     password: a1a2a3a4!@#$
+    sshkey: "ssh-rsa AAAAsdhjkd"
     role: netadmin
     state: present
