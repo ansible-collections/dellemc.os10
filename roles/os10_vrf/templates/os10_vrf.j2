@@ -104,6 +104,7 @@ interface {{ map_ip_interface.intf_id }}
                 {% else %}
  ip vrf forwarding {{ vrf.vrf_name }}
                 {% endif %}
+ exit
               {% endif %}
             {% endfor %}
           {% endif %}
