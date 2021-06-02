@@ -32,6 +32,7 @@ os10_vlan:
 
 #########################################}
 {% if os10_vlan is defined and os10_vlan %}
+start transaction
 {% for key,value in os10_vlan.items() %}
   {% if key == "default_vlan_id" %}
     {% if value %}
@@ -126,4 +127,5 @@ interface {{ ports.port.split() | join() }}
   {% endif %}
   {% endif %}
 {% endfor %}
+do commit
 {% endif %}
