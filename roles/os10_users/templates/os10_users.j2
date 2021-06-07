@@ -23,7 +23,11 @@ username {{ item.username }} password {{ item.password }}
           {% endif %}
         {% endif %}
         {% if item.sshkey is defined and item.sshkey %}
+          {% if item.sshkey is none %}
+no username {{ item.username }} sshkey
+          {% else %}
 username {{ item.username }} sshkey "{{ item.sshkey }}" 
+          {% endif %}
         {% endif %}
       {% endif %}
     {% endif %}
