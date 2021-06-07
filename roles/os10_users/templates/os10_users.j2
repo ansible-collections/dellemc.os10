@@ -14,9 +14,6 @@ os10_users:
     {% if item.username is defined and item.username %}
       {% if item.state is defined and item.state == "absent" %}
 no username {{ item.username }}
-        {% if item.sshkey is defined and item.sshkey %}
-no username {{ item.username }} sshkey
-        {% endif %}
       {% else %}
         {% if item.password is defined and item.password %}
           {% if item.role is defined and item.role %}
