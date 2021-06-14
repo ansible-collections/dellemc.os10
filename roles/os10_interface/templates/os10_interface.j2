@@ -135,7 +135,7 @@ interface {{ interface_key }}
        {% if intf_vars.vrf %}
  ip vrf forwarding {{ intf_vars.vrf }}
        {% else %}
- no ip address vrf
+ no ip vrf forwarding
        {% endif %}
     {% endif %}
     {% if intf_vars.ip_and_mask is defined %}
