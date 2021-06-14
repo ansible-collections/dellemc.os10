@@ -1,0 +1,3 @@
+---
+bugfixes:
+  - Fixed issue in removing interface ip vrf forwarding (https://github.com/ansible-collections/dellemc.os10/issues/67)
