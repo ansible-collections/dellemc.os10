@@ -126,6 +126,7 @@ def load_config(module, commands):
                 module.warn("Discarding transaction")
                 exec_command(module, 'discard')
             module.fail_json(msg=to_text(err, errors='surrogate_or_strict'), command=command, rc=rc)
+
     exec_command(module, 'end')
 
 
