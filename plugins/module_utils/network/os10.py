@@ -59,7 +59,6 @@ os10_provider_spec = {
     'authorize': dict(fallback=(env_fallback, ['ANSIBLE_NET_AUTHORIZE']), type='bool'),
     'auth_pass': dict(fallback=(env_fallback, ['ANSIBLE_NET_AUTH_PASS']), no_log=True),
     'timeout': dict(type='int'),
-    'use_transaction': dict(fallback=(env_fallback, ['ANSIBLE_DELLOS_USE_SESSIONS']), type='bool'),
 }
 os10_argument_spec = {
     'provider': dict(type='dict', options=os10_provider_spec),
@@ -115,6 +114,7 @@ def load_config(module, commands):
     if rc != 0:
         module.fail_json(msg='unable to enter configuration mode', err=to_text(err, errors='surrogate_or_strict'))
     if module.params['use_transaction']:
+        module.warn("Starting transaction")
         commands.insert(0, 'start transaction')
     commands.append('commit')
     for command in to_list(commands):
@@ -122,10 +122,10 @@ def load_config(module, commands):
             continue
         rc, out, err = exec_command(module, command)
         if rc != 0:
-            module.fail_json(msg=to_text(err, errors='surrogate_or_strict'), command=command, rc=rc)
             if module.params['use_transaction']:
+                module.warn("Discarding transaction")
                 exec_command(module, 'discard')
-
+            module.fail_json(msg=to_text(err, errors='surrogate_or_strict'), command=command, rc=rc)
     exec_command(module, 'end')
 
 

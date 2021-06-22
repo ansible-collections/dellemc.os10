@@ -261,7 +261,8 @@ def main():
         save=dict(type='bool', default=False),
         config=dict(),
         backup=dict(type='bool', default=False),
-        backup_options=dict(type='dict', options=backup_spec)
+        backup_options=dict(type='dict', options=backup_spec),
+        use_transaction=dict(type='bool', default=True)
     )
 
     argument_spec.update(os10_argument_spec)
