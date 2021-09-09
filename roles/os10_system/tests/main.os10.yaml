@@ -5,6 +5,7 @@
 os10_system:
     hostname: os10
     hardware_forwarding: scaled-l3-hosts
+    hardware_forwarding_ipv6_extended_prefix: 2048
     hash_algo:
       algo:
         - name: lag

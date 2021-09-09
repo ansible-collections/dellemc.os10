@@ -20,6 +20,7 @@ Role variables
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
 | ``hostname`` | string | Configures a hostname to the device (no negate command) | os10 |
 | ``hardware_forwarding`` | string: scaled-l2,scaled-l3-routes,scaled-l3-hosts         | Configures hardware forwarding mode | os10 |
+  ``hardware_forwarding_ipv6_extended_prefix`` | string: 1024, 2048 or 3072 | Configures the maximum number of route entries for IPv6 extended prefix route| os10 |
 | ``hash_algo`` | dictionary | Configures hash algorithm commands (see ``hash_algo.*``) | os10 |
 | ``hash_algo.algo`` | list         | Configures hashing algorithm (see ``algo.*``)   | os10 |
 | ``algo.name`` | string (required)       | Configures the name of the hashing algorithm | os10 |

@@ -37,6 +37,13 @@ os10_system:
 {% if os10_system.hostname is defined and os10_system.hostname %}
 hostname {{ os10_system.hostname }}
 {% endif %}
+{% if os10_system.hardware_forwarding_ipv6_extended_prefix is defined %}
+  {% if os10_system.hardware_forwarding_ipv6_extended_prefix %}
+hardware l3 ipv6-extended-prefix {{ os10_system.hardware_forwarding_ipv6_extended_prefix }}
+  {% elif os10_system.hardware_forwarding_ipv6_extended_prefix is none %}
+no hardware l3 ipv6-extended-prefix
+  {% endif %}
+{% endif %}
 {% if os10_system.max_ra is defined %}
    {% if os10_system.max_ra %}
 ipv6 nd max-ra-interval {{ os10_system.max_ra }}
