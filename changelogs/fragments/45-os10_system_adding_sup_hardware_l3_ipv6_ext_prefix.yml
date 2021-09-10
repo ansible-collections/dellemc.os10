@@ -1,0 +1,3 @@
+---
+minor_changes:
+  - os10_system role - Add support for ``hardware l3 ipv6-extended-prefix`` (https://github.com/ansible-collections/dellemc.os10/pull/45).
