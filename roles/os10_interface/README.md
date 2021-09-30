@@ -53,7 +53,6 @@ Role variables
 | ``ipv6_bgp_unnum`` | dictionary | Configures the IPv6 BGP unnum attributes (see ``ipv6_bgp_unnum.*``) below | os10 |
 | ``ipv6_bgp_unnum.state`` | string: absent,present\* | Disables auto discovery of BGP unnumbered peer if set to absent | os10 |
 | ``ipv6_bgp_unnum.peergroup_type`` | string: ebgp,ibgp | Specifies the type of template to inherit from | os10 |
-
 | ``stp_rpvst_default_behaviour`` | boolean: false,true     | Configures RPVST default behaviour of BPDU's when set to True which is default | os10 |
 | ``auto_neg`` | boolean: false,true\* | Configures whether interface speed negotiation is enabled or not | os10 |
 
