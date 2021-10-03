@@ -132,7 +132,15 @@ interface {{ interface_key }}
  no speed
     {% endif %}
   {% endif %}
-
+  {% if intf_vars.auto_neg is defined %}
+    {% if intf_vars.auto_neg %}
+negotiation on
+    {% else %}
+negotiation off
+    {% endif %}
+  {% else %}
+no negotiation
+  {% endif %}
   {% if intf_vars.ip_type_dynamic is defined %}
     {% if intf_vars.ip_type_dynamic %} 
  ip address dhcp
