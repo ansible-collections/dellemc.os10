@@ -62,8 +62,8 @@ Role variables
 | ``snmp_host.trap_categories.dom`` | boolean: true,false | Enables or disables dom category traps for the SNMP host | os10 |
 | ``snmp_host.trap_categories.entity`` | boolean: true,false | Enables or disables entity category traps for the SNMP host | os10 |
 | ``snmp_host.trap_categories.envmon`` | boolean: true,false | Enables or disables envmon category traps for the SNMP host | os10 |
-| ``snmp_host.trap_categories.lldp`` | boolean: true,false | | Enables or disables lldp category traps for the SNMP host | os10 |
-| ``snmp_host.trap_categories.snmp`` | boolean: true,false | | Enables or disables snmp category traps for the SNMP host | os10 |
+| ``snmp_host.trap_categories.lldp`` | boolean: true,false | Enables or disables lldp category traps for the SNMP host | os10 |
+| ``snmp_host.trap_categories.snmp`` | boolean: true,false | Enables or disables snmp category traps for the SNMP host | os10 |
 | ``snmp_host.state`` | string: absent,present\* | Deletes the SNMP trap host if set to absent | os10 |
 | ``snmp_source_interface`` | string | Configures the source interface for SNMP | os10 |
 | ``snmp_traps`` | list | Configures SNMP traps (see ``snmp_traps.*``) | os10  |
