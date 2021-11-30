@@ -27,6 +27,7 @@ Role variables
 | ``max_bundle_size`` | integer | Configures the maximum bundle size for the port channel  | os10 |
 | ``lacp_system_priority`` | integer | Configures the LACP system-priority value | os10 |
 | ``lacp_fallback_enable`` | boolean | Configures LACP fallback | os10 |
+| ``vlt_port_channel`` | integer | Configure the lag as VLT | os10 |
 | ``channel_members``  | list  | Specifies the list of port members to be associated to the port-channel (see ``channel_members.*``) | os10 |
 | ``channel_members.port`` | string  | Specifies valid interface names to be configured as port-channel members | os10 |
 | ``channel_members.mode`` | string: active,passive,on | Configures mode of channel members | os10 |
