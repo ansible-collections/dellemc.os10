@@ -1,3 +1,3 @@
 ---
 minor_changes:
-  - os10_lag - Add support for vlt-port-channel option (https://github.com/ansible-collections/dellemc.os10/pull/108)
+  - os10_lag - Add support for vlt-port-channel option (https://github.com/ansible-collections/dellemc.os10/pull/108).
