@@ -23,7 +23,7 @@ __metaclass__ = type
 
 DOCUMENTATION = """
 ---
-cliconf: os10
+name: os10
 short_description: Use os10 cliconf to run command on Dell OS10 platform
 description:
   - This os10 plugin provides low level abstraction apis for
