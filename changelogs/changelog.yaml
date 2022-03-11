@@ -122,3 +122,33 @@ releases:
     fragments:
     - 58-support-for-ansible-version-2.9.yaml
     release_date: '2020-12-11'
+  1.2.0:
+    changes:
+      bugfixes:
+      - Fixed issue in os10_vrf role when mapping multiple interfaces in the vrf (https://github.com/ansible-collections/dellemc.os10/issues/81)
+      - Fixed issue in removing interface ip vrf forwarding (https://github.com/ansible-collections/dellemc.os10/issues/67)
+      - Fixed issue in removing interface ipv6 address with state absent (https://github.com/ansible-collections/dellemc.os10/issues/60)
+      minor_changes:
+      - Add support for configuring negotiation settings on an interface (https://github.com/ansible-collections/dellemc.os10/pull/77)
+      - Add support for setting FEC on interfaces (https://github.com/ansible-collections/dellemc.os10/issues/92).
+      - Adding support to configure interface speed in os10_interface role (https://github.com/ansible-collections/dellemc.os10/pull/62)
+      - Adding support to configure username sshkey os10_users role (https://github.com/ansible-collections/dellemc.os10/pull/7)
+      - os10_lag - Add support for vlt-port-channel option (https://github.com/ansible-collections/dellemc.os10/pull/108).
+      - os10_system role - Add support for ``hardware l3 ipv6-extended-prefix`` (https://github.com/ansible-collections/dellemc.os10/pull/45).
+      release_summary: 'This is the minor release of the ``dellemc.os10`` collection.
+
+        This changelog contains all changes to the modules in this collection
+
+        that have been added after the release of ``dellemc.os10`` 1.1.0.'
+    fragments:
+    - 1.2.0.yml
+    - 108-lag-vlt-port-channel.yaml
+    - 45-os10_system_adding_sup_hardware_l3_ipv6_ext_prefix.yml
+    - 60-interface-no-ipv6-address.yaml
+    - 62-interface-speed-support.yaml
+    - 67-interface-no-ip-vrf-forwarding.yaml
+    - 77-interface-negotiation.yaml
+    - 79-username-sshkey-support.yaml
+    - 81-vrf-interface-context-exit.yaml
+    - forward-error-correction-feature.yaml
+    release_date: '2022-03-11'

@@ -1,3 +1,0 @@
----
-bugfixes:
-  - Fixed issue in os10_vrf role when mapping multiple interfaces in the vrf (https://github.com/ansible-collections/dellemc.os10/issues/81)

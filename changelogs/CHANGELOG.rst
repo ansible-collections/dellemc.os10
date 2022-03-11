@@ -5,6 +5,33 @@ Ansible Network Collection for Dell EMC SmartFabric OS10 Release Notes
 .. contents:: Topics
 
 
+v1.2.0
+======
+
+Release Summary
+---------------
+
+This is the minor release of the ``dellemc.os10`` collection.
+This changelog contains all changes to the modules in this collection
+that have been added after the release of ``dellemc.os10`` 1.1.0.
+
+Minor Changes
+-------------
+
+- Add support for configuring negotiation settings on an interface (https://github.com/ansible-collections/dellemc.os10/pull/77)
+- Add support for setting FEC on interfaces (https://github.com/ansible-collections/dellemc.os10/issues/92).
+- Adding support to configure interface speed in os10_interface role (https://github.com/ansible-collections/dellemc.os10/pull/62)
+- Adding support to configure username sshkey os10_users role (https://github.com/ansible-collections/dellemc.os10/pull/7)
+- os10_lag - Add support for vlt-port-channel option (https://github.com/ansible-collections/dellemc.os10/pull/108).
+- os10_system role - Add support for ``hardware l3 ipv6-extended-prefix`` (https://github.com/ansible-collections/dellemc.os10/pull/45).
+
+Bugfixes
+--------
+
+- Fixed issue in os10_vrf role when mapping multiple interfaces in the vrf (https://github.com/ansible-collections/dellemc.os10/issues/81)
+- Fixed issue in removing interface ip vrf forwarding (https://github.com/ansible-collections/dellemc.os10/issues/67)
+- Fixed issue in removing interface ipv6 address with state absent (https://github.com/ansible-collections/dellemc.os10/issues/60)
+
 v1.1.1
 ======
 

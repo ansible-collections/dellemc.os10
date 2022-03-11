@@ -1,3 +1,0 @@
----
-bugfixes:
-  - Fixed issue in removing interface ipv6 address with state absent (https://github.com/ansible-collections/dellemc.os10/issues/60)
