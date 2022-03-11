@@ -1,3 +1,0 @@
----
-minor_changes:
-- Add support for configuring negotiation settings on an interface (https://github.com/ansible-collections/dellemc.os10/pull/77)

@@ -1,3 +1,0 @@
----
-minor_changes:
-- Adding support to configure username sshkey os10_users role (https://github.com/ansible-collections/dellemc.os10/pull/7)
