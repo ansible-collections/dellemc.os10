@@ -49,6 +49,13 @@ interface port-channel{{ channel_id[1] }}
     {% if lag_vars.lacp_fallback_enable is defined and lag_vars.lacp_fallback_enable %}
  lacp fallback enable
     {% endif %}
+    {% if lag_vars.vlt_port_channel is defined %}
+      {% if lag_vars.vlt_port_channel %}
+ vlt-port-channel {{ lag_vars.vlt_port_channel }}
+      {% else %}
+ no vlt-port-channel
+      {% endif %}
+    {% endif %}
     {% if lag_vars.channel_members is defined %}
       {% for ports in lag_vars.channel_members %}
         {% if ports.port is defined and ports.port %}
