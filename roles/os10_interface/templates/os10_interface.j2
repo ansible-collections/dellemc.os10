@@ -134,12 +134,12 @@ interface {{ interface_key }}
   {% endif %}
   {% if intf_vars.auto_neg is defined %}
     {% if intf_vars.auto_neg %}
-negotiation on
+ negotiation on
     {% else %}
-negotiation off
+ negotiation off
     {% endif %}
   {% else %}
-no negotiation
+ no negotiation
   {% endif %}
   {% if intf_vars.ip_type_dynamic is defined %}
     {% if intf_vars.ip_type_dynamic %} 

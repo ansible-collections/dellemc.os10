@@ -1,0 +1,3 @@
+---
+bugfixes:
+  - Fix indentation of interface negotiation introduced by (https://github.com/ansible-collections/dellemc.os10/pull/77).
