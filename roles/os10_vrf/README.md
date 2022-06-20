@@ -38,6 +38,7 @@ Role variables
 | ``ipv6_route_export.route_map_value``  | string    | Configures the route-map value | os10 |
 | ``ipv6_route_import.state``  | string    | Deletes the IP config if set to absent | os10 |
 | ``vrfdetails.map_ip_interface``  | list        | Specifies a list of valid interface names | os10 |
+| ``vrfdetails.mgmtif``  | bool        | Configure Managment Interface on the vrf | os10 |
 | ``map_ip_interface.intf_id``  | string    | Specifies a valid interface name | os10 |
 | ``map_ip_interface.state``  | string    | Deletes VRF association in the interface if set to absent | os10 |
 | ``upd_src_ip_loopback_id``  | string    |  Configures the source IP for any leaked route in VRF from the provided loopback ID, delete if empty string| os10 |
@@ -112,6 +113,7 @@ When `os10_cfg_generate` is set to true, the variable generates the configuratio
             map_ip_interface:
              - intf_id : "loopback11"
                state   : "present"
+            mgmtif: true
 
     os_vrf_upd_src_loopback:
         vrfdetails:

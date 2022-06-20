@@ -94,6 +94,11 @@ ip vrf {{ vrf.vrf_name }}
               {% endif %}
             {% endif %}
           {% endif %}
+          {% if vrf.mgmtif is defined and vrf.mgmtif %}
+  interface management
+          {% else %}
+  no interface management
+          {% endif %}          
           {% if vrf.map_ip_interface is defined and vrf.map_ip_interface %}
  exit
             {% for map_ip_interface in vrf.map_ip_interface %}
