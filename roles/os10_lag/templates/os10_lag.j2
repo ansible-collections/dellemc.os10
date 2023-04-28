@@ -56,6 +56,13 @@ interface port-channel{{ channel_id[1] }}
  no vlt-port-channel
       {% endif %}
     {% endif %}
+    {% if lag_vars.lacp_individual is defined %}
+      {% if lag_vars.lacp_individual %}
+ lacp individual
+      {% else %}
+ no lacp individual
+      {% endif %}
+    {% endif %}
     {% if lag_vars.channel_members is defined %}
       {% for ports in lag_vars.channel_members %}
         {% if ports.port is defined and ports.port %}
