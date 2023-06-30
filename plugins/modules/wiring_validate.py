@@ -212,7 +212,7 @@ class WiringValidation(object):
                                 planned_neighbors["reason"] = reason
                                 planned_neighbors["error_type"] = "link-mismatch"
                                 break
-                            if(actual_neighbors["dest_port"] != planned_neighbors["dest_port"]):
+                            if (actual_neighbors["dest_port"] != planned_neighbors["dest_port"]):
                                 bflag = True
                                 reason = (
                                     "Destination switch port is not an expected value, "

@@ -12,7 +12,8 @@ jobs:
         - stable-2.11
         - stable-2.12
         - stable-2.13
-        - devel
+        - stable-2.14
+        - stable-2.15
     runs-on: ubuntu-latest
     steps:
 
@@ -21,10 +22,10 @@ jobs:
         with:
           path: ansible_collections/dellemc/os10
 
-      - name: Set up Python 3.8
+      - name: Set up Python 3.9
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.9
 
       - name: Install ansible-base (${{ matrix.ansible }})
         run: pip install https://github.com/ansible/ansible/archive/${{ matrix.ansible }}.tar.gz --disable-pip-version-check
@@ -33,4 +34,4 @@ jobs:
         run: ansible-galaxy collection install ansible.netcommon -p ../../
 
       - name: Run sanity tests
-        run: ansible-test sanity --docker -v --color --python 3.8
+        run: ansible-test sanity --docker -v --color --python 3.9
