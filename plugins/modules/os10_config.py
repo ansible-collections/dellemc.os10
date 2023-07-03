@@ -34,6 +34,7 @@ options:
         command syntax as some commands are automatically modified by the
         device config parser. This argument is mutually exclusive with I(src).
     type: list
+    elements: str
     aliases: ['commands']
   parents:
     description:
@@ -42,6 +43,7 @@ options:
         is omitted, the commands are checked against the set of top
         level or global commands.
     type: list
+    elements: str
   src:
     description:
       - Specifies the source path to the file that contains the configuration
@@ -58,6 +60,7 @@ options:
         any changes without affecting how the set of commands are matched
         against the system.
     type: list
+    elements: str
   after:
     description:
       - The ordered set of commands to append to the end of the command
@@ -65,6 +68,7 @@ options:
         allows the playbook designer to append a set of commands to be
         executed after the command set.
     type: list
+    elements: str
   match:
     description:
       - Instructs the module on the way to perform the matching of
@@ -211,7 +215,7 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import get_config, get_sublevel_config
 from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import os10_argument_spec, check_args
 from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import load_config, run_commands
-from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import WARNING_PROMPTS_RE
+# from ansible_collections.dellemc.os10.plugins.module_utils.network.os10 import WARNING_PROMPTS_RE
 from ansible_collections.ansible.netcommon.plugins.module_utils.network.common.config import NetworkConfig, dumps
 
 
@@ -245,13 +249,13 @@ def main():
         dir_path=dict(type='path')
     )
     argument_spec = dict(
-        lines=dict(aliases=['commands'], type='list'),
-        parents=dict(type='list'),
+        lines=dict(aliases=['commands'], type='list', elements='str'),
+        parents=dict(type='list', elements='str'),
 
         src=dict(type='path'),
 
-        before=dict(type='list'),
-        after=dict(type='list'),
+        before=dict(type='list', elements='str'),
+        after=dict(type='list', elements='str'),
 
         match=dict(default='line',
                    choices=['line', 'strict', 'exact', 'none']),

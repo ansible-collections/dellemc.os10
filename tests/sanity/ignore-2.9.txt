@@ -1,3 +1,0 @@
-plugins/action/os10.py action-plugin-docs
-plugins/action/textfsm_parser.py action-plugin-docs
-plugins/modules/show_system_network_summary.py validate-modules:missing-module-utils-import

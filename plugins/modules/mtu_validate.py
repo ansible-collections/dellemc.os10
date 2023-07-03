@@ -21,16 +21,19 @@ options:
         description:
             - show lldp neighbor output
         type: 'list'
+        elements: 'dict'
         required: True
     show_system_network_summary:
         description:
             - show system network summary output
         type: 'list'
+        elements: 'dict'
         required: True
     show_ip_intf_brief:
         description:
             - show ip intf brief
         type: 'list'
+        elements: 'dict'
         required: True
 '''
 EXAMPLES = '''
@@ -94,14 +97,17 @@ class MtuValidation(object):
         spec_fields = {
             'show_lldp_neighbors_list': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             },
             'show_system_network_summary': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             },
             'show_ip_intf_brief': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             }
         }
