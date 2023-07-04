@@ -21,16 +21,19 @@ options:
         description:
             - show lldp neighbor output
         type: 'list'
+        elements: 'dict'
         required: True
     show_system_network_summary:
         description:
             - show system network summary output
         type: 'list'
+        elements: 'dict'
         required: True
     planned_neighbors:
         description:
             - planned neighbours input from group_var to compare actual
         type: 'list'
+        elements: 'dict'
         required: True
 '''
 EXAMPLES = '''
@@ -86,14 +89,17 @@ class WiringValidation(object):
         spec_fields = {
             'show_lldp_neighbors_list': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             },
             'show_system_network_summary': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             },
             'planned_neighbors': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             }
         }

@@ -21,16 +21,19 @@ options:
         description:
             - show ip bgp summary output
         type: 'list'
+        elements: 'dict'
         required: True
     show_ip_intf_brief:
         description:
             - show ip interface brief output
         type: 'list'
+        elements: 'dict'
         required: True
     bgp_neighbors:
         description:
             - planned neighbours input from group_var to compare actual
         type: 'list'
+        elements: 'dict'
         required: True
 '''
 EXAMPLES = '''
@@ -93,14 +96,17 @@ class BgpValidation(object):
         spec_fields = {
             'show_ip_bgp': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             },
             'show_ip_intf_brief': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             },
             'bgp_neighbors': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             }
         }

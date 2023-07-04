@@ -35,6 +35,7 @@ options:
         with an initial C(!) to specify that a specific subset should
         not be collected.
     type: list
+    elements: str
     default: [ '!config' ]
 """
 
@@ -439,7 +440,8 @@ def main():
     """main entry point for module execution
     """
     argument_spec = dict(
-        gather_subset=dict(default=['!config'], type='list')
+        # gather_subset=dict(default=['!config'], type='list')
+        gather_subset=dict(default=['!config'], type='list', elements='str')
     )
 
     argument_spec.update(os10_argument_spec)
