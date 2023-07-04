@@ -26,6 +26,7 @@ options:
         required: False
     cli_responses:
         type: list
+        elements: 'dict'
         required: True
         description:
             - show system command xml output
@@ -61,7 +62,7 @@ tasks:
 - debug: var=show_system_network_summary
 '''
 
-import re
+# import re
 from ansible_collections.dellemc.os10.plugins.module_utils.network.base_network_show import BaseNetworkShow
 
 
@@ -76,6 +77,7 @@ class ShowSystemNetworkSummary(BaseNetworkShow):
         spec_fields = {
             'cli_responses': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             },
             'output_type': {

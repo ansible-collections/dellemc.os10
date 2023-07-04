@@ -21,16 +21,19 @@ options:
         description:
             - show vlt output
         type: 'list'
+        elements: 'dict'
         required: True
     show_system_network_summary:
          description:
             - show system summary output
          type: 'list'
+         elements: 'dict'
          required: True
     intended_vlt_pairs:
          description:
             - intended vlt pair intput to verify with actual
          type: 'list'
+         elements: 'dict'
          required: True
 
 '''
@@ -103,14 +106,17 @@ class VltValidation(object):
         spec_fields = {
             'show_vlt': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             },
             'show_system_network_summary': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             },
             'intended_vlt_pairs': {
                 'type': 'list',
+                'elements': 'dict',
                 'required': True
             }
         }

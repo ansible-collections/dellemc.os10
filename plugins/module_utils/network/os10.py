@@ -32,7 +32,7 @@
 
 from __future__ import (absolute_import, division, print_function)
 
-import re
+# import re
 
 from ansible.module_utils._text import to_text
 from ansible.module_utils.basic import env_fallback
@@ -56,7 +56,7 @@ os10_provider_spec = {
     'username': dict(fallback=(env_fallback, ['ANSIBLE_NET_USERNAME'])),
     'password': dict(fallback=(env_fallback, ['ANSIBLE_NET_PASSWORD']), no_log=True),
     'ssh_keyfile': dict(fallback=(env_fallback, ['ANSIBLE_NET_SSH_KEYFILE']), type='path'),
-    'authorize': dict(fallback=(env_fallback, ['ANSIBLE_NET_AUTHORIZE']), type='bool'),
+    'authorize': dict(fallback=(env_fallback, ['ANSIBLE_NET_AUTHORIZE']), type='bool', default='false'),
     'auth_pass': dict(fallback=(env_fallback, ['ANSIBLE_NET_AUTH_PASS']), no_log=True),
     'timeout': dict(type='int'),
 }
