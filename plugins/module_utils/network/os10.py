@@ -106,6 +106,7 @@ def run_commands(module, commands, check_rc=True):
         if check_rc and rc != 0:
             module.fail_json(msg=to_text(err, errors='surrogate_or_strict'), rc=rc)
         responses.append(to_text(out, errors='surrogate_or_strict'))
+        responses = [element.split("\n", 1)[1] if "\u001b" in element and len(element.split("\n", 1)) > 1 else "" if "\u001b" in element else element for element in responses]
     return responses
 
 
@@ -120,6 +121,7 @@ def load_config(module, commands):
             continue
         rc, out, err = exec_command(module, command)
         if rc != 0:
+            err = re.sub(r'\u001bE', '', err)
             module.fail_json(msg=to_text(err, errors='surrogate_or_strict'), command=command, rc=rc)
 
     exec_command(module, 'end')
