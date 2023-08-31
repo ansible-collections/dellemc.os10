@@ -132,14 +132,14 @@ interface {{ interface_key }}
  no speed
     {% endif %}
   {% endif %}
-  {% if intf_vars.auto_neg is defined %}
-    {% if intf_vars.auto_neg %}
+  {% if intf_vars.negotiation is defined %}
+    {% if intf_vars.negotiation == "on" %}
  negotiation on
-    {% else %}
+    {% elif intf_vars.negotiation == "off" %}
  negotiation off
-    {% endif %}
   {% else %}
- no negotiation
+ negotiation auto
+    {% endif %}
   {% endif %}
   {% if intf_vars.ip_type_dynamic is defined %}
     {% if intf_vars.ip_type_dynamic %} 
