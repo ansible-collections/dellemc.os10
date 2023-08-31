@@ -4,6 +4,23 @@ Ansible Network Collection for Dell EMC SmartFabric OS10 Release Notes
 
 .. contents:: Topics
 
+v1.2.1
+======
+
+Release Summary
+---------------
+
+This is the minor release of the ``dellemc.os10`` collection.
+This changelog contains all changes to the modules in this collection
+that have been added after the release of ``dellemc.os10`` 1.2.0.
+
+Bugfixes
+--------
+
+- Fixed issue in os10_interface fails on vlan and loopback interfaces due to no negotiation (https://github.com/ansible-collections/dellemc.os10/issues/133)
+- Fixed issue in Replace bool auto_neg with 4-option negotiation (https://github.com/ansible-collections/dellemc.os10/pull/134)
+- Fixed issue in parsing error when trying to add more than 55 or more character in hostname (https://github.com/ansible-collections/dellemc.os10/issues/145)
+
 
 v1.2.0
 ======

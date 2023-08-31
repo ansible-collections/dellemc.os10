@@ -152,3 +152,15 @@ releases:
     - 81-vrf-interface-context-exit.yaml
     - forward-error-correction-feature.yaml
     release_date: '2022-03-11'
+  1.2.1:
+    changes:
+      bugfixes:
+      - Fixed issue in os10_interface fails on vlan and loopback interfaces due to no negotiation (https://github.com/ansible-collections/dellemc.os10/issues/133)
+      - Fixed issue in Replace bool auto_neg with 4-option negotiation (https://github.com/ansible-collections/dellemc.os10/pull/134)
+      - Fixed issue in parsing error when trying to add more than 55 or more character in hostname (https://github.com/ansible-collections/dellemc.os10/issues/145)
+      release_summary: 'This is the minor release of the ``dellemc.os10`` collection.
+
+        This changelog contains all changes to the modules in this collection
+
+        that have been added after the release of ``dellemc.os10`` 1.2.0.'
+    release_date: '2023-08-30'
