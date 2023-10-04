@@ -169,7 +169,7 @@ def main():
     argument_spec = dict(
         # { command: <str>, prompt: <str>, response: <str> }
         # commands=dict(type='list', required=True),
-        commands=dict(type='list', required=True, elements='str),
+        commands=dict(type='list', required=True, elements='str'),
 
         wait_for=dict(type='list', elements='str'),
         match=dict(default='all', choices=['all', 'any']),
