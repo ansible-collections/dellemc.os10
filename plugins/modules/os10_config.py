@@ -34,7 +34,7 @@ options:
         command syntax as some commands are automatically modified by the
         device config parser. This argument is mutually exclusive with I(src).
     type: list
-    elements: str
+    elements: raw
     aliases: ['commands']
   parents:
     description:
@@ -249,7 +249,7 @@ def main():
         dir_path=dict(type='path')
     )
     argument_spec = dict(
-        lines=dict(aliases=['commands'], type='list', elements='str'),
+        lines=dict(aliases=['commands'], type='list', elements='raw'),
         parents=dict(type='list', elements='str'),
 
         src=dict(type='path'),

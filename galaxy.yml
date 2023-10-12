@@ -2,6 +2,7 @@ authors:
 - Parameswaran Krishnamurthy <Parameswaran_Krishna@Dell.com>
 - Senthil Ganesan Ganesan <Senthil_Kumar_Ganesa@Dell.com>
 - Shreeja R <Shreeja_R@Dell.com>
+- Prasada Reddy <Prasada_Reddy@Dell.com>
 dependencies:
   ansible.netcommon: '>=2.0.0,<3.0.0'
 description: Ansible Network Collection for Dell EMC SmartFabric OS10
@@ -10,7 +11,7 @@ name: os10
 namespace: dellemc
 readme: README.md
 tags: [dell, dellemc, os10, emc, networking]
-version: 1.2.1
+version: 1.2.2
 repository: https://github.com/ansible-collections/dellemc.os10
 documentation: https://github.com/ansible-collections/dellemc.os10/tree/master/docs
 homepage: https://github.com/ansible-collections/dellemc.os10
