@@ -4,6 +4,15 @@ Ansible Network Collection for Dell EMC SmartFabric OS10 Release Notes
 
 .. contents:: Topics
 
+v1.2.3
+======
+
+Bugfixes
+--------
+
+- Fixed issue in os10.py for show tech-support command fail in version from 2.10 to 2.15(https://github.com/ansible-collections/dellemc.os10/issues/152)
+
+
 v1.2.2
 ======
 
