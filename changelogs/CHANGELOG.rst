@@ -4,6 +4,15 @@ Ansible Network Collection for Dell EMC SmartFabric OS10 Release Notes
 
 .. contents:: Topics
 
+v1.2.4
+======
+
+Bugfixes
+--------
+
+- Fixed old netcommon depedency version(2.6.1) to ansible.netcommon 4.1.0 (https://github.com/ansible-collections/dellemc.os10/issues/147)
+
+
 v1.2.3
 ======
 
