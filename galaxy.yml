@@ -4,7 +4,7 @@ authors:
 - Shreeja R <Shreeja_R@Dell.com>
 - Prasada Reddy <Prasada_Reddy@Dell.com>
 dependencies:
-  ansible.netcommon: '>=2.0.0,<3.0.0'
+  ansible.netcommon: '>=2.0.0,<5.0.0'
 description: Ansible Network Collection for Dell EMC SmartFabric OS10
 license_file: LICENSE
 name: os10
