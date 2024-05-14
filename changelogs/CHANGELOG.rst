@@ -4,6 +4,18 @@ Ansible Network Collection for Dell EMC SmartFabric OS10 Release Notes
 
 .. contents:: Topics
 
+v1.2.5
+======
+
+Release Summary
+---------------
+
+This is to Update our Certified Ansible Collection as per the redhat 
+This is for OS10 collections for Ansible core versions 2.15 and 2.16
+This is the minor release of the ``dellemc.os10`` collection.
+This changelog contains all changes to the modules in this collection
+This have been added after the release of ``dellemc.os10`` 1.2.4.
+
 v1.2.4
 ======
 
