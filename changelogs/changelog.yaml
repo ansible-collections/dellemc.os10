@@ -202,3 +202,13 @@ releases:
       This changelog contains all changes to the modules in this collection
       This have been added after the release of ``dellemc.os10`` 1.2.4.'
     release_date: '2024-05-16'
+  1.2.6:
+    changes:
+      bugfixes:
+      - Remove ansible.netcommon <5.0.0 dependency to permit install of the newest releases (https://github.com/ansible-collections/dellemc.os10/issues/168)
+      release_summary: 'This is the bug fix of the ``dellemc.os10`` collection.
+
+        This changelog contains all changes to the modules in this collection
+
+        that have been added after the release of ``dellemc.os10`` 1.2.5.'
+    release_date: '2024-07-11'
