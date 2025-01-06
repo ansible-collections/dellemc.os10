@@ -4,6 +4,15 @@ Ansible Network Collection for Dell EMC SmartFabric OS10 Release Notes
 
 .. contents:: Topics
 
+v1.2.7
+======
+
+Bugfixes
+--------
+
+- Fixed os10_bgp supported documented flag summary_only in the template (https://github.com/ansible-collections/dellemc.os10/issues/167)
+
+
 v1.2.6
 ======
 
