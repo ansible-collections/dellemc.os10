@@ -212,3 +212,13 @@ releases:
 
         that have been added after the release of ``dellemc.os10`` 1.2.5.'
     release_date: '2024-07-11'
+  1.2.7:
+    changes:
+      bugfixes:
+      - Fixed os10_bgp supported documented flag summary_only in the template (https://github.com/ansible-collections/dellemc.os10/issues/167)
+      release_summary: 'This is the bug fix of the ``dellemc.os10`` collection.
+
+        This changelog contains all changes to the modules in this collection
+
+        that have been added after the release of ``dellemc.os10`` 1.2.6.'
+    release_date: '2025-01-06'

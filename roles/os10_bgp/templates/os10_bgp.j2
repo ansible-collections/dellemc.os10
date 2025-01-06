@@ -745,7 +745,7 @@ os10_bgp:
               {% if addr.attr_map is defined and addr.attr_map %}
                 {% set aggr_str = aggr_str ~ " attribute-map " ~ addr.attr_map %}
               {% endif %}
-              {% if addr.summary is defined and addr.summary %}
+              {% if addr.summary_only is defined and addr.summary_only %}
                 {% set aggr_str = aggr_str ~ " summary-only" %}
               {% endif %}
               {% if addr.suppress_map is defined and addr.suppress_map %}
