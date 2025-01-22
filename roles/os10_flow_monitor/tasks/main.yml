@@ -11,6 +11,6 @@
  - name: "Provisioning Flow monitor configuration for os10"
    os10_config:
       src: os10_flow_monitor.j2
-   when: (ansible_network_os is defined and ansible_network_os == "dellemc.os10.os10")
+   when: (ansible_network_os is defined and ansible_network_os == "dellemc.os10.os10") and ((os10_cfg_deploy | default('True')) | bool)
 #   notify: save config os10
    register: output
