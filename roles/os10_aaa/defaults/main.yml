@@ -1,5 +1,6 @@
 ---
 # defaults file for dellemc.os10.os10_aaa
+build_dir: "."
 attribute_type:
     mandatory: mandatory
     on_for_login_auth: on-for-login-auth
