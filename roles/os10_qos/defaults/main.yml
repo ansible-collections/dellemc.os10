@@ -3,3 +3,4 @@
 match_type:
   match_all: match-all
   match_any: match-any
+build_dir: "."
