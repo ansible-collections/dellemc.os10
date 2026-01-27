@@ -1,0 +1,3 @@
+---
+bugfixes:
+  - Fix interface FEC configuration being cleared when settings `fec` to `true` or `false` (https://github.com/ansible-collections/dellemc.os10/pull/77).
