@@ -9,7 +9,7 @@
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
-from ansible.module_utils.six import StringIO, string_types
+from io import StringIO
 
 from ansible.plugins.action import ActionBase
 from ansible.errors import AnsibleError
@@ -47,7 +47,7 @@ class ActionModule(ActionBase):
             if src and filename:
                 raise AnsibleError('`src` and `file` are mutually exclusive arguments')
 
-            if not isinstance(content, string_types):
+            if not isinstance(content, str):
                 return {'failed': True, 'msg': '`content` must be of type str, got %s' % type(content)}
 
             if filename:
