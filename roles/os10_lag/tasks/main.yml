@@ -10,7 +10,7 @@
 
  - name: "Provisioning LAG configuration for os10"
    os10_config:
-      src: os10_lag.j2
+      lines: "{{ lookup('ansible.builtin.template', 'os10_lag.j2') }}"
    when: (ansible_network_os is defined and ansible_network_os == "dellemc.os10.os10")
 #   notify: save config os10
    register: output
